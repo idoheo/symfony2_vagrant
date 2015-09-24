@@ -1,3 +1,8 @@
 .vagrant/
 vagrant_assets/
 vagrant_source/
+vagrant/ansible/default-playbook-vars.yml
+vagrant/ansible/playbook-once-vars.yml
+vagrant/ansible/playbook-once.yml
+vagrant/ansible/playbook-always-vars.yml
+vagrant/ansible/playbook-always.yml

@@ -449,9 +449,9 @@
 # Remove all passwords from MailHog auth
 #
     role_actions_mailhog__tasks__remove_passwords: true
-    role_actions_mailhog__tasks__set_passwords: []
-#      - username: "{{ common_var_admin_user }}"
-#        password: "{{ common_var_admin_pass }}"
+    role_actions_mailhog__tasks__set_passwords:
+      - username: "{{ common_var_admin_user }}"
+        password: "{{ common_var_admin_pass }}"
 
 #############################
  # ACTIONS : Elasticsearch #
