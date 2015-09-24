@@ -10,6 +10,10 @@ Ansible Playbooks
 -----------------
 In vagrant/ansible you will find a dist folder containing distribution copy of ansible configuration. When needed this files will be copied into vagrant/ansible folder if not already present. Playbook-once files contain everything you want to run only during initial (or manualy triggered) provisioning. Playbook-always files contain everything that should run during each start. You can modifiy roles and common/independent varialbes trough files originaly located in ansible dist folder.
 
+IP Address
+----------
+By default a host only visible IP network will get created by Virtual Box (192.168.100.x) and the guest box will bind to 192.168.100.254 (last available IP address). Usualy the host machine gets assigned 192.168.100.1 (first available IP address). If you need this changed, please correct the Vagrant file and common playbook variables file for Ansible.
+
 Web ports
 ---------
 Following web ports are going to be used for following roles:
