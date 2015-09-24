@@ -1,0 +1,3 @@
+## Task default variables ##
+
+task_default__operations_ruby__ruby_gems__install_ruby_gems__latest: yes

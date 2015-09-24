@@ -1,0 +1,19 @@
+---
+- name: "Getting Varnish config dir user"
+  shell: "stat '{{ role_package_varnish__var__configs | mandatory }}' --format=%U"
+  sudo: true
+  changed_when: false
+  register: result_varnish_configs_dir_user
+
+- name: "Getting Varnish config dir group"
+  shell: "stat '{{ role_package_varnish__var__configs | mandatory }}' --format=%G"
+  sudo: true
+  changed_when: false
+  register: result_varnish_configs_dir_group
+
+- name: "Setting up Varnish facts"
+  set_fact:
+    fact_varnish_configs_dir: "{{ role_package_varnish__var__configs | mandatory }}"
+    fact_varnish_configs_dir_user: "{{ result_varnish_configs_dir_user.stdout | mandatory }}"
+    fact_varnish_configs_dir_group: "{{ result_varnish_configs_dir_group.stdout | mandatory }}"
+

@@ -1,0 +1,4 @@
+---
+- include: main/install_redis.yml
+- include: main/handle_redis_service.yml
+- include: main/update_logio.yml

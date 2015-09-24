@@ -1,0 +1,3 @@
+---
+role_support_user_environment__setup__user: vagrant
+role_support_user_environment__setup__usr_local_bin: bin

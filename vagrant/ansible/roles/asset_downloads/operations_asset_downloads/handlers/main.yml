@@ -1,0 +1,4 @@
+- name: "Dummy asset downloads operation notification"
+  debug: msg="Dummy asset downloads operation notification"
+  when: false
+  

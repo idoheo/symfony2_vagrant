@@ -1,0 +1,3 @@
+---
+- include: main/configure_xdebug_remote_debuging.yml
+- include: main/configure_xdebug.yml

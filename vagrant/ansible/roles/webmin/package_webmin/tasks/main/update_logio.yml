@@ -1,0 +1,33 @@
+---
+- name: Ensuring existence of Webmin logs
+  file: path="/var/webmin/miniserv.{{ item }}"
+        mode=644
+        owner=root
+        group=root
+        state=touch
+  with_items:
+    - log
+    - error
+    - lastcrons
+  sudo: true
+
+- include: ../../../../logio/operations_logio/tasks/logio_configs/update_logio_harvester.yml
+  vars:
+    parameter_update_logio_harvester_title: Adding Webmin logs to Log.io
+    parameter_update_logio_harvester_name: Webmin 
+    parameter_update_logio_harvester_files:
+      - "/var/webmin/miniserv.log"
+
+- include: ../../../../logio/operations_logio/tasks/logio_configs/update_logio_harvester.yml
+  vars:
+    parameter_update_logio_harvester_title: Adding Webmin error logs to Log.io
+    parameter_update_logio_harvester_name: Webmin (error)
+    parameter_update_logio_harvester_files:
+      - "/var/webmin/miniserv.error"
+
+- include: ../../../../logio/operations_logio/tasks/logio_configs/update_logio_harvester.yml
+  vars:
+    parameter_update_logio_harvester_title: Adding Webmin last crons logs to Log.io
+    parameter_update_logio_harvester_name: Webmin (last crons)
+    parameter_update_logio_harvester_files:
+      - "/var/webmin/miniserv.lastcrons"

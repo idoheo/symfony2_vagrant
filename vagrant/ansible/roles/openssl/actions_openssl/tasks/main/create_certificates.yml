@@ -1,0 +1,8 @@
+---
+- include: ../../../operations_openssl/tasks/certificates/create_certificates.yml
+  vars:
+    parameter_create_openssl_certificates_title: Creating user specified OpenSSL certificate
+    parameter_create_openssl_certificates:
+      - certificate_path: test_certificate
+    parameter_create_openssl_certificates_user: "{{ fact_assets_dir_user }}"
+    parameter_create_openssl_certificates_base_path: "{{ fact_assets_dir_path }}/{{ role_actions_openssl__var__assets_certificates_dir }}/"

@@ -1,0 +1,4 @@
+- include: main/add_webmin_repository.yml
+- include: main/install_webmin.yml
+- include: main/handle_webmin_service.yml
+- include: main/update_logio.yml

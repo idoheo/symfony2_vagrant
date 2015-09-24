@@ -1,0 +1,15 @@
+---
+
+- include: ../../../../upstart/operations_upstart/tasks/upstart/build_upstarts.yml
+  vars:
+    parameter_build_upstarts_title: Creating MailHog service
+    parameter_build_upstarts:
+      - service: mailhog
+        name: "MailHog [{{ role_package_mailhog__config__web_server__port }}]"
+        logs_string: LOGS
+        script:
+          - 'if [ -s {{ role_package_mailhog__var__config_auth }} ]; then'
+          - '    sudo -u root -H "{{ role_package_mailhog__var__bin }}" -ui-bind-addr="{{ role_package_mailhog__config__web_server__host }}:{{ role_package_mailhog__config__web_server__port }}" -api-bind-addr="{{ role_package_mailhog__config__api_server__host }}:{{ role_package_mailhog__config__api_server__port }}" -smtp-bind-addr="{{ role_package_mailhog__config__smtp_server__host }}:{{ role_package_mailhog__config__smtp_server__port }}" -storage="{{ role_package_mailhog__config__storage }}" -auth-file="{{ role_package_mailhog__var__config_auth }}" LOGS'
+          - 'else'
+          - '    sudo -u root -H "{{ role_package_mailhog__var__bin }}" -ui-bind-addr="{{ role_package_mailhog__config__web_server__host }}:{{ role_package_mailhog__config__web_server__port }}" -api-bind-addr="{{ role_package_mailhog__config__api_server__host }}:{{ role_package_mailhog__config__api_server__port }}" -smtp-bind-addr="{{ role_package_mailhog__config__smtp_server__host }}:{{ role_package_mailhog__config__smtp_server__port }}" -storage="{{ role_package_mailhog__config__storage }}" LOGS'
+          - 'fi'

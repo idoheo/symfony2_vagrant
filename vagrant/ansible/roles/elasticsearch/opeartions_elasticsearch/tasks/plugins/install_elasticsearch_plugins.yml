@@ -1,0 +1,27 @@
+---
+###
+# Install Elasticsearch plugins
+###
+#
+#	DESCRIPTION
+#
+#		Installs Elasticsearch plugins
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_install_elasticsearch_plugins       - REQUIRED - List of plugins to install
+#		parameter_install_elasticsearch_plugins_title - OPTIONAL - Alternative descriptive title
+#
+###
+
+- include: ./remove_elasticsearch_plugins.yml
+  vars:
+    parameter_remove_elasticsearch_plugins_title: "{{ parameter_install_elasticsearch_plugins_title | default('Installing Elasticsearch plugins') }} (Removing plugins first to avoid conflict)"
+    parameter_remove_elasticsearch_plugins: "{{ parameter_install_elasticsearch_plugins }}"
+
+- name: "{{ parameter_install_elasticsearch_plugins_title | default('Installing Elasticsearch plugins') }}"
+  shell: "{{ role_operations_elasticsearch__var__plugin_bin }} --install {{ item }} --timeout 1m"
+  sudo: true
+  with_items: parameter_install_elasticsearch_plugins

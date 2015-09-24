@@ -1,0 +1,12 @@
+- name: "Creating Go Lang 1.4 directory"
+  file: path="{{ role_package_go_lang_1_4__var__path }}"
+        state="directory"
+        mode="755"
+        recurse="true"
+        owner="root"
+        group="root"
+  sudo: true
+
+- name: Setting Go Lang 1.4 facts
+  set_fact:
+    fact_go_lang__1_4_go_bin: "{{ role_package_go_lang_1_4__var__root }}/bin/go"

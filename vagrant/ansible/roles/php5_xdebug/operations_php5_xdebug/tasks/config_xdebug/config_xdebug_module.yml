@@ -1,0 +1,28 @@
+---
+###
+# Config xDebug
+###
+#
+#	DESCRIPTION
+#
+#		Configures xDebug
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_config_xdebug_module[]                  - REQUIRED - Configuration for xDebug
+#		                                .section          - OPTIONAL - Section for config
+#		                                .content[]        - REQUIRED - Content of config
+#		                                          .option - REQUIRED - Option to configure
+#		                                          .value  - REQUIERD - Value for configuration
+#		parameter_config_xdebug_module_title              - OPTIONAL - Alternative descriptive title of what is being done
+#		parameter_config_xdebug_module_notify             - OPTIONAL - Notification to trigger if any changes have occured
+#
+###
+- include: ../../../../php5/operations_php5/tasks/php5_modules/config_php5_module.yml
+  vars:
+    parameter_config_php5_module: xdebug
+    parameter_config_php5_module_config: "{{ parameter_config_xdebug_module | default([]) }}"
+    parameter_config_php5_module_title: "{{ parameter_config_xdebug_module_title | default('Configuring xDebug') }}"
+    parameter_config_php5_module_notify: "{{ parameter_config_xdebug_module_notify | default('Dummy xDebug operation notification') }}"

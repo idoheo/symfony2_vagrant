@@ -1,0 +1,16 @@
+---
+- name: Starting Elasticsearch
+  service: name="{{ item }}"
+           state="restarted"
+  with_items:
+    - "{{ role_package_elasticsearch__service }}"
+  sudo: true
+
+- name: Stopping Elasticsearch and scheduling restart
+  service: name="{{ item }}"
+           state="stopped"
+  with_items:
+    - "{{ role_package_elasticsearch__service }}"
+  changed_when: true
+  notify: Restart Elasticsearch
+  sudo: true

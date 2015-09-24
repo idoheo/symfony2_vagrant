@@ -1,0 +1,17 @@
+exports.config = {
+  nodeName: "Vagrant dev box",
+  logStreams: {
+    {% for logio_name, logio_logs in role_package_logio_logs_list.items() %}
+      "{{ logio_name }}": [
+          {% for logio_log in logio_logs %}
+            "{{ logio_log }}",
+          {% endfor %}
+      ],
+    {% endfor %}
+  },
+  server: {
+    host: '{{ role_package_logio__config__log_server__host }}',
+    port: {{ role_package_logio__config__log_server__port }}
+  }
+}
+

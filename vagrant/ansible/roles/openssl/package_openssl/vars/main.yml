@@ -1,0 +1,2 @@
+role_package_openssl__var__apt_packages:
+  - openssl

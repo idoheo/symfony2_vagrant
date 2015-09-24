@@ -1,0 +1,23 @@
+###
+# Remove Node.js Packages
+###
+#
+#	DESCRIPTION:
+#
+#		Removes specified Node.js packages
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_remove_nodejs_packages        - REQUIRED - List of packages to manage
+#		parameter_remove_nodejs_packages_title  - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_remove_nodejs_packages_notify - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+- include: ./manage_nodejs_packages.yml
+  vars:
+    parameter_manage_nodejs_packages: "{{ parameter_remove_nodejs_packages | mandatory }}"
+    parameter_manage_nodejs_packages_title: "{{ parameter_remove_nodejs_packages_title | default('Removing Node.js packages') }}"
+    parameter_manage_nodejs_packages_state: "absent"
+    parameter_manage_nodejs_packages_notify: "{{ parameter_remove_nodejs_packages_noftify | default('Dummy Node.js operation notification') }}"

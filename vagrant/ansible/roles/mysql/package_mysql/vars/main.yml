@@ -1,0 +1,5 @@
+role_package_mysql__var__apt_packages:
+  - "mysql-common"
+  - "mysql-client"
+  - "mysql-server"
+role_package_mysql__service: mysql

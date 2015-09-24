@@ -1,0 +1,17 @@
+role_actions_php5__tasks__install_php5_modules__modules: [ ]
+role_actions_php5__tasks__install_php5_modules__latest: yes
+
+role_actions_php5__tasks__remove_php5_modules__modules: []
+role_actions_php5__tasks__remove_php5_modules__purge: yes
+
+role_actions_php5__tasks__disable_php5_modules__modules: [ ]
+
+role_actions_php5__tasks__enable_php5_modules__modules: [ ]
+
+role_actions_php5__tasks__php5_ini__common_ini: []
+
+role_actions_php5__tasks__php5_ini__cli_ini: []
+
+role_actions_php5__tasks__php5_ini__fpm_ini: []
+
+role_actions_php5__tasks__php5_ini__fpm_listen: ""

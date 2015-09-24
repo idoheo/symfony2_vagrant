@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: phpmyadmin/package_phpmyadmin }

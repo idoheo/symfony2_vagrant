@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: mailhog/operations_mailhog }

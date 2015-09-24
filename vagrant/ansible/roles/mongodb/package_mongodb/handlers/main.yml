@@ -1,0 +1,9 @@
+---
+- name: Restart MongoDB
+  service: name="{{ item }}"
+           sleep="2"
+           state="restarted"
+  with_items:
+    - "{{ role_package_mongodb__var__service }}"
+  sudo: true
+

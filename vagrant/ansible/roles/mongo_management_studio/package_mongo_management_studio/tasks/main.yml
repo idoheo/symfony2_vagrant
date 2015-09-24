@@ -1,0 +1,3 @@
+---
+- include: main/install_mms.yml
+- include: main/setup_mms_service.yml

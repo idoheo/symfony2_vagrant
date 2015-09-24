@@ -1,0 +1,5 @@
+---
+- include: main/download_mailhog.yml
+- include: main/setup_config.yml
+- include: main/setup_mailhog_service.yml
+- include: main/copy_usr_local_bin.yml

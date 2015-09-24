@@ -1,0 +1,9 @@
+---
+- name: Restart Nginx
+  service: name="{{ item }}"
+           sleep="2"
+           state="restarted"
+  with_items:
+    - "{{ role_package_nginx__var__service }}"
+  sudo: true
+

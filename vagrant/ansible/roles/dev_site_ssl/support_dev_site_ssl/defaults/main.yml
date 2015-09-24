@@ -1,0 +1,5 @@
+---
+role_dev_site_support__setup__nginx_port: 80
+role_dev_site_support__setup__fpm_listen: 127.0.0.1:9000
+role_dev_site_support__setup__username: username
+role_dev_site_support__setup__password: password

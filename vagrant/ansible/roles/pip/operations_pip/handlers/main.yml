@@ -1,0 +1,4 @@
+- name: "Dummy Python PIP operation notification"
+  debug: msg="Dummy Python PIP operation notification"
+  when: false
+  

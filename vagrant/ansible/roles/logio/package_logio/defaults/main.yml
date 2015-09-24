@@ -1,0 +1,5 @@
+---
+role_package_logio__config__log_server__host: "127.0.0.1"
+role_package_logio__config__log_server__port: "28777"
+role_package_logio__config__web_server__host: "0.0.0.0"
+role_package_logio__config__web_server__port: "1080"

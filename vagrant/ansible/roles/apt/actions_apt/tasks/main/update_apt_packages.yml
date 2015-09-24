@@ -1,0 +1,15 @@
+- name: Getting list of outdated system packages
+  shell: "/usr/lib/update-notifier/apt-check -p 2>&1"
+  register: result_outdated_system_packages
+  sudo: true
+  changed_when: result_outdated_system_packages.stdout_lines|count > 0
+  when: role_actions_apt__tasks__update_apt_packages
+  
+- include: ../../../operations_apt/tasks/apt_packages/install_apt_packages.yml
+  when: result_outdated_system_packages.changed
+  vars:
+    parameter_install_apt_packages_title: "Updating system APT packages"
+    parameter_install_apt_packages: "{{ result_outdated_system_packages.stdout_lines }}"
+    parameter_install_apt_packages_latest: "yes"
+    parameter_install_apt_packages_force: "yes"
+    parameter_install_apt_packages_install_recommends: "no"

@@ -1,0 +1,5 @@
+---
+- include: ../../../operations_nginx/tasks/nginx_websites/disable_nginx_websites.yml
+  vars:
+    parameter_disable_nginx_sites_title: "Disabling user specified Nginx websites"
+    parameter_disable_nginx_sites: "{{ role_actions_nginx__tasks__disable_nginx_sites__sites | mandatory }}"

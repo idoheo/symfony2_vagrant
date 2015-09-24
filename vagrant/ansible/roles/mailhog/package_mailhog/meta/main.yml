@@ -1,0 +1,9 @@
+---
+dependencies:
+  - { role: user_environment/operations_user_environment }
+  - { role: go_lang/operations_go_lang }
+  - { role: upstart/operations_upstart }
+  - { role: git/install_git }
+  - { role: bazaar/install_bazaar }
+  - { role: mongodb/install_mongodb }
+  - { role: mailx/install_mailx }

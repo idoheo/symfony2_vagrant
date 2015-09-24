@@ -1,0 +1,2 @@
+---
+- include: main/copy_default_logio_user_harvester_configs.yml

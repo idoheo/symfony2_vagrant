@@ -1,0 +1,27 @@
+---
+###
+# Adds Varnish webconfigs from templates
+###
+#
+#	DESCRIPTION:
+#
+#		Adds Varnish configs from templates
+###
+#
+#	VARIABLES:
+#
+#		parameter_add_varnish_config_templates_dir            - REQUIRED - Dir with Varnish config templates
+#		parameter_add_varnish_config_templates_title          - OPTIONAL - Alternative descriptive title of what is being done
+#		parameter_add_varnish_config_templates_notify         - OPTIONAL - Notification to be triggered on any changes made
+#
+###  
+- name: "{{ parameter_add_varnish_config_templates_title | default('Adding Varnish configs') }} (Adding Varnish configs from templates)"
+  template: src="{{ item }}"
+            dest="{{ fact_varnish_configs_dir ~ "/" ~(item[:(item|length-3)]|basename) }}"
+            owner="{{ fact_varnish_configs_dir_user }}"
+            group="{{ fact_varnish_configs_dir_group }}"
+            mode=0644
+  with_fileglob:
+    - "{{ parameter_add_varnish_config_templates_dir | mandatory }}/*.vcl.j2"
+  notify: "{{ parameter_add_varnish_config_templates_notify | default('Dummy Varnish operation notification') }}"
+  sudo: true

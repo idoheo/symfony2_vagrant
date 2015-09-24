@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: openssl/package_openssl }

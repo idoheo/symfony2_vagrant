@@ -1,0 +1,4 @@
+- name: "Dummy Php 5 operation notification"
+  debug: msg="Dummy Php 5 operation notification"
+  when: false
+  

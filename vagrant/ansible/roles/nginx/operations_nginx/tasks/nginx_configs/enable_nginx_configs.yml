@@ -1,0 +1,24 @@
+---
+###
+# Enable Nginx webconfigs
+###
+#	DESCRIPTION:
+#
+#		Enables nginx webconfigs
+###
+#
+#	VARIABLES:
+#
+#		parameter_enable_nginx_configs        - REQUIRED - List of Nginx webconfigs to enable
+#		parameter_enable_nginx_configs_title  - OPTIONAL - Alternative descriptive title of what is being done
+#		parameter_enable_nginx_configs_notify - OPTIONAL - Notification to be triggered on any changes made
+###
+- name: "{{ parameter_enable_nginx_configs_title | default('Enabling Nginx webconfig configurations') }}"
+  file: src={{ fact_nginx_configs_available_dir ~ '/' ~ item }}
+        path="{{ fact_nginx_configs_enabled_dir }}/{{ (item|basename) }}"
+        owner="{{ fact_nginx_configs_enabled_dir_user }}"
+        group="{{ fact_nginx_configs_enabled_dir_group }}"
+        state=link
+  with_items: parameter_enable_nginx_configs
+  sudo: true
+  notify: "{{ parameter_enable_nginx_configs_notify | default('Dummy Nginx operation notification') }}"

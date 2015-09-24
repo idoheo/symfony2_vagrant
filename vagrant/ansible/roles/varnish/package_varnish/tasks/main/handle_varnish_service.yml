@@ -1,0 +1,16 @@
+---
+- name: Starting Varnish
+  service: name="{{ item }}"
+           state="restarted"
+  with_items:
+    - "{{ role_package_varnish__service }}"
+  sudo: true
+
+- name: Stopping Varnish and scheduling restart
+  service: name="{{ item }}"
+           state="stopped"
+  with_items:
+    - "{{ role_package_varnish__service }}"
+  changed_when: true
+  notify: Restart Varnish
+  sudo: true

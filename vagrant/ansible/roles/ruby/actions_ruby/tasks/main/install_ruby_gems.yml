@@ -1,0 +1,5 @@
+- include: ../../../operations_ruby/tasks/ruby_gems/install_ruby_gems.yml
+  vars:
+    parameter_install_ruby_gems_title: "Installing User specified Ruby gems"
+    parameter_install_ruby_gems: "{{ role_actions_ruby__tasks__install_ruby_gems__gems }}"
+    parameter_install_ruby_gems_latest: "{{ role_actions_ruby__tasks__install_ruby_gems__latest }}"

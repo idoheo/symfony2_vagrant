@@ -1,0 +1,6 @@
+role_package_php5_mcrypt__var__apt_packages:
+  - mcrypt
+role_package_php5_mcrypt__var__php5_modules_install:
+  - mcrypt
+role_package_php5_mcrypt__var__php5_modules_enable:
+  - mcrypt

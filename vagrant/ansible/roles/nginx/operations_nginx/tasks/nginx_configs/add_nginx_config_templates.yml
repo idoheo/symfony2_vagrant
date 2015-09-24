@@ -1,0 +1,40 @@
+---
+###
+# Adds Nginx webconfigs from templates
+###
+#
+#	DESCRIPTION:
+#
+#		Adds Nginx webconfigs from templates
+###
+#
+#	VARIABLES:
+#
+#		parameter_add_nginx_config_templates_dir            - REQUIRED - Dir with Nginx config templates
+#		parameter_add_nginx_config_templates_enable_configs - REQUIRED - Should given templates be enabled instantly
+#		parameter_add_nginx_config_templates_title          - OPTIONAL - Alternative descriptive title of what is being done
+#		parameter_add_nginx_config_templates_notify         - OPTIONAL - Notification to be triggered on any changes made
+#
+###  
+- name: "{{ parameter_add_nginx_config_templates_title | default('Adding Ngxin configs') }} (Adding Nginx configs from templates)"
+  template: src="{{ item }}"
+            dest="{{ fact_nginx_configs_available_dir ~ "/" ~(item[:(item|length-3)]|basename) }}"
+            owner="{{ fact_nginx_configs_available_dir_user }}"
+            group="{{ fact_nginx_configs_available_dir_group }}"
+            mode=0644
+  with_fileglob:
+    - "{{ parameter_add_nginx_config_templates_dir | mandatory }}/*.j2"
+  notify: "{{ parameter_add_nginx_config_templates_notify | default('Dummy Nginx operation notification') }}"
+  sudo: true
+
+- name: "{{ parameter_add_nginx_config_templates_title | default('Adding Ngxin configs') }} (Enabling added Nginx configs from templates)"
+  file: src="{{ fact_nginx_configs_available_dir ~ "/" ~ (item[:(item|length-3)]|basename) }}"
+        dest="{{ fact_nginx_configs_enabled_dir }}/{{ (item[:(item|length-3)]|basename) }}"
+        owner="{{ fact_nginx_configs_enabled_dir_user }}"
+        group="{{ fact_nginx_configs_enabled_dir_group }}"
+        state=link
+  with_fileglob:
+    - "{{ parameter_add_nginx_config_templates_dir }}/*.j2"
+  sudo: true
+  when: "{{ parameter_add_nginx_config_templates_enable_configs | mandatory }}"
+  notify: "{{ parameter_add_nginx_config_templates_notify | default('Dummy Nginx operation notification') }}"

@@ -1,0 +1,4 @@
+- name: "Dummy xDebug operation notification"
+  debug: msg="Dummy xDebug operation notification"
+  when: false
+  

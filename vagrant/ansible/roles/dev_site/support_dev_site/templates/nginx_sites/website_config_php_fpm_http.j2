@@ -1,0 +1,8 @@
+server {
+    listen {{ role_support_dev_site__setup__nginx_http_port }} default_server;
+    
+    {% include 'common/website_config_php_fpm_common.j2' %}
+
+    access_log {{ role_support_dev_site__setup__logs_path }}/{{ role_support_dev_site__setup__nginx_http_port }}_{{ role_support_dev_site__setup__nginx_fpm_error_log_string }}_access.log;
+    error_log {{ role_support_dev_site__setup__logs_path }}/{{ role_support_dev_site__setup__nginx_http_port }}_{{ role_support_dev_site__setup__nginx_fpm_error_log_string }}_error.log;
+}

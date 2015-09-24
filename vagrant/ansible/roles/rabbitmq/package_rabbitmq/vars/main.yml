@@ -1,0 +1,6 @@
+role_package_rabbitmq__var__apt_key_url: https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+role_package_rabbitmq__var__apt_key_id: 056E8E56
+role_package_rabbitmq__var__apt_repository: deb http://www.rabbitmq.com/debian/ testing main
+role_package_rabbitmq__var__apt_packages:
+  - rabbitmq-server
+role_package_rabbitmq__var__service: rabbitmq-server

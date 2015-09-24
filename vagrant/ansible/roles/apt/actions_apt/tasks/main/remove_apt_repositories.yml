@@ -1,0 +1,5 @@
+- include: ../../../operations_apt/tasks/apt_repositories/remove_apt_repositories.yml
+  vars:
+    parameter_remove_apt_repositories_title: "Removing User specified APT repositories"
+    parameter_remove_apt_repositories: "{{ role_actions_apt__tasks__remove_apt_repositories__repositories }}"
+    parameter_remove_apt_repositories_update_cache: "{{ role_actions_apt__tasks__remove_apt_repositories__update_cache }}"

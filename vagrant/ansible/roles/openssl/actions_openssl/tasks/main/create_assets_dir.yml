@@ -1,0 +1,6 @@
+---
+- include: ../../../../vagrant_assets/operations_vagrant_assets/tasks/assets_dirs/create_assets_dirs.yml
+  vars:
+    parameter_create_assets_dirs_title: Creating assets dir for OpenSSL certificate
+    parameter_create_assets_dirs: "{{ role_actions_openssl__var__assets_certificates_dir }}"
+

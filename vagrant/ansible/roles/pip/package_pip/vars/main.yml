@@ -1,0 +1,4 @@
+role_package_pip__var__apt_packages:
+  - python-dev
+  - python-pip
+  - python-virtualenv

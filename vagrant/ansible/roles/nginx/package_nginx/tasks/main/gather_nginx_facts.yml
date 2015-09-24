@@ -1,0 +1,39 @@
+---
+- name: "Getting Nginx sites available dir user"
+  shell: "stat '{{ role_package_nginx__var__sites_available | mandatory }}' --format=%U"
+  sudo: true
+  changed_when: false
+  register: result_nginx_sites_available_dir_user
+
+- name: "Getting Nginx sites available dir group"
+  shell: "stat '{{ role_package_nginx__var__sites_available | mandatory }}' --format=%G"
+  sudo: true
+  changed_when: false
+  register: result_nginx_sites_available_dir_group
+
+- name: "Getting Nginx sites enabled dir user"
+  shell: "stat '{{ role_package_nginx__var__sites_enabled | mandatory }}' --format=%U"
+  sudo: true
+  changed_when: false
+  register: result_nginx_sites_enabled_dir_user
+
+- name: "Getting Nginx sites enabled dir group"
+  shell: "stat '{{ role_package_nginx__var__sites_enabled | mandatory }}' --format=%G"
+  sudo: true
+  changed_when: false
+  register: result_nginx_sites_enabled_dir_group
+
+- name: "Setting up Nginx facts"
+  set_fact:
+    fact_nginx_sites_available_dir: "{{ role_package_nginx__var__sites_available | mandatory }}"
+    fact_nginx_sites_available_dir_user: "{{ result_nginx_sites_available_dir_user.stdout | mandatory }}"
+    fact_nginx_sites_available_dir_group: "{{ result_nginx_sites_available_dir_group.stdout | mandatory }}"
+    fact_nginx_sites_enabled_dir: "{{ role_package_nginx__var__sites_enabled | mandatory }}"
+    fact_nginx_sites_enabled_dir_user: "{{ result_nginx_sites_enabled_dir_user.stdout | mandatory }}"
+    fact_nginx_sites_enabled_dir_group: "{{ result_nginx_sites_enabled_dir_group.stdout | mandatory }}"
+    fact_nginx_configs_available_dir: "{{ role_package_nginx__var__configs_available | mandatory }}"
+    fact_nginx_configs_available_dir_user: "{{ result_nginx_sites_available_dir_user.stdout | mandatory }}"
+    fact_nginx_configs_available_dir_group: "{{ result_nginx_sites_available_dir_group.stdout | mandatory }}"
+    fact_nginx_configs_enabled_dir: "{{ role_package_nginx__var__configs_enabled | mandatory }}"
+    fact_nginx_configs_enabled_dir_user: "{{ result_nginx_sites_enabled_dir_user.stdout | mandatory }}"
+    fact_nginx_configs_enabled_dir_group: "{{ result_nginx_sites_enabled_dir_group.stdout | mandatory }}"

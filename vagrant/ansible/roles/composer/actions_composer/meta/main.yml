@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: composer/operations_composer }

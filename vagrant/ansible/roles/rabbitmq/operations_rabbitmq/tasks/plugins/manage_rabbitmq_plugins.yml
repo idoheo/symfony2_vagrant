@@ -1,0 +1,26 @@
+---
+###
+# Manage RabbitMQ plugins
+###
+#
+#	DESCRIPTION
+#
+#		Manages RabbitMQ plugins
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_manage_rabbitmq_plugins        - REQUIRED - List of RabbitMQ plugins
+#		parameter_manage_rabbitmq_plugins_state  - REQUIRED - State of RabbitMQ plugins
+#		parameter_manage_rabbitmq_plugins_title  - OPTIONAL - Alternative descriptive title of actions taken
+#		parameter_manage_rabbitmq_plugins_notify - OPTIONAL - Notification to trigger if any changes are made
+#
+###
+- name: "{{ parameter_manage_rabbitmq_plugins_title | default('Managing RabbitMQ plugins') }}"
+  rabbitmq_plugin: names="{{ item }}"
+                   state="{{ parameter_manage_rabbitmq_plugins_state|mandatory }}"
+                   new_only=yes
+  sudo: true
+  with_items: parameter_manage_rabbitmq_plugins|default([])
+  notify: "{{ parameter_manage_rabbitmq_plugins_notify | default('Dummy RabbitMQ operation notification') }}"

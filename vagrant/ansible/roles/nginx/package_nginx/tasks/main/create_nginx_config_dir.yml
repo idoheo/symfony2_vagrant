@@ -1,0 +1,18 @@
+---
+- name: Creating Nginx available configs dir
+  file: force=yes
+        group="{{ fact_nginx_configs_available_dir_user }}"
+        owner="{{ fact_nginx_configs_available_dir_group }}"
+        mode="0644"
+        path="{{ role_package_nginx__var__configs_available }}"
+        state="directory"
+  sudo: true
+  
+- name: Creating Nginx enabled configs dir
+  file: force=yes
+        group="{{ fact_nginx_configs_enabled_dir_user }}"
+        owner="{{ fact_nginx_configs_enabled_dir_group }}"
+        mode="0644"
+        path="{{ role_package_nginx__var__configs_enabled }}"
+        state="directory"
+  sudo: true

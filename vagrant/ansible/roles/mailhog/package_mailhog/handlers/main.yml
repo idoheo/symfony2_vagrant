@@ -1,0 +1,8 @@
+---
+- name: Restart MailHog
+  service: name="{{ item }}"
+           sleep="2"
+           state="restarted"
+  with_items:
+    - "{{ role_package_mailhog__var__service }}"
+  sudo: true

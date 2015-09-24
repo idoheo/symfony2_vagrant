@@ -1,0 +1,33 @@
+---
+- name: Copying Log.io service config
+  template: src="{{ item }}"
+            dest="{{ fact_logio_user_environment_user_home_dir }}/.log.io/{{(item[:(item|length-3)]|basename) }}"
+            owner="root"
+            group="root"
+            mode=0644
+  with_fileglob:
+    - "../../templates/logio_config/*.conf.j2"
+  sudo: true
+
+- name: Copying Log.io upstart config
+  template: src="../../templates/logio_etc_init/{{ item.template }}.j2"
+            dest="/etc/init/{{ item.service }}.conf"
+            owner="root"
+            group="root"
+            mode=0644
+  with_items:
+    - service: "{{ role_package_logio__var__server_service }}"
+      template: "log.io-server.conf"
+    - service: "{{ role_package_logio__var__harvester_service }}"
+      template: "log.io-harvester.conf"
+  sudo: true
+
+- name: Starting Log.io and scheduling restart
+  service: name="{{ item }}"
+           state="restarted"
+  with_items:
+    - "{{ role_package_logio__var__server_service }}"
+    - "{{ role_package_logio__var__harvester_service }}"
+  changed_when: true
+  notify: Restart Log.io
+  sudo: true

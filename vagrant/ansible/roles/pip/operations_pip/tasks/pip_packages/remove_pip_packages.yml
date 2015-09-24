@@ -1,0 +1,23 @@
+###
+# Remove Python PIP Packages
+###
+#
+#	DESCRIPTION:
+#
+#		Removes specified Python PIP packages
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_remove_pip_packages        - REQUIRED - List of packages to manage
+#		parameter_remove_pip_packages_title  - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_remove_pip_packages_notify - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+- include: ./manage_pip_packages.yml
+  vars:
+    parameter_manage_pip_packages: "{{ parameter_remove_pip_packages | mandatory }}"
+    parameter_manage_pip_packages_title: "{{ parameter_remove_pip_packages_title | default('Removing Python PIP packages') }}"
+    parameter_manage_pip_packages_state: "absent"
+    parameter_manage_pip_packages_notify: "{{ parameter_remove_pip_packages_noftify | default('Dummy Python PIP operation notification') }}"

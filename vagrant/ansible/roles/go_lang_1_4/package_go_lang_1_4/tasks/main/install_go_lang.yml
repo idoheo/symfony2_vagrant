@@ -1,0 +1,8 @@
+---
+- name: Building Go Lang 1.4
+  shell: "./make.bash"
+  args:
+    chdir: "{{ role_package_go_lang_1_4__var__root }}/src"
+  sudo: true
+  sudo_user: root
+  environment: "{{ role_package_go_lang_1_4__var__go_environment }}"

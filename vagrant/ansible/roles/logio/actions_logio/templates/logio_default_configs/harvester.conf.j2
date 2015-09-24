@@ -1,0 +1,23 @@
+exports.config = {
+  nodeName: "User harvester - {{ item[1] }}",
+  logStreams: {
+    "Apt": [
+      "/var/log/apt/history.log",
+      "/var/log/apt/term.log"
+    ],
+    "Auth": [
+      "/var/log/auth.log"
+    ],
+    "Dpkg": [
+      "/var/log/dpkgcd.log"
+    ],
+    "Syslog": [
+      "/var/log/syslog"
+    ]
+  },
+  server: {
+    host: '{{ role_package_logio__config__log_server__host }}',
+    port: {{ role_package_logio__config__log_server__port }}
+  }
+}
+

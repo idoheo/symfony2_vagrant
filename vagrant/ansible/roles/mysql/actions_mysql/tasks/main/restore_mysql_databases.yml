@@ -1,0 +1,5 @@
+- include: ../../../operations_mysql/tasks/mysql_databases/restore_mysql_databases.yml
+  vars:
+    parameter_restore_mysql_databases_title: "Restoring up User specified MySQL databases"
+    parameter_restore_mysql_databases: "{{ role_actions_mysql__tasks__restore_mysql_databases__databases }}"
+    parameter_restore_mysql_databases_file_prefix: ""

@@ -1,0 +1,9 @@
+description "Kibana"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+respawn limit 15 5
+
+exec {{ role_package_kibana__var__kibana_dir }}/kibana/bin/kibana 1>>{{ role_package_kibana__var__logs_dir }}/{{ role_package_kibana__var__log }} 2>>{{ role_package_kibana__var__logs_dir }}/{{ role_package_kibana__var__error_log }}

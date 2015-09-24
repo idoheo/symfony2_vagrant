@@ -1,0 +1,14 @@
+---
+- name: "Setting site nginx config dir"
+  file: path="{{ role_support_dev_site__setup__nginx_path }}"
+        state="directory"
+        owner="{{ fact_site_source_dir_user }}"
+        group="{{ fact_site_source_dir_group }}"
+  sudo: true
+
+- include: ../config_files/copy_dev_site_config_files.yml
+  vars:
+    paremeter_copy_dev_site_configs_role: "dev_site/support_dev_site"
+    parameter_copy_dev_site_configs_dir: "site_nginx_config"
+    parameter_copy_dev_site_configs_title: "Copying dev site nginx configs"
+

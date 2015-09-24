@@ -1,0 +1,25 @@
+---
+###
+# Remove RabbitMQ users
+###
+#
+#	DESCRIPTION
+#
+#		Removes RabbitMQ users
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_remove_rabbitmq_users[]                - REQUIRED - List of RabbitMQ users
+#		                                 .username       - REQUIRED - Username
+#		parameter_remove_rabbitmq_users_title            - OPTIONAL - Alternative descriptive title of actions taken
+#		parameter_remove_rabbitmq_users_notify           - OPTIONAL - Notification to trigger if any changes are made
+#
+###
+- name: "{{ parameter_remove_rabbitmq_users_title | default('Removing RabbitMQ users') }}"
+  rabbitmq_user: user="{{ item.username }}"
+                 state="absent"
+  sudo: true
+  with_items: parameter_remove_rabbitmq_users|default([])
+  notify: "{{ parameter_remove_rabbitmq_users_notify | default('Dummy RabbitMQ operation notification') }}"

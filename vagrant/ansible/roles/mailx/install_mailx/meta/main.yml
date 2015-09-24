@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: mailx/package_mailx }

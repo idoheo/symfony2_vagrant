@@ -1,0 +1,6 @@
+---
+- include: ../../../operations_git/tasks/git_config/git_colors_set.yml
+  vars:
+    parameter_git_colors_set: "{{ role_actions_git__tasks__set_colors__colors }}"
+    parameter_git_colors_set_user: "{{ fact_user_environment_user }}"
+    parameter_git_colors_set_title: Setting user specified Git color configurations

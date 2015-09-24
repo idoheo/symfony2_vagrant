@@ -1,0 +1,43 @@
+###
+# Update ini files
+###
+#
+#	DESCRIPTION
+#
+#		Updates ini file contents
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_update_ini_file                            - REQUIRED - File which to update
+#		parameter_update_ini_file_content[]                  - REQUIRED - Content with which to update ini file
+#		                                   .section          - REQUIRED - Section name
+#		                                   .content[]        - REQUIRED - Section content
+#		                                             .option - REQUIRED - Option name
+#		                                             .value  - REQUIRED - Option value
+#		parameter_update_ini_file_default_section            - OPTIONAL - Default section if one not specified
+#		parameter_update_ini_file_title                      - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_update_ini_file_notify                     - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+- name: "{{ parameter_update_ini_file_title | default('Updating ini file') }} (Ensuring ini file sections exist)"
+  lineinfile: dest="{{ parameter_update_ini_file }}"
+              line="[{{ item.section| default( parameter_update_ini_file_default_section ) }}]"
+              state="present"
+              insertbefore="BOF"
+  with_items: parameter_update_ini_file_content
+  sudo: true
+  notify: "{{ parameter_update_ini_file_notify | default('Dummy Ini File operation notification') }}"
+
+- name: "{{ parameter_update_ini_file_title | default('Updating ini file') }} (Updating ini file content)"
+  ini_file: dest="{{ parameter_update_ini_file }}"
+            section="{{ item.0.section | default( parameter_update_ini_file_default_section )}}"
+            option="{{ item.1.option }}"
+            value="{{ item.1.value }}"
+  with_subelements:
+    - parameter_update_ini_file_content
+    - content
+  sudo: true
+  notify: "{{ parameter_update_ini_file_notify | default('Dummy Ini File operation notification') }}"
+

@@ -1,0 +1,43 @@
+---
+- name: "Getting dev site source dir user"
+  shell: "stat '{{ role_support_dev_site__setup__source_path | mandatory }}' --format=%U"
+  sudo: true
+  changed_when: false
+  register: result_dev_site_source_dir_user
+
+- name: "Getting dev site source dir group"
+  shell: "stat '{{ role_support_dev_site__setup__source_path | mandatory }}' --format=%G"
+  sudo: true
+  changed_when: false
+  register: result_dev_site_source_dir_group
+
+- name: "Setting up dev site source dir facts"
+  set_fact:
+    fact_site_source_dir_path: "{{ role_support_dev_site__setup__source_path | mandatory }}"    
+    fact_site_source_dir_user: "{{ result_dev_site_source_dir_user.stdout | mandatory }}"
+    fact_site_source_dir_group: "{{ result_dev_site_source_dir_group.stdout | mandatory }}"
+
+- name: "Setting site dir ownership"
+  file: path="{{ role_support_dev_site__setup__path }}"
+        state="directory"
+        owner="{{ fact_site_source_dir_user }}"
+        group="{{ fact_site_source_dir_group }}"
+  sudo: true
+
+- name: "Getting dev site source dir user"
+  shell: "stat '{{ role_support_dev_site__setup__path | mandatory }}' --format=%U"
+  sudo: true
+  changed_when: false
+  register: result_dev_site_dir_user
+
+- name: "Getting dev site source dir group"
+  shell: "stat '{{ role_support_dev_site__setup__path | mandatory }}' --format=%G"
+  sudo: true
+  changed_when: false
+  register: result_dev_site_dir_group
+
+- name: "Setting up dev site source dir facts"
+  set_fact:
+    fact_site_dir_path: "{{ role_support_dev_site__setup__path | mandatory }}"    
+    fact_site_dir_user: "{{ result_dev_site_dir_user.stdout | mandatory }}"
+    fact_site_dir_group: "{{ result_dev_site_dir_group.stdout | mandatory }}"

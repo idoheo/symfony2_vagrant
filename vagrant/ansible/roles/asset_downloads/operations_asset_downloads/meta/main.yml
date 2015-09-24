@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: asset_downloads/support_asset_downloads }

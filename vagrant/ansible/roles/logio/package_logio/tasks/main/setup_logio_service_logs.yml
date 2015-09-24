@@ -1,0 +1,21 @@
+---
+- name: "Creating Log.io logs folder"
+  file: path="{{ role_package_logio__var__logs_folder }}"
+        mode=755
+        state=directory
+        recurse=yes
+        owner="root"
+        group="root"
+  sudo: true
+
+- name: "Creating Log.io logs"
+  file: path="{{ role_package_logio__var__logs_folder }}/{{ item }}"
+        mode=755
+        state=touch
+  with_items:
+    - harvester.log
+    - harvester.err
+    - server.log
+    - server.err
+  sudo: true
+

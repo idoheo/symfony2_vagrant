@@ -1,0 +1,9 @@
+    include {{ role_package_nginx__var__configs_enabled }}/*;
+    
+    server_name {{ role_support_dev_site__setup__nginx_server_name }};
+    root {{ role_support_dev_site__setup__web_path }};
+    fastcgi_param PHP_ADMIN_VALUE "open_basedir = none";
+    
+    more_set_headers 'Access-Control-Allow-Origin: *';
+    
+    include {{ role_support_dev_site__setup__nginx_path }}/*;

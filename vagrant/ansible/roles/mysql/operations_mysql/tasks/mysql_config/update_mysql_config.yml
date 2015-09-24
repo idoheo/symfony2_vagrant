@@ -1,0 +1,27 @@
+###
+# Update MySQL config
+###
+#
+#	DESCRIPTION:
+#
+#		Updates MySQL config file (my.cnf)
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_update_mysql_config[]                  - REQUIRED - Content to update
+#		                               .section          - REQUIRED - Section name
+#		                               .content[]        - REQUIRED - Section content
+#		                                         .option - REQUIRED - Option name
+#		                                         .value  - REQUIRED - Option value
+#		parameter_update_mysql_config_title              - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_update_mysql_config_notify             - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+- include: ../../../../ini_files/operations_ini_files/tasks/ini_files/update_ini_files.yml
+  vars:
+    parameter_update_ini_file: "/etc/mysql/my.cnf"
+    parameter_update_ini_file_content: "{{ parameter_update_mysql_config }}"
+    parameter_update_ini_file_title: "{{ parameter_update_mysql_config_title | default('Updating MySQL configuration') }}"
+    parameter_update_ini_file_notify: "{{ parameter_update_mysql_config_noftify | default('Dummy MySQL operation notification') }}"

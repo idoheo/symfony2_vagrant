@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: varnish/operations_varnish }
+  - { role: vagrant_assets/operations_vagrant_assets }

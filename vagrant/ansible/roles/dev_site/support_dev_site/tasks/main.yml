@@ -1,0 +1,8 @@
+---
+- include: main/gather_site_dir_facts.yml
+- include: main/create_devsite_folder.yml
+- include: main/logs_setup.yml
+- include: main/copy_site_nginx_config.yml
+- include: main/copy_nginx_sites.yml
+- include: main/create_bash_aliases.yml
+- include: main/update_logio.yml

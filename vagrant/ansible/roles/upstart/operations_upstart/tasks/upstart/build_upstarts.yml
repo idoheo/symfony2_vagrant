@@ -1,0 +1,84 @@
+---
+###
+# Build upstarts
+###
+#
+#	DESCRIPTION:
+#
+#		Build upstart services
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_build_upstarts[]                     - REQUIRED - 
+#		                          .service             - REQUIRED - Service system name
+#		                          .command             - REQUIRED - Command to run
+#		                          .chdir               - OPTIONAL - Change directory
+#		                          .name                - OPTIONAL - Service descriptive name
+#		                          .start_on            - OPTIONAL - Start on parameter (if not using default)
+#		                          .stop_on             - OPTIONAL - Stop on pararameter (if not using default)
+#		                          .respawn             - OPTIONAL - Should respawn be used (by default yes)
+#		                          .respawn_parameters  - OPTIONAL - Repawn parameters
+#		                          .pre_start           - OPTIONAL - Pre start command(s)
+#		                          .post_start          - OPTIONAL - Post start command(s)
+#		                          .pre_stop            - OPTIONAL - Pre stop command(s)
+#		                          .post_stop           - OPTIONAL - Post stop command(s)
+#		parameter_build_upstarts_title            - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_build_upstarts_notify           - OPTIONAL - Notification to trigger if changes have been made
+###
+
+- name: "{{ parameter_build_upstarts_title | default('Creating upstart services') }} (Creating log folders)"
+  file: path={{ role_package_upstart_logs_path }}/{{ item.service | mandatory }}
+        mode=755
+        state=directory
+        recurse=yes
+  with_items: parameter_build_upstarts
+  sudo: true
+
+- name: "{{ parameter_build_upstarts_title | default('Creating upstart services') }} (Creating log files)"
+  file: path={{ role_package_upstart_logs_path }}/{{ item.service | mandatory }}/{{ item.service | mandatory }}.log
+        mode=755
+        state=touch
+  with_items: parameter_build_upstarts
+  sudo: true
+
+- name: "{{ parameter_build_upstarts_title | default('Creating upstart services') }} (Creating error log files)"
+  file: path={{ role_package_upstart_logs_path }}/{{ item.service | mandatory }}/{{ item.service | mandatory }}.err
+        mode=755
+        state=touch
+  with_items: parameter_build_upstarts
+  sudo: true
+
+- name: "{{ parameter_build_upstarts_title | default('Creating upstart services') }} (Registering log files)"
+  set_fact:
+    role_package_logio_logs_list: "{{ role_package_logio_logs_list + [ {'name': item.name | default( item.service | mandatory ) ~ ' (upstart: ' ~ item.service ~ ')', 'files': [ role_package_upstart_logs_path ~ '/' ~ (item.service | mandatory) ~ '/' ~ (item.service | mandatory) ~ '.log' ] }, {'name': item.name | default( item.service | mandatory ) ~ ' (upstart: ' ~ item.service ~ ') error' , 'files': [ role_package_upstart_logs_path ~ '/' ~ (item.service | mandatory) ~ '/' ~ (item.service | mandatory) ~ '.err' ] } ] }}"
+  with_items: parameter_build_upstarts
+  sudo: true
+
+- include: ../../../../logio/operations_logio/tasks/logio_configs/update_logio_harvester_config.yml
+  vars:
+    parameter_update_logio_harvester_config_title: "{{ parameter_build_upstarts_title | default('Creating upstart services') }} (Applying upstart services logs to Log.io)"
+
+- name: "{{ parameter_build_upstarts_title | default('Creating upstart services') }} (Creating upstart services)"
+  template: src=../../templates/upstart/simple_upstart.conf.j2
+            dest=/etc/init/{{ item.service | mandatory }}.conf
+  with_items: parameter_build_upstarts
+  notify: "{{ parameter_build_upstarts_notify | default('Dummy upstart operation notification') }}"
+  sudo: true
+
+- name: "{{ parameter_build_upstarts_title | default('Creating upstart services') }} (Stopping upstart services)"
+  service: name="{{ item.service }}"
+           state=stopped
+  with_items: parameter_build_upstarts
+  changed_when: true
+  notify: "Restart upstart services"
+  sudo: true
+
+- name: "{{ parameter_build_upstarts_title | default('Creating upstart services') }} (Scheduling restart of upstart services)"
+  set_fact:
+    role_upstart__operations_upstart__upstart_services: "{{ role_upstart__operations_upstart__upstart_services + [ item.service ] }}"
+  with_items: parameter_build_upstarts
+  changed_when: true
+  notify: "Restart upstart services"
+  sudo: true

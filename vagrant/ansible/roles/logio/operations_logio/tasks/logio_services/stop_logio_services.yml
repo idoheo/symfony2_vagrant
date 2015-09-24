@@ -1,0 +1,20 @@
+---
+###
+# Stop Log.io services
+###
+#
+#	DESCRIPTION
+#
+#		Stops Log.io services
+###
+#
+#	VARIABLES:
+#
+#		- NONE -
+#
+###
+
+- include: ./manage_logio_services.yml
+  vars:
+    parameter_manage_logio_services_status: stopped
+    parameter_manage_logio_services_title: "Stopping Log.io services"

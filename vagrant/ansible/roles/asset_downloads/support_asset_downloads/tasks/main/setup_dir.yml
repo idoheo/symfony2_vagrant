@@ -1,0 +1,6 @@
+---
+- include: ../../../../vagrant_assets/operations_vagrant_assets/tasks/assets_dirs/create_assets_dirs.yml
+  vars:
+    parameter_create_assets_dirs:
+      - "{{ role_support_asset_downloads__var__downloads_dir }}"
+    parameter_create_assets_dirs_title: Creating download assets dir

@@ -1,0 +1,4 @@
+role_package_redis__var__apt_packages:
+  - redis-tools
+  - redis-server
+role_package_redis__var__service: redis-server

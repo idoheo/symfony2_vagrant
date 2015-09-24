@@ -1,0 +1,4 @@
+- include: ../../../operations_ruby/tasks/ruby_gems/remove_ruby_gems.yml
+  vars:
+    parameter_remove_ruby_gems_title: "Removing User specified Ruby gems"
+    parameter_remove_ruby_gems: "{{ role_actions_ruby__tasks__remove_ruby_gems__gems }}"

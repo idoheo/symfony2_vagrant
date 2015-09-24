@@ -1,0 +1,34 @@
+###
+# Install Apt Packages
+###
+#
+#	DESCRIPTION:
+#
+#		Installs specified Apt packages
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_install_apt_packages                    - REQUIRED - List of packages to install
+#		parameter_install_apt_packages_prefix             - OPTIONAL - Prefix to apt packages names
+#		parameter_install_apt_packages_postfix            - OPTIONAL - Postfix to apt packages names
+#		parameter_install_apt_packages_title              - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_install_apt_packages_latest             - OPTIONAL - Should latest packages be installed if currently older one installed
+#		parameter_install_apt_packages_force              - OPTIONAL - Should packages installation be forced
+#		parameter_install_apt_packages_install_recommends - OPTIONAL - Should recommended packages be installed also
+#		parameter_install_apt_packages_notify             - OPTIONAL - Notification to trigger if installation has occurred
+#
+###
+
+- include: ./manage_apt_packages.yml
+  vars:
+    parameter_manage_apt_packages: "{{ parameter_install_apt_packages | mandatory }}"
+    parameter_manage_apt_packages_prefix: "{{ parameter_install_apt_packages_prefix | default ('') }}"
+    parameter_manage_apt_packages_postfix: "{{ parameter_install_apt_packages_postfix | default ('') }}"
+    parameter_manage_apt_packages_title: "{{ parameter_install_apt_packages_title | default('Installing APT packages') }}"
+    parameter_manage_apt_packages_state: "{% if (parameter_install_apt_packages_latest | default( task_default__operations_apt__apt_packages__install_apt_packages__latest )) %}latest{% else %}present{% endif %}"
+    parameter_manage_apt_packages_force: "{{ parameter_install_apt_packages_force | default( task_default__operations_apt__apt_packages__install_apt_packages__force ) }}"
+    parameter_manage_apt_packages_install_recommends: "{{ parameter_install_apt_packages_install_recommends | default( task_default__operations_apt__apt_packages__install_apt_packages__install_recommends ) }}"
+    parameter_manage_apt_packages_purge: "no"
+    parameter_manage_apt_packages_notify: "{{ parameter_install_apt_packages_notify | default('Dummy APT operation notification') }}"

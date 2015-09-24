@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: ansible_ini_support/install_ansible_ini_support }

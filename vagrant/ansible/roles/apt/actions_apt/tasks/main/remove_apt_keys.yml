@@ -1,0 +1,4 @@
+- include: ../../../operations_apt/tasks/apt_keys/remove_apt_keys.yml
+  vars:
+    parameter_remove_apt_keys_title: "Removing User specified APT keys"
+    parameter_remove_apt_keys: "{{ role_actions_apt__tasks__remove_apt_keys__keys }}"

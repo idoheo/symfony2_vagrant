@@ -1,0 +1,25 @@
+###
+# Remove MySQL users
+###
+#
+#	DESCRIPTION:
+#
+#		Removes specified MySQL users
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_remove_mysql_users[]               - REQUIRED - List of packages to manage
+#		                                  .username  - REQUIRED - Login username
+#		parameter_remove_mysql_users_title           - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_remove_mysql_users_notify          - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+
+- include: ./manage_mysql_users.yml
+  vars:
+    parameter_manage_mysql_users: "{{ parameter_remove_mysql_users|mandatory }}"
+    parameter_manage_mysql_users_title: "{{ parameter_remove_mysql_users_title | default('Removing MySQL users') }}"
+    parameter_manage_mysql_users_state: "absent"
+    parameter_manage_mysql_users_notify: "{{ parameter_remove_mysql_users_noftify | default('Dummy MySQL operation notification') }}"

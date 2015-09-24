@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: mongo_management_studio/package_mongo_management_studio }

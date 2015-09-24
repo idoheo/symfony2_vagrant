@@ -1,0 +1,4 @@
+- include: main/add_elasticsearch_repository.yml
+- include: main/install_elasticsearch.yml
+- include: main/handle_elasticsearch_service.yml
+- include: main/update_logio.yml

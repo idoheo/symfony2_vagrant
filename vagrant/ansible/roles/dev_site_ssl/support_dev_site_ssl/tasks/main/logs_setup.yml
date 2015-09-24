@@ -1,0 +1,9 @@
+---
+- name: "Creating log files"
+  file: path="{{ role_support_dev_site__setup__logs_path }}/{{ role_support_dev_site_ssl__setup__nginx_https_port }}_{{ role_support_dev_site__setup__nginx_fpm_error_log_string }}_ssl_{{ item }}.log"
+        state="touch"
+        mode="644"
+  with_items:
+    - "access"
+    - "error"
+  sudo: true

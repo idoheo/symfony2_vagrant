@@ -1,0 +1,6 @@
+---
+- include: ../../../opeartions_elasticsearch/tasks/plugins/remove_elasticsearch_plugins.yml
+  vars:
+    parameter_remove_elasticsearch_plugins_title: Removing user specified Elasticsearch plugins
+    parameter_remove_elasticsearch_plugins: "{{ role_actions_elasticsearch__tasks__remove_elasticsearch_plugins }}"
+

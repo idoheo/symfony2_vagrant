@@ -1,0 +1,5 @@
+- include: ../../../operations_php5/tasks/php5_modules/remove_php5_modules.yml
+  vars:
+    parameter_remove_php5_modules_title: "Removing User specified Php 5 modules"
+    parameter_remove_php5_modules: "{{ role_actions_php5__tasks__remove_php5_modules__modules }}"
+    parameter_remove_php5_modules_purge: "{{ role_actions_php5__tasks__remove_php5_modules__purge }}"

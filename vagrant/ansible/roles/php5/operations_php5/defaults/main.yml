@@ -1,0 +1,4 @@
+## Task default variables ##
+
+task_default__operations_php5__php5_modules__install_php5_modules__latest: yes
+task_default__operations_php5__php5_modules__remove_php5_modules__purge: no

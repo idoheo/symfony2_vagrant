@@ -1,0 +1,26 @@
+###
+# Git colors enable
+###
+#
+#	DESCRIPTION:
+#
+#		Enables colors set
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_git_colors_set[]        - REQUIRED - Indexed array of color settings
+#		                          .option - REQUIRED - Option name
+#		                          .value  - REQUIRED - Option value
+#		parameter_git_colors_set_user     - OPTIONAL - User for which to setup git options
+#		parameter_git_colors_set_title    - OPTIONAL - Alternative descriptive title of action taken
+###
+- include: ./git_options.yml
+  vars:
+    parameter_git_options: "{{ parameter_git_colors_set | mandatory }}"
+    parameter_git_options_option_prefix: 'color.'
+    parameter_git_options_option_postfix: ''
+    parameter_git_options_user: "{{ parameter_git_colors_set_user | default( fact_user_environment_user ) }}"
+    parameter_git_options_title: "{{ parameter_git_colors_set_title | default('Setting Git color options') }}"
+

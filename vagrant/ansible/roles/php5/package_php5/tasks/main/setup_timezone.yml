@@ -1,0 +1,18 @@
+---
+- name: Checking system timezone
+  shell: "date +%Z"
+  register: result_php5_timezone
+
+- name: "Setting Timezone option for PHP"
+  ini_file: dest="{{ item[0] }}"
+            section="PHP"
+            option="{{ item[1].option }}"
+            value="{{ item[1].value }}"
+  with_nested:
+    - 
+      - "{{ role_package_php5__var__fpm_ini }}"
+      - "{{ role_package_php5__var__cli_ini }}"
+    -
+      - option: date.timezone
+        value: "{{ result_php5_timezone.stdout }}"
+  sudo: true

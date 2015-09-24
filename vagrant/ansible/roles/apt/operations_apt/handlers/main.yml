@@ -1,0 +1,4 @@
+- name: "Dummy APT operation notification"
+  debug: msg="Dummy APT operation notification"
+  when: false
+  

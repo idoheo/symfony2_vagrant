@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: upstart/install_upstart }
+  - { role: logio/operations_logio }

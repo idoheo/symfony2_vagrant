@@ -1,0 +1,7 @@
+- include: main/remove_apt_repositories.yml
+- include: main/remove_apt_keys.yml
+- include: main/download_apt_keys.yml
+- include: main/add_apt_repositories.yml
+- include: main/remove_apt_packages.yml
+- include: main/install_apt_packages.yml
+- include: main/update_apt_packages.yml

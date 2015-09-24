@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: apt/operations_apt }
+  - { role: upstart/operations_upstart }

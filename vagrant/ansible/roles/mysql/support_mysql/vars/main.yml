@@ -1,0 +1,3 @@
+role_support_mysql__var__apt_packages:
+  - python-configparser
+  - python-mysqldb

@@ -1,0 +1,31 @@
+---
+###
+# Write Log.io harvester
+###
+#
+#	DESCRIPTION
+#
+#		Writes values for templated harvester config and copies it to harvester service config
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_update_logio_harvester_config_title   - OPTIONAL - Alternative descriptive title of actions taken
+###
+
+- name: "{{ parameter_update_logio_harvester_config_title | default('Updating Log.io harvester') }} (Copying Log.io harvester config)"
+  template: src="../../../package_logio/templates/logio_config/harvester.conf.j2"
+            dest="/root/.log.io/harvester.conf"
+            owner="root"
+            group="root"
+            mode=0644
+  sudo: true
+
+- name: "{{ parameter_update_logio_harvester_config_title | default('Updating Log.io harvester') }} (Restarting Log.io harvester)"
+  service: name="{{ item }}"
+           sleep="0"
+           state="restarted"
+  with_items:
+    - "{{ role_package_logio__var__harvester_service }}"
+  sudo: true

@@ -1,0 +1,23 @@
+###
+# Enable Php5 Modules
+###
+#
+#	DESCRIPTION:
+#
+#		Enables Php 5 modules modules
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_enable_php5_modules        - REQUIRED - List of Php 5 modules to enable
+#		parameter_enable_php5_modules_title  - OPTIONAL - Alternative descriptive title of what is being enabled
+#		parameter_enable_php5_modules_notify - OPTIONAL - Notification to trigger if anything has changed
+#
+###
+---
+- name: "{{ parameter_enable_php5_modules_title | default ('Enabling Php 5 modules') }}"
+  shell: "php5enmod {{ item }}"
+  sudo: yes
+  with_items: parameter_enable_php5_modules | default([])
+  notify: "{{ parameter_enable_php5_modules_notify | default('Dummy Php 5 operation notification') }}"

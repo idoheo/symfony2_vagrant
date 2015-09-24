@@ -1,0 +1,6 @@
+---
+dependencies:
+  - { role: nginx_php5/install_nginx_php5 }
+  - { role: nginx/operations_nginx }
+  - { role: logio/operations_logio }
+  - { role: user_environment/operations_user_environment }

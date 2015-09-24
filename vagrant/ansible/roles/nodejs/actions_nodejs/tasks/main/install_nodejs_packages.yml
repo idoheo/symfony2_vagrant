@@ -1,0 +1,5 @@
+- include: ../../../operations_nodejs/tasks/nodejs_packages/install_nodejs_packages.yml
+  vars:
+    parameter_install_nodejs_packages_title: "Installing User specified Node.js packages"
+    parameter_install_nodejs_packages: "{{ role_actions_nodejs__tasks__install_nodejs_packages__packages }}"
+    parameter_install_nodejs_packages_latest: "{{ role_actions_nodejs__tasks__install_nodejs_packages__latest }}"

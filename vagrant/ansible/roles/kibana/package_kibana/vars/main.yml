@@ -1,0 +1,11 @@
+---
+role_package_kibana__var__repository_url: https://github.com/elastic/kibana.git
+role_package_kibana__var__assets_dir: kibana
+role_package_kibana__var__kibana_dir: /opt/kibana
+role_package_kibana__var__assets_download: kibana_
+role_package_kibana__var__service: kibana
+role_package_kibana__var__arhitecture:
+  x86_64:
+    download_arhitecture: x64
+  i386:
+    download_arhitecture: x86

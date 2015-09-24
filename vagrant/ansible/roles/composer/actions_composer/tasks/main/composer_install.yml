@@ -1,0 +1,5 @@
+---
+- include: ../../../operations_composer/tasks/composer/composer_install.yml
+  vars:
+    parameter_install_composer_packages_title: Installing user defined composer packages
+    parameter_install_composer_packages: "{{ role_actions_composer__tasks__install_composer_packages }}"

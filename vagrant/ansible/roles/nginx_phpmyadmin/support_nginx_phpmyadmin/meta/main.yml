@@ -1,0 +1,5 @@
+---
+dependencies:
+  - { role: phpmyadmin/install_phpmyadmin }
+  - { role: nginx_php5/install_nginx_php5 }
+  - { role: nginx/operations_nginx }

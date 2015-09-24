@@ -1,0 +1,29 @@
+###
+# Download Apt Keys
+###
+#
+#	DESCRIPTION:
+#
+#		Downloads specified Apt keys
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_download_apt_keys[]              - REQUIRED - List of key URLs to download
+#		                             .url          - REQUIRED - Url of key
+#		                             .key          - OPTIONAL - Key
+#		parameter_download_apt_keys_validate_certs - OPTIONAL - Should SSL certificates of target key urls be validated
+#		parameter_download_apt_keys_title          - OPTIONAL - Alternative descriptive title of actions taken
+#		parameter_download_apt_keys_notify         - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+
+- name: "{{ parameter_download_apt_keys_title | default('Downloading APT keys ') }}"
+  apt_key: url="{{ item[1].url }}"
+           id="{% if item[1].key is defined %}{{ item[1].key }}{% endif %}"
+           state=present
+           validate_certs="{{ parameter_download_apt_keys_validate_certs | default ( task_default__operations_apt__apt_keys__download_apt_keys__validate_certs ) }}"
+  sudo: true
+  with_indexed_items: parameter_download_apt_keys | mandatory
+  notify: "{{ parameter_download_apt_keys_notify | default('Dummy APT operation notification') }}"

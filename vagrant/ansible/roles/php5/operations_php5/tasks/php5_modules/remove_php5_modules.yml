@@ -1,0 +1,26 @@
+###
+# Remove Php5 Modules Packages
+###
+#
+#	DESCRIPTION:
+#
+#		Removes Php 5 modules packages
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_remove_php5_modules        - REQUIRED - List of Php 5 modules to remove
+#		parameter_remove_php5_modules_title  - OPTIONAL - Alternative descriptive title of what is being removed
+#		parameter_remove_php5_modules_notify - OPTIONAL - Notification to trigger if anything has changed
+#		parameter_remove_php5_modules_purge  - OPTIONAL - Should configuration files be removed
+#
+###
+---
+- include: ../../../../apt/operations_apt/tasks/apt_packages/remove_apt_packages.yml
+  vars:
+    parameter_remove_apt_packages_title:  "{{ parameter_remove_php5_modules_title  | default( 'Removing Php 5 modules' ) }}"
+    parameter_remove_apt_packages: "{{ parameter_remove_php5_modules }}"
+    parameter_remove_apt_packages_prefix: "php5-"
+    parameter_remove_apt_packages_notify: "{{ parameter_remove_php5_modules_notify | default('Dummy Php 5 operation notification') }}"
+    parameter_remove_apt_packages_purge: "{{ parameter_remove_php5_modules_purge | default( task_default__operations_php5__php5_modules__remove_php5_modules__purge ) }}"

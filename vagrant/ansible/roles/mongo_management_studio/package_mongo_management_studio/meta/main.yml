@@ -1,0 +1,6 @@
+---
+dependencies:
+  - { role: asset_downloads/operations_asset_downloads }
+  - { role: upstart/operations_upstart }
+  - { role: nodejs/install_nodejs }
+  - { role: jq/operations_jq }

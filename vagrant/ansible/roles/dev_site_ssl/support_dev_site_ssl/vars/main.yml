@@ -1,0 +1,8 @@
+---
+role_support_dev_site_ssl__setup__nginx_https_port: 443
+role_support_dev_site_ssl__setup__assets_path: "dev_site_ssl"
+role_support_dev_site_ssl__setup__ssl_path: "{{ role_support_dev_site__setup__path }}/ssl"
+role_support_dev_site_ssl__setup__ssl_assets_sub_path: "ssl_certificates"
+role_support_dev_site_ssl__setup__ssl_file: dev_site_ssl_cert
+role_support_dev_site_ssl__setup__ssl_key_file: dev_site_ssl_cert.key
+

@@ -1,0 +1,27 @@
+###
+# Git repository latest version
+###
+#
+#	DESCRIPTION:
+#
+#		Gets latest version of repository
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_git_repository_latest_version_repo              - REQUIRED - git, SSH, or HTTP protocol address of the git repository.
+#		parameter_git_repository_latest_version_version_prefix    - OPTIONAL - Prefix for versions
+#		parameter_git_repository_latest_version_version_seperator - OPTIONAL - Version seperator
+#	        parameter_git_repository_latest_version_title             - OPTIONAL - Alternative descriptive title of action taken
+###
+
+- name: "{{ parameter_git_repository_latest_version_title | default('Checking latest tag for git repository') }} (Getting list of tags) (1/2)"
+  shell: "git ls-remote --tags {{ parameter_git_repository_latest_version_repo }} | egrep 'refs\\/tags\\/{{ parameter_git_repository_latest_version_version_prefix }}([0-9]+)(\\{{ parameter_git_repository_latest_version_version_seperator | default('.') }}[0-9]+)*$' | awk -F'/' '{print $NF}' {% if parameter_git_repository_latest_version_version_prefix|default('') %}| awk -F'{{ parameter_git_repository_latest_version_version_prefix }}' '{print $NF}' {% endif %}| sort -V | tail -1"
+  register: result_git_repository_latest_tag
+  failed_when: result_git_repository_latest_tag.rc != 0 or not result_git_repository_latest_tag.stdout
+
+- name: "{{ parameter_git_repository_latest_version_title | default('Checking latest tag for git repository') }} (Selecting tag) (2/2)"
+  set_fact:
+    result_git_repository_latest_tag: "{% if parameter_git_repository_latest_version_version_prefix %}{{ parameter_git_repository_latest_version_version_prefix }}{% endif %}{{ result_git_repository_latest_tag.stdout }}"
+

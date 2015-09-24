@@ -1,0 +1,5 @@
+---
+- include: ../../../../user_environment/operations_user_environment/tasks/usr_bin/add_usr_bin_templates_from_role.yml
+  vars:
+    parameter_add_usr_bin_templates_from_role_name: mailhog/package_mailhog
+    parameter_add_usr_bin_templates_from_role_dir: bin

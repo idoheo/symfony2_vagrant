@@ -1,0 +1,40 @@
+---
+- include: ../../../operations_php5_xdebug/tasks/config_xdebug/config_xdebug_module.yml
+  when: role_actions_php5_xdebug__tasks__configure_xdebug__setup_debugging
+  vars:
+    parameter_config_xdebug_module_title: "Configuring xDebug remote debuging as user specification"
+    parameter_config_xdebug_module:
+      - section: xdebug
+        content:
+          - option: xdebug.remote_autostart
+            value: 0
+          - option: xdebug.remote_connect_back
+            value: "{%if role_actions_php5_xdebug__tasks__configure_xdebug__remote_ip|trim|length > 0 %}0{% else %}1{% endif %}"
+          - option: xdebug.remote_cookie_expire_time
+            value: 3600
+          - option: xdebug.remote_enable
+            value: 1
+          - option: xdebug.remote_handler
+            value: dbgp
+          - option: xdebug.remote_host
+            value: "{{ role_actions_php5_xdebug__tasks__configure_xdebug__remote_ip|trim }}"
+          - option: xdebug.remote_log
+            value: 
+          - option: xdebug.remote_mode
+            value: req
+          - option: xdebug.remote_port
+            value: "{{ role_actions_php5_xdebug__tasks__configure_xdebug__remote_port }}"
+          - option: xdebug.idekey
+            value: "{{ role_actions_php5_xdebug__tasks__configure_xdebug__remote_idekey }}"
+
+- include: ../../../../user_environment/operations_user_environment/tasks/bash_aliases/add_bash_aliases.yml
+  when: role_actions_php5_xdebug__tasks__configure_xdebug__setup_debugging
+  vars:
+    parameter_add_bash_aliases_title: Adding xDebug Bash aliases to start and stop xdebug
+    parameter_add_bash_aliases:
+      - name: xdebug-vars
+        command: ' echo \"\" ; echo \"\"; echo \"-- xDebug variables --\"; echo \"\"; echo \"\\$XDEBUG_CONFIG = $XDEBUG_CONFIG\"; echo \"\\$PHP_IDE_CONFIG = $PHP_IDE_CONFIG\"; echo \"\"; echo \"-- ---------------- --\"; echo \"\";'
+      - name: xdebug-start
+        command: 'export  XDEBUG_CONFIG=\"idekey={{ role_actions_php5_xdebug__tasks__configure_xdebug__remote_idekey }}\"; export PHP_IDE_CONFIG=\"serverName={{ role_actions_php5_xdebug__tasks__configure_xdebug__remote_server_name }}\"; xdebug-vars'
+      - name: xdebug-stop
+        command: 'unset XDEBUG_CONFIG; unset PHP_IDE_CONFIG; xdebug-vars'

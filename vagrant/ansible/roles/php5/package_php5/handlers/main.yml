@@ -1,0 +1,9 @@
+---
+- name: Restart Php 5
+  command: service {{ item }} restart
+#  service: name="{{ item }}"
+#           sleep="2"
+#           state="restarted"
+  with_items:
+    - "{{ role_package_php5__var__fpm_service }}"
+  sudo: true

@@ -1,0 +1,5 @@
+---
+dependencies:
+  - { role: apt/operations_apt }
+  - { role: logio/operations_logio }
+  - { role: java_jre/install_java_jre }

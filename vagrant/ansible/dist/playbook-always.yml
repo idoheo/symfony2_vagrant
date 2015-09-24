@@ -1,0 +1,46 @@
+---
+- name: System setup
+  hosts: all
+  roles:
+#### INSTALLATIONS WITH ADDITIONAL ACTIONS HERE IN PLAYBOOK
+#    - user_environment/actions_user_environment
+    - apt/actions_apt
+#    - git/actions_git
+#    - pip/actions_pip
+#    - nodejs/actions_nodejs
+#    - ruby/actions_ruby
+#    - mysql/actions_mysql
+#    - logio/actions_logio
+#    - php5/actions_php5
+#    - composer/actions_composer
+#    - php5_xdebug/actions_php5_xdebug
+#    - nginx/actions_nginx
+#    - mailhog/actions_mailhog
+#    - elasticsearch/actions_elasticsearch
+#    - rabbitmq/actions_rabbitmq
+#    - varnish/actions_varnish
+#    - redis_commander/actions_redis_commander
+#### DEV SITE FLAVOR INSTALLATIONS
+#    - dev_site/install_dev_site
+#    - symfony2_dev_site/install_symfony2_dev_site
+#### DEV SITE INCOPERATED INSTALLATION
+#    - dev_site_ssl/install_dev_site_ssl
+#    - dev_site_codebox/install_dev_site_codebox
+#    - dev_site_cloud9/install_dev_site_cloud9
+#    - dev_site_git_webui/install_dev_site_git_webui
+#### PHP DEVELOPMENT INSTALLATIONS
+#    - php5_mailhog/install_php5_mailhog
+#    - php5_imagick/install_php5_imagick
+#    - php5_curl/install_php5_curl
+#    - php5_intl/install_php5_intl
+#    - php5_mcrypt/install_php5_mcrypt
+#### OTHER INSTALLATIONS
+#    - redis/install_redis
+#    - nginx_phpmyadmin/install_nginx_phpmyadmin
+#    - mongodb/install_mongodb
+#    - mongo_management_studio/install_mongo_management_studio
+##    - kibana/install_kibana
+##    - webmin/install_webmin
+  vars_files:
+    - default-playbook-vars.yml
+    - playbook-always-vars.yml

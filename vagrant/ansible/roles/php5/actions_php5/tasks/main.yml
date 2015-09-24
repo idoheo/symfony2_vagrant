@@ -1,0 +1,5 @@
+- include: main/remove_php5_modules.yml
+- include: main/install_php5_modules.yml
+- include: main/disable_php5_modules.yml
+- include: main/enable_php5_modules.yml
+- include: main/update_php5_ini.yml

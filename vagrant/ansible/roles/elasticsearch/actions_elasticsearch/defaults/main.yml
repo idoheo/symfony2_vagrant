@@ -1,0 +1,3 @@
+---
+role_actions_elasticsearch__tasks__install_elasticsearch_plugins: [ ]
+role_actions_elasticsearch__tasks__remove_elasticsearch_plugins: [ ]

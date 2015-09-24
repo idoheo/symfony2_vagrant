@@ -1,0 +1,4 @@
+- include: ../../../operations_mysql/tasks/mysql_users/remove_mysql_users_by_username.yml
+  vars:
+    parameter_remove_mysql_users_by_username_title: "Removing User specified MySQL users (by username)"
+    parameter_remove_mysql_users_by_username: "{{ role_actions_mysql__tasks__remove_mysql_users_by_username__users }}"

@@ -1,0 +1,11 @@
+---
+- include: ../../../../vagrant_assets/operations_vagrant_assets/tasks/assets_dirs/create_assets_dirs.yml
+  vars:
+    parameter_create_assets_dirs: "{{ role_actions_varnish__var__config_assets_dir }}"
+    parameter_create_assets_dirs_title: Creating assets dir for Varnish configs
+
+- include: ../../../operations_varnish/tasks/varnish_configs/add_varnish_config_templates.yml
+  vars:
+    parameter_add_varnish_config_templates_dir: "{{ fact_assets_dir_path }}/{{ role_actions_varnish__var__config_assets_dir }}"
+    parameter_add_varnish_config_templates_title: Adding user specified Varnish configs
+

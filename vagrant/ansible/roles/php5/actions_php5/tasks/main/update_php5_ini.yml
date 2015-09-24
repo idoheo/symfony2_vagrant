@@ -1,0 +1,20 @@
+- include: ../../../operations_php5/tasks/php5_ini/php5_ini.yml
+  vars:
+    parameter_php5_ini_title: "Setting up user specified Php 5 common ini config"
+    parameter_php5_ini: "{{ role_actions_php5__tasks__php5_ini__common_ini }}"
+    parameter_php5_ini_fpm: yes
+    parameter_php5_ini_cli: yes
+
+- include: ../../../operations_php5/tasks/php5_ini/php5_ini.yml
+  vars:
+    parameter_php5_ini_title: "Setting up user specified Php 5 FPM ini config"
+    parameter_php5_ini: "{{ role_actions_php5__tasks__php5_ini__fpm_ini }}"
+    parameter_php5_ini_fpm: yes
+    parameter_php5_ini_cli: no
+
+- include: ../../../operations_php5/tasks/php5_ini/php5_ini.yml
+  vars:
+    parameter_php5_ini_title: "Setting up user specified Php 5 CLI ini config"
+    parameter_php5_ini: "{{ role_actions_php5__tasks__php5_ini__cli_ini }}"
+    parameter_php5_ini_fpm: no
+    parameter_php5_ini_cli: yes

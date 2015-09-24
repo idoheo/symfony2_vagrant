@@ -1,0 +1,9 @@
+---
+- name: Restart Log.io
+  service: name="{{ item }}"
+           sleep="2"
+           state="restarted"
+  with_items:
+    - "{{ role_package_logio__var__server_service }}"
+    - "{{ role_package_logio__var__harvester_service }}"
+  sudo: true

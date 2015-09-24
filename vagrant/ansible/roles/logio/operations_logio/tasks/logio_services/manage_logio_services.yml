@@ -1,0 +1,25 @@
+---
+###
+# Manage Log.io services
+###
+#
+#	DESCRIPTION
+#
+#		Manages state of Log.io services
+###
+#
+#	VARIABLES:
+#
+#		parameter_manage_logio_services_status - REQUIRED - Desired status of services (started, stopped, restarted, reloaded)
+#		parameter_manage_logio_services_title  - OPTIONAL - Descriptive title of actions taken
+#
+###
+
+- name: "{{ parameter_manage_logio_services_title | default ( 'Managing Log.io services ') }}"
+  service: name="{{ item }}"
+           state="{{ parameter_manage_logio_services_status | mandatory }}"
+           sleep=2
+  with_items:
+    - "{{ role_package_logio__var__server_service }}"
+    - "{{ role_package_logio__var__harvester_service }}"
+  sudo: true

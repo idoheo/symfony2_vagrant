@@ -1,0 +1,48 @@
+---
+- include: ../../../operations_php5_xdebug/tasks/config_xdebug/config_xdebug_module.yml
+  vars:
+    parameter_config_xdebug_module_title: "Enabling xDebug basic enhacments"
+    parameter_config_xdebug_module:
+      - section: xdebug
+        content:
+          - option: xdebug.default_enable
+            value: 1
+          - option: xdebug.coverage_enable
+            value: 1
+
+- include: ../../../operations_php5_xdebug/tasks/config_xdebug/config_xdebug_module.yml
+  when: role_actions_php5_xdebug__tasks__configure_xdebug__enhance_var_dump
+  vars:
+    parameter_config_xdebug_module_title: "Configuring xDebug to enhance vardump()"
+    parameter_config_xdebug_module:
+      - section: xdebug
+        content:
+          - option: xdebug.overload_var_dump
+            value: 1
+          - option: xdebug.cli_color
+            value: 1
+
+- include: ../../../operations_php5_xdebug/tasks/config_xdebug/config_xdebug_module.yml
+  when: role_actions_php5_xdebug__tasks__configure_xdebug__setup_errors
+  vars:
+    parameter_config_xdebug_module_title: "Configuring xDebug error settings"
+    parameter_config_xdebug_module:
+      - section: xdebug
+        content:
+          - option: xdebug.force_display_errors
+            value: "{% if role_actions_php5_xdebug__tasks__configure_xdebug__force_errors|trim|length > 0 %}1{% else %}0{% endif %}"
+          - option: xdebug.force_error_reporting
+            value: "{{ role_actions_php5_xdebug__tasks__configure_xdebug__force_errors }}"
+          - option: xdebug.halt_level
+            value: "{{ role_actions_php5_xdebug__tasks__configure_xdebug__halt_level }}"
+          - option: xdebug.scream
+            value: "{% if role_actions_php5_xdebug__tasks__configure_xdebug__scream %}1{% else %}0{% endif %}"
+
+- include: ../../../operations_php5_xdebug/tasks/config_xdebug/config_xdebug_module.yml
+  vars:
+    parameter_config_xdebug_module:
+      - section: xdebug
+        content: "{{ role_actions_php5_xdebug__tasks__configure_xdebug__config }}"
+    parameter_config_xdebug_module_title: "Configuring xDebug as user specification"
+
+

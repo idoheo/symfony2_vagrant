@@ -1,0 +1,9 @@
+---
+- include: ../../../../codebox/operations_codebox/tasks/codebox_services/create_codebox_service.yml
+  vars:
+    parameter_create_codebox_service_title: Installing Codebox for dev site
+    parameter_create_codebox_service_name: dev-site
+    parameter_create_codebox_service_user: "{{ fact_site_dir_user }}"
+    parameter_create_codebox_service_port: "{{ role_package_dev_site_codebox__config__web_server__port }}"
+    parameter_create_codebox_service_path: "{{ role_support_dev_site__setup__source_path }}"
+    parameter_create_codebox_service_passwords: "{{ role_package_dev_site_codebox__config__web_server__passwords }}"

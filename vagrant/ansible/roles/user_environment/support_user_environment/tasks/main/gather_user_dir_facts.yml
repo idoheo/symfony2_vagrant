@@ -1,0 +1,25 @@
+---
+- name: Getting user home dir
+  shell: "echo $(cd ~ && pwd)"
+  sudo: yes
+  sudo_user: "{{ role_support_user_environment__setup__user | mandatory }}"
+  register: result_user_home_dir
+
+- name: "Getting user home dir user"
+  shell: "stat '{{ result_user_home_dir.stdout }}' --format=%U"
+  sudo: true
+  changed_when: false
+  register: result_user_home_dir_user
+
+- name: "Getting user home dir group"
+  shell: "stat '{{ result_user_home_dir.stdout }}' --format=%G"
+  sudo: true
+  changed_when: false
+  register: result_user_home_dir_group
+
+- name: "Setting up user dir facts"
+  set_fact:
+    fact_user_environment_user: "{{ role_support_user_environment__setup__user | mandatory }}"
+    fact_user_environment_user_home_dir: "{{ result_user_home_dir.stdout }}"
+    fact_user_environment_user_home_dir_user: "{{ result_user_home_dir_user.stdout }}"
+    fact_user_environment_user_home_dir_group: "{{ result_user_home_dir_group.stdout }}"

@@ -1,0 +1,4 @@
+- name: "Dummy Ruby operation notification"
+  debug: msg="Dummy Ruby operation notification"
+  when: false
+  

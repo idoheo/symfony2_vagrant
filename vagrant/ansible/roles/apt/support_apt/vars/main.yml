@@ -1,0 +1,14 @@
+---
+role_support_apt__var__perl_locales:
+  - LANGUAGE
+  - LC_ALL
+  - LC_PAPER
+  - LC_ADDRESS
+  - LC_MONETARY
+  - LC_NUMERIC
+  - LC_TELEPHONE
+  - LC_IDENTIFICATION
+  - LC_MEASUREMENT
+  - LC_TIME
+  - LC_NAME
+  - LANG

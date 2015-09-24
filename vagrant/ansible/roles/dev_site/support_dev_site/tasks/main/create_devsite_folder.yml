@@ -1,0 +1,13 @@
+---
+- name: Creating Dev site folder
+  file: path="{{ role_support_dev_site__setup__web_path }}"
+        state="directory"
+  sudo: true
+  register: result_folder_created
+
+- name: Updating dev site folder permissions
+  file: path="{{ role_support_dev_site__setup__web_path }}"
+        owner="{{ fact_site_dir_user }}"
+        group="{{ fact_site_dir_group }}"
+        mode="0755"
+  when: result_folder_created.changed

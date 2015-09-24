@@ -1,0 +1,5 @@
+---
+dependencies:
+  - { role: php5/operations_php5 }
+  - { role: mailhog/install_mailhog }
+  - { role: go_lang/operations_go_lang }

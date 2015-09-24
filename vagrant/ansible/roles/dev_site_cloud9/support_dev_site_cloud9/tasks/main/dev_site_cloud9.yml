@@ -1,0 +1,8 @@
+---
+- include: ../../../../cloud9/operations_cloud9/tasks/cloud9_services/create_cloud9_service.yml
+  vars:
+    parameter_create_cloud9_service_title: Installing Cloud9 for dev site
+    parameter_create_cloud9_service_name: dev-site
+    parameter_create_cloud9_service_port: "{{ role_package_dev_site_cloud9__config__web_server__port }}"
+    parameter_create_cloud9_service_path: "{{ role_support_dev_site__setup__source_path }}"
+    parameter_create_cloud9_service_auth: "{{ role_package_dev_site_cloud9__config__web_server__auth }}"

@@ -1,0 +1,26 @@
+---
+###
+# Read web jq
+###
+#
+#	DESCRIPTION:
+#
+#		Reads JSON value using .jq from web url
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_read_web_jq_url      - REQUIRED - URL used to get input JSON
+#		parameter_read_web_jq_path     - REQUIRED - Path to Json variable
+#		parameter_read_web_jq_nullable - OPTIONAL - Is nullable result valid
+#		parameter_read_web_jq_title    - OPTIONAL - Alternative descriptive title of action taken
+
+#
+###
+- include: read_jq.yml
+  vars:
+    parameter_read_jq_input: "curl -s '{{ parameter_read_web_jq_url }}'"
+    parameter_read_jq_path: "{{ parameter_read_web_jq_path }}"
+    parameter_read_jq_nullable: "{{ parameter_read_web_jq_nullable | default(false) }}"
+    parameter_read_jq_title: "{{ parameter_read_web_jq_title | default('Reading remote JSON value') }}"

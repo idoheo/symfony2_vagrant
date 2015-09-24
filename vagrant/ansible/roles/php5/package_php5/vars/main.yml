@@ -1,0 +1,10 @@
+role_package_php5__var__apt_packages:
+  - php5-common
+  - php5-cli
+  - php5-fpm
+role_package_php5__var__fpm_service: "php5-fpm"
+role_package_php5__var__mods_available: "/etc/php5/mods-available"
+role_package_php5__var__fpm_www_pool_conf: "/etc/php5/fpm/pool.d/www.conf"
+role_package_php5__var__fpm_ini: "/etc/php5/fpm/php.ini"
+role_package_php5__var__cli_ini: "/etc/php5/cli/php.ini"
+role_package_php5__var__fpm_socket: "/var/run/php5-fpm.sock"

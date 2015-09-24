@@ -1,0 +1,3 @@
+---
+- include: main/install_mongodb.yml
+- include: main/update_logio.yml

@@ -1,0 +1,5 @@
+role_package_ruby__var__apt_packages:
+  - ruby
+  - ruby-dev
+  - rubygems-integration
+  - bundler

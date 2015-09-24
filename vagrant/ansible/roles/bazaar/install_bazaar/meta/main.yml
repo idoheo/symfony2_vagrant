@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: bazaar/package_bazaar }

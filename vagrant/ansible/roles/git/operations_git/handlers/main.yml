@@ -1,0 +1,4 @@
+- name: "Dummy GIT operation notification"
+  debug: msg="Dummy GIT operation notification"
+  when: false
+  

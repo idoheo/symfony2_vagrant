@@ -1,0 +1,25 @@
+---
+###
+# Update Log.io harvester
+###
+#
+#	DESCRIPTION
+#
+#		Updates values for templated harvester config and copies it to harvester service config
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_update_logio_harvester_name    - REQUIRED - Name of Log.io section
+#		parameter_update_logio_harvester_files[] - REQUIRED - Files for Log.io section
+#		parameter_update_logio_harvester_title   - OPTIONAL - Alternative descriptive title of actions taken
+###
+
+- name: "{{ parameter_update_logio_harvester_title | default('Updating Log.io harvester') }} (Adding to Log.io harvester)"
+  set_fact:
+    role_package_logio_logs_list: "{{ role_package_logio_logs_list + [ {'name': parameter_update_logio_harvester_name | mandatory , 'files': parameter_update_logio_harvester_files | mandatory }] }}"
+
+- include: update_logio_harvester_config.yml
+  vars:
+    parameter_update_logio_harvester_config_title: "{{ parameter_update_logio_harvester_name }}"

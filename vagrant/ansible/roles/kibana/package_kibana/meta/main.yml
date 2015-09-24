@@ -1,0 +1,8 @@
+---
+dependencies:
+  - { role: apt/operations_apt }
+  - { role: git/operations_git }
+  - { role: upstart/operations_upstart }
+  - { role: git/install_git }
+  - { role: asset_downloads/operations_asset_downloads }
+  - { role: elasticsearch/install_elasticsearch }

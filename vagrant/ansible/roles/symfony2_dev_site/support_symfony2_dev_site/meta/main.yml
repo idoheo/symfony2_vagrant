@@ -1,0 +1,6 @@
+---
+dependencies:
+  - { role: php5/operations_php5 }
+  - { role: php5_intl/install_php5_intl }
+  - { role: dev_site/install_dev_site }
+  - { role: logio/operations_logio }

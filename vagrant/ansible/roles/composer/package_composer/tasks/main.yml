@@ -1,0 +1,4 @@
+---
+- include: main/setup_php5_modules.yml
+- include: main/download_composer.yml
+- include: main/setup_composer_env.yml

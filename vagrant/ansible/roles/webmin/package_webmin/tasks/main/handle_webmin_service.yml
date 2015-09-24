@@ -1,0 +1,16 @@
+---
+- name: Starting Webmin
+  service: name="{{ item }}"
+           state="restarted"
+  with_items:
+    - "{{ role_package_webmin__service }}"
+  sudo: true
+
+- name: Stopping Webmin and scheduling restart
+  service: name="{{ item }}"
+           state="stopped"
+  with_items:
+    - "{{ role_package_webmin__service }}"
+  changed_when: true
+  notify: Restart Webmin
+  sudo: true

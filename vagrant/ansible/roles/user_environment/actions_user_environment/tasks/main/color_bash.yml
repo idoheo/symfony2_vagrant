@@ -1,0 +1,16 @@
+---
+- name: Enabling color in Bash
+  replace: dest="{{ fact_user_environment_user_home_dir }}/.bashrc"
+           regexp="^([\#]{0,1})force_color_prompt="
+           replace="force_color_prompt=yes"
+  when: role_actions_user_environment__tasks__colorize_bash
+  sudo: true
+  sudo_user: "{{ fact_user_environment_user_home_dir_user }}"
+
+- name: Setting command line colors in Bash
+  lineinfile: dest="{{ fact_user_environment_user_home_dir }}/.bashrc"
+              insertbefore="unset( .* | )color_prompt(| .*)$"
+              line="PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\[\033[01;35m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '"
+  when: role_actions_user_environment__tasks__colorize_bash
+  sudo: true
+  sudo_user: "{{ fact_user_environment_user_home_dir_user }}"

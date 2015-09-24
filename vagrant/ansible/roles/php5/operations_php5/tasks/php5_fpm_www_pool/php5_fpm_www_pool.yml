@@ -1,0 +1,29 @@
+###
+#  Php 5 fpm www pool
+###
+#
+#	DESCRIPTION:
+#
+#		Configures Php 5 Fpm service www pool
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_php5_fpm_www_pool[]                  - REQUIRED - Configuration for FPM www pool
+#		                             .section          - OPTIONAL - Name of subsection in ini file if different then module name
+#		                             .content[]        - REQUIRED - Content of configuration
+#                                                      .option - REQUIRED - Option name
+#                                                      .value  - REQUIRED - Option value
+#		parameter_php5_fpm_www_pool_title              - OPTIONAL - Alternative title for actions taken
+#		parameter_php5_fpm_www_pool_notify             - OPTIONAL - Notifications to trigger if anything has changed
+#
+###
+---
+- include: ../../../../ini_files/operations_ini_files/tasks/ini_files/update_ini_files.yml
+  vars:
+    parameter_update_ini_file: "{{ role_package_php5__var__fpm_www_pool_conf }}"
+    parameter_update_ini_file_content: "{{ parameter_php5_fpm_www_pool }}"
+    parameter_update_ini_file_title: "{{ parameter_php5_fpm_www_pool_title | default('Updating Php 5 WWW pool configuration') }}"
+    parameter_update_ini_file_notify: "{{ parameter_php5_fpm_www_pool_notify | default ('Dummy Php 5 operation notification') }}"
+    parameter_update_ini_file_default_section: "www"

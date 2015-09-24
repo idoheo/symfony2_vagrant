@@ -1,0 +1,22 @@
+---
+###
+# Remove Elasticsearch plugins
+###
+#
+#	DESCRIPTION
+#
+#		Removes Elasticsearch plugins
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_remove_elasticsearch_plugins       - REQUIRED - List of plugins to remove
+#		parameter_remove_elasticsearch_plugins_title - OPTIONAL - Alternative descriptive title
+#
+###
+
+- name: "{{ parameter_remove_elasticsearch_plugins_title | default('Removing Elasticsearch plugins') }}"
+  shell: "{{ role_operations_elasticsearch__var__plugin_bin }} --remove {{ item }}"
+  sudo: true
+  with_items: parameter_remove_elasticsearch_plugins

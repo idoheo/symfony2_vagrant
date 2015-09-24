@@ -1,0 +1,5 @@
+role_package_nodejs__var__apt_packages:
+  - nodejs
+  - nodejs-dev
+  - nodejs-legacy
+  - npm

@@ -1,0 +1,8 @@
+---
+- include: ../../../../upstart/operations_upstart/tasks/upstart/build_upstarts.yml
+  vars:
+    parameter_build_upstarts_title: Creating Kibana service
+    parameter_build_upstarts:
+      - service: "{{ role_package_kibana__var__service }}"
+        name: "Kibana"
+        command: 'sudo -u root -H "{{ role_package_kibana__var__kibana_dir }}/kibana/bin/kibana"'

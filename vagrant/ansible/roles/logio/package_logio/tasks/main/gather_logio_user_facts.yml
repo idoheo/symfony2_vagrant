@@ -1,0 +1,25 @@
+---
+- name: Getting Log.io user home dir
+  shell: "echo $(cd ~ && pwd)"
+  sudo: yes
+  sudo_user: "{{ role_package_logio__var__user | mandatory }}"
+  register: result_logio_user_home_dir
+
+- name: "Getting Log.io user home dir user"
+  shell: "stat '{{ result_logio_user_home_dir.stdout }}' --format=%U"
+  sudo: true
+  changed_when: false
+  register: result_logio_user_home_dir_user
+
+- name: "Getting Log.io user home dir group"
+  shell: "stat '{{ result_logio_user_home_dir.stdout }}' --format=%G"
+  sudo: true
+  changed_when: false
+  register: result_logio_user_home_dir_group
+
+- name: "Setting up Log.io user facts"
+  set_fact:
+    fact_logio_user_environment_user: "{{ role_package_logio__var__user | mandatory }}"
+    fact_logio_user_environment_user_home_dir: "{{ result_logio_user_home_dir.stdout }}"
+    fact_logio_user_environment_user_home_dir_user: "{{ result_logio_user_home_dir_user.stdout }}"
+    fact_logio_user_environment_user_home_dir_group: "{{ result_logio_user_home_dir_group.stdout }}"

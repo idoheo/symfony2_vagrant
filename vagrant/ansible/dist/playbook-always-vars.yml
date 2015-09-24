@@ -1,0 +1,9 @@
+    role_actions_apt__tasks__remove_apt_repositories__repositories: []
+    role_actions_apt__tasks__remove_apt_keys__keys: []
+    role_actions_apt__tasks__download_apt_keys__keys: []
+    role_actions_apt__tasks__add_apt_repositories__repositories: []
+    role_actions_apt__tasks__remove_apt_packages__packages: []
+    role_actions_apt__tasks__install_apt_packages__packages: []
+    role_actions_apt__tasks__update_apt_packages: yes
+
+

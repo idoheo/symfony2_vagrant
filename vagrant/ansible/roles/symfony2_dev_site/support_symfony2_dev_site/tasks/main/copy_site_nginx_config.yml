@@ -1,0 +1,7 @@
+---
+- include: ../../../../dev_site/support_dev_site/tasks/config_files/copy_dev_site_config_files.yml
+  vars:
+    paremeter_copy_dev_site_configs_role: "symfony2_dev_site/support_symfony2_dev_site"
+    parameter_copy_dev_site_configs_dir: "site_nginx_config"
+    parameter_copy_dev_site_configs_title: "Copying dev site nginx configs (Symfony 2 version)"
+

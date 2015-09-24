@@ -1,0 +1,6 @@
+---
+dependencies:
+  - { role: ansible_download_support/install_ansible_download_support}
+  - { role: git/install_git }
+  - { role: php5/operations_php5 }
+  - { role: user_environment/support_user_environment }

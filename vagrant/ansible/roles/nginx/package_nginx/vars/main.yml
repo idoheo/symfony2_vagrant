@@ -1,0 +1,8 @@
+role_package_nginx__var__apt_packages:
+  - nginx
+  - nginx-extras
+role_package_nginx__var__service: nginx
+role_package_nginx__var__sites_available: /etc/nginx/sites-available
+role_package_nginx__var__sites_enabled: /etc/nginx/sites-enabled
+role_package_nginx__var__configs_available: /etc/nginx/configs-available
+role_package_nginx__var__configs_enabled: /etc/nginx/configs-enabled

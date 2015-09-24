@@ -1,0 +1,6 @@
+- include: ../../../operations_apt/tasks/apt_repositories/add_apt_repositories.yml
+  vars:
+    parameter_add_apt_repositories_title: "Adding User specified APT repositories"
+    parameter_add_apt_repositories: "{{ role_actions_apt__tasks__add_apt_repositories__repositories }}"
+    parameter_add_apt_repositories_update_cache: "{{ role_actions_apt__tasks__add_apt_repositories__update_cache }}"
+    parameter_add_apt_repositories_valdate_certs: "{{ role_actions_apt__tasks__add_apt_repositories__validate_certs }}"

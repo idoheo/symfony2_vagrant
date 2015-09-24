@@ -1,0 +1,5 @@
+---
+role_actions_rabbitmq__tasks__enable_plugins: [ ]
+role_actions_rabbitmq__tasks__disable_plugins: [ ]
+role_actions_rabbitmq__tasks__add_users: [ ]
+role_actions_rabbitmq__tasks__remove_users: [ ]

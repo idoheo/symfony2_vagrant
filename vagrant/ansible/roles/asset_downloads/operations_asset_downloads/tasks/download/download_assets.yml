@@ -1,0 +1,53 @@
+---
+###
+# Download assets
+###
+#
+#	DESCRIPTION
+#
+#		Create asset downloads dirs
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_download_assets[]        - REQUIRED - Lists of assets dirs to create
+#		                           .url
+#		                           .dest          - REQUIRED - 
+#                                          .username      - OPTIONAL - Username for use in HTTP basc authentication
+#                                          .password      - OPTIONAL - Password for use in HTTP basc authentication
+#		                           .sha256sum     - OPTIONAL - A SHA-256 checksum to compare to the calculated digest of the destination file to ensure download
+#                                          .force         - OPTIONAL - Should item be redownloaded if it already exists
+#                                          .extract_to    - OPTIONAL - Path where to extract downloaded archive
+#                                          .extract_user  - OPTIONAL - Extract as user
+#                                          .extract_group - OPTIONAL - Extract as group
+#		parameter_download_assets_title           - OPTIONAL - Alternative descriptive title of download
+#		parameter_download_assets_validate_certs  - OPTIONAL - Should SSL certificates be validated
+#		parameter_download_assets_timeout         - OPTIONAL - Timeout for requests
+#		parameter_download_assets_use_proxy       - OPTIONAL - If "no" it will not use proxy, even if one is defined in environment variable
+#
+###
+
+- name: "{{ parameter_download_assets_title | default ('Downloading assets') }}"
+  get_url: url="{{ item.url }}"
+           dest="{{ fact_assets_dir_path }}/{{ role_support_asset_downloads__var__downloads_dir }}/{{ item.dest }}"
+           sha256sum="{{ item.sha256sum | default() }}"
+           force="{{ item.force | default(false) }}"
+           url_username="{{ item.username|default() }}"
+           url_password="{{ item.password|default() }}"
+           timeout="{{ parameter_download_assets_timeout|default(10) }}"
+           use_proxy="{{ parameter_download_assets_use_proxy|default(true) }}"
+           validate_certs="{{ parameter_download_assets_validate_certs|default(true) }}"
+           owner="{{ fact_assets_dir_user }}"
+           group="{{ fact_assets_dir_group }}"
+  with_items: parameter_download_assets|mandatory
+  sudo: true
+
+- name: "{{ parameter_download_assets_title | default ('Downloading assets') }} (Extracting downloaded assets)"
+  unarchive: src="{{ fact_assets_dir_path }}/{{ role_support_asset_downloads__var__downloads_dir }}/{{ item.dest }}"
+             dest="{{ item.extract_to }}"
+             owner="{{ item.extract_user | default('root') }}"
+             group="{{ item.extract_group | default('root') }}"
+  when: "{{ item.extract_to|default()|trim|length > 0 }}"
+  with_items: parameter_download_assets|mandatory
+  sudo: true

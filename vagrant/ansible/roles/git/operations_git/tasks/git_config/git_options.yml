@@ -1,0 +1,27 @@
+###
+# Git config
+###
+#
+#	DESCRIPTION:
+#
+#		Configures git
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_git_options[]              - REQUIRED - Array of settings
+#		                       .option       - REQUIRED - Option name
+#		                       .value        - REQUIRED - Option value
+#		parameter_git_options_option_prefix  - OPTIONAL - Prefix to option names
+#		parameter_git_options_option_postfix - OPTIONAL - Postfix to option names
+#		parameter_git_options_user           - OPTIONAL - User for which to run git options
+#		parameter_git_options_title          - OPTIONAL - Alternative descriptive title of action taken
+###
+
+- name: "{{ parameter_git_options_title | default('Setting git options') }}"
+  command: "git config --global --replace-all '{{ parameter_git_options_option_prefix|default('') }}{{ item.option | mandatory }}{{ parameter_git_options_option_postfix|default('') }}' '{{ item.value | mandatory }}'"
+  sudo: true
+  sudo_user: "{{ parameter_git_options_user | default( fact_user_environment_user ) }}"
+  with_items: "{{ parameter_git_options }}"
+  

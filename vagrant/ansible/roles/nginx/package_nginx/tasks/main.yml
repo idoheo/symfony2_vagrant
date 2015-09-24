@@ -1,0 +1,6 @@
+- include: main/install_nginx.yml
+- include: main/handle_nginx_service.yml
+- include: main/gather_nginx_facts.yml
+- include: main/disable_default_website.yml
+- include: main/create_nginx_config_dir.yml
+- include: main/update_logio.yml

@@ -1,0 +1,22 @@
+---
+###
+# Adds /usr/local/bin scripts from templates in role
+###
+#
+#	DESCRIPTION:
+#
+#		Adds /usr/local/bin scripts from templates in role
+###
+#
+#	VARIABLES:
+#
+#		parameter_add_usr_bin_templates_from_role_name         - REQUIRED - Name of role
+#		parameter_add_usr_bin_templates_from_role_dir          - REQUIRED - Template dir in role
+#		parameter_add_usr_bin_templates_from_role_title        - OPTIONAL - Alternative descriptive title of what is being done
+#		parameter_add_usr_bin_templates_from_role_notify       - OPTIONAL - Notification to be triggered on any changes made
+#
+###
+- include: ./add_usr_bin_templates.yml
+  vars:
+    parameter_add_usr_bin_templates_dir: "../../../../{{ parameter_add_usr_bin_templates_from_role_name | mandatory }}/templates/{{ parameter_add_usr_bin_templates_from_role_dir | mandatory }}"
+    parameter_add_usr_bin_templates_title: "{{ parameter_add_usr_bin_templates_from_role_title | default('Copying usr bin srcipt files from role') }}"

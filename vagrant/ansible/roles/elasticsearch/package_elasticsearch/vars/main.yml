@@ -1,0 +1,7 @@
+role_package_elasticsearch__var__apt_packages:
+  - elasticsearch
+role_package_elasticsearch__service: elasticsearch
+
+role_package_elasticsearch__var__apt_key_url: https://packages.elasticsearch.org/GPG-KEY-elasticsearch
+role_package_elasticsearch__var__apt_key_id: D88E42B4
+role_package_elasticsearch__var__apt_repository: deb http://packages.elasticsearch.org/elasticsearch/1.7/debian stable main

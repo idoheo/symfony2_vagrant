@@ -1,0 +1,3 @@
+role_package_mongodb__var__apt_packages:
+  - mongodb
+role_package_mongodb__var__service: mongodb

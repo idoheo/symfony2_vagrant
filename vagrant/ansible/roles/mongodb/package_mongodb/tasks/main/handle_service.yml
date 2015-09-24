@@ -1,0 +1,16 @@
+---
+- name: Starting MongoDB
+  service: name="{{ item }}"
+           state="restarted"
+  with_items:
+    - "{{ role_package_mongodb__var__service }}"
+  sudo: true
+
+- name: Stopping MongoDB and scheduling restart
+  service: name="{{ item }}"
+           state="stopped"
+  with_items:
+    - "{{ role_package_mongodb__var__service }}"
+  changed_when: true
+  notify: Restart MongoDB
+  sudo: true

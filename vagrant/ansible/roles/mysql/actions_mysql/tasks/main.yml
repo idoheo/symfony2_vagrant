@@ -1,0 +1,18 @@
+- include: main/create_assets_dir.yml
+- include: main/backup_mysql_databases.yml
+- include: main/backup_mysql_databases_to_assets.yml
+- include: main/remove_mysql_databases.yml
+- include: main/create_mysql_databases.yml
+- include: main/restore_mysql_databases_from_assets.yml
+- include: main/restore_mysql_databases.yml
+
+- include: main/cycle_mysql_databases_from_assets.yml
+
+- include: main/remove_mysql_users.yml
+- include: main/remove_mysql_users_by_username.yml
+- include: main/create_mysql_users.yml
+
+- include: main/set_mysql_bind_address.yml
+
+
+

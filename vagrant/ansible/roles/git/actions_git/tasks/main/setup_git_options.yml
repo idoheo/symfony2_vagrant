@@ -1,0 +1,8 @@
+---
+- include: ../../../operations_git/tasks/git_config/git_options.yml
+  vars:
+    parameter_git_options: "{{ role_actions_git__tasks__set_options__options }}"
+    parameter_git_options_user: "{{ fact_user_environment_user }}"
+    parameter_git_options_title: Setting user specified Git options
+    parameter_git_options_option_prefix: ''
+    parameter_git_options_option_postfix: ''

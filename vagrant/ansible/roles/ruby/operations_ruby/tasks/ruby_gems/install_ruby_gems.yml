@@ -1,0 +1,25 @@
+###
+# Install Ruby gems
+###
+#
+#	DESCRIPTION:
+#
+#		Installs specified Ruby games
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_install_ruby_gems        - REQUIRED - List of gems to manage install
+#		parameter_install_ruby_gems_title  - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_install_ruby_gems_latest - OPTIONAL - Should latest gems be installed
+#		parameter_install_ruby_gems_notify - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+
+- include: ./manage_ruby_gems.yml
+  vars:
+    parameter_manage_ruby_gems: "{{ parameter_install_ruby_gems | mandatory }}"
+    parameter_manage_ruby_gems_title: "{{ parameter_install_ruby_gems_title | default('Installing Ruby gems') }}"
+    parameter_manage_ruby_gems_state: "{% if (parameter_install_ruby_gems_latest | default( task_default__operations_ruby__ruby_gems__install_ruby_gems__latest )) %}latest{% else %}present{% endif %}"
+    parameter_manage_ruby_gems_notify: "{{ parameter_install_ruby_gems_noftify | default('Dummy Ruby operation notification') }}"

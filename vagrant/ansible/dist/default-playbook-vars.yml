@@ -1,0 +1,528 @@
+###########################
+ # SOME COMMON VARIABLES #
+###########################
+    common_var_dev_env_name: Vagrant-Development
+    common_var_admin_user: admin
+    common_var_admin_pass: pass
+    common_var_read_only_user: reader
+    common_var_read_only_pass: reader
+    common_var_host_box_ip: 192.168.100.1
+    common_var_application_database: application
+
+#############################
+ # SETUP: Codebox Dev Site #
+#############################
+
+    role_package_dev_site_codebox__config__web_server__passwords: "{{ common_var_admin_user }}:{{ common_var_admin_pass }}"
+
+############################
+ # SETUP: Cloud9 Dev Site #
+############################
+
+    role_package_dev_site_cloud9__config__web_server__auth: "{{ common_var_admin_user }}:{{ common_var_admin_pass }}"
+
+################################
+ # ACTIONS : USER ENVIRONMENT #
+################################
+
+#
+# Try colorizing bash
+#
+    role_actions_user_environment__tasks__colorize_bash: yes
+
+#
+# Set hostname
+#
+    role_actions_user_environment__tasks__hostname: "{{ common_var_dev_env_name }}"
+
+###################
+ # ACTIONS : APT #
+###################
+
+#
+# Removal of Apt repositories
+#
+    role_actions_apt__tasks__remove_apt_repositories__repositories: []
+    role_actions_apt__tasks__remove_apt_repositories__update_cache: yes
+#
+# Removing Apt keys
+#
+
+    role_actions_apt__tasks__remove_apt_keys__validate_certs: yes
+    role_actions_apt__tasks__remove_apt_keys__keys: []
+#      - key: KEY TO REMOVE
+
+#
+# Downloading Apt keys
+#
+
+    role_actions_apt__tasks__download_apt_keys__validate_certs: yes
+    role_actions_apt__tasks__download_apt_keys__keys: []
+#      - url: URL OF THE KEY
+#        key: OPTIONAL KEY EXPECTED AT URL
+
+
+#
+# Addig of Apt repositories
+#
+    role_actions_apt__tasks__add_apt_repositories__repositories: []
+    role_actions_apt__tasks__add_apt_repositories__update_cache: yes
+    role_actions_apt__tasks__add_apt_repositories__validate_certs: yes
+
+#
+# Removal of apt packages
+#
+    role_actions_apt__tasks__remove_apt_packages__packages: []
+    role_actions_apt__tasks__remove_apt_packages__force: yes
+    role_actions_apt__tasks__remove_apt_packages__purge: yes
+
+#
+# Installation of apt packages
+#
+    role_actions_apt__tasks__install_apt_packages__packages:
+      - mc
+    role_actions_apt__tasks__install_apt_packages__force: yes
+    role_actions_apt__tasks__install_apt_packages__install_recommends: no
+    role_actions_apt__tasks__install_apt_packages__latest: yes
+
+#
+# Update outdated Apt packages
+#    WARNING: Setting this to "yes" may significantly prolong time spent on 
+#             provisioning your setup if vagrant image of core box is old
+#             enough. On the other hand, it makes sure all of the software on
+#             the box is up-to-date
+#
+    role_actions_apt__tasks__update_apt_packages: yes
+
+##################
+ # ACTIONS: Git # 
+##################
+    role_actions_git__tasks__set_colors__colors:
+      - option: ui
+        value: "true"
+
+      - option: diff.meta
+        value: normal bold
+      - option: diff.frag
+        value: magenta bold
+      - option: diff.plain
+        value: normal dim
+      - option: diff.old
+        value: red
+      - option: diff.new
+        value: green
+      - option: diff.func
+        value: cyan bold
+      - option: diff.commit
+        value: blue yellow
+      - option: diff.whitespace
+        value: red ul
+          
+      - option: status.header
+        value: white normal dim
+      - option: status.updated
+        value: yellow
+      - option: status.added
+        value: green normal
+      - option: status.changed
+        value: yellow
+      - option: status.untracked
+        value: red normal
+      - option: status.branch
+        value: cyan normal ul
+      - option: status.nobranch
+        value: red bold ul blink
+
+      - option: branch.current
+        value: green
+      - option: branch.remote
+        value: red
+      - option: branch.local
+        value: blue
+      - option: branch.plain
+        value: normal
+
+      - option: grep.context
+        value: white dim
+      - option: grep.match
+        value: red ul
+      - option: grep.selected
+        value: green dim
+
+      - option: grep.filename
+        value: blue
+      - option: grep.separator
+        value: magenta bold
+      - option: grep.linenumber
+        value: yellow
+      - option: grep.function
+        value:  magenta
+
+      
+
+##########################
+ # ACTIONS : Python PIP #
+##########################
+
+#
+# Removing of Python PIP packages
+#
+    role_actions_pip__tasks__remove_pip_packages__packages: []
+
+#
+# Installation of Python PIP packages
+#
+    role_actions_pip__tasks__install_pip_packages__packages: []
+    role_actions_pip__tasks__install_pip_packages__latest: yes
+
+#######################
+ # ACTIONS : NODE.JS #
+#######################
+
+#
+# Removing of Node.js packages
+#
+    role_actions_nodejs__tasks__remove_nodejs_packages__packages: [ ]
+
+#
+# Installation of Node.js packages
+#
+    role_actions_nodejs__tasks__install_nodejs_packages__packages: [ ]
+    role_actions_nodejs__tasks__install_nodejs_packages__latest: yes
+
+####################
+ # ACTIONS : RUBY #
+####################
+
+#
+# Removing Ruby gems
+#
+    role_actions_ruby__tasks__remove_ruby_gems__gems: [ ]
+
+#
+# Installing Ruby gems
+#
+    role_actions_ruby__tasks__install_ruby_gems__gems: [ ]
+    role_actions_ruby__tasks__install_ruby_gems__latest: yes
+
+#####################
+ # ACTIONS : MySQL #
+#####################
+
+#
+# Backingup MySQL databases
+#
+    role_actions_mysql__tasks__backup_mysql_databases__databases: []
+#      - name: DATABASE NAME
+#        file: TARGET FILE
+#        force_source: SHOULD ACTION FAIL IF DATABASE DOES NOT EXIST
+
+#
+# Backingup MySQL databases from assets dir
+#
+    role_actions_mysql__tasks__backup_mysql_assets_databases__databases: []
+#      - name: "{{ common_var_application_database }}"
+#        file: "{{ common_var_application_database }}.sql"
+#        force_source: false
+
+#
+# Removing MySQL databases
+#
+    role_actions_mysql__tasks__remove_mysql_databases__databases: []
+#      - name: "{{ common_var_application_database }}"
+
+#
+# Adding MySQL Databases
+#
+    role_actions_mysql__tasks__create_mysql_databases__databases: []
+#      - name: "{{ common_var_application_database }}
+
+#
+# Restoring MySQL databases
+#
+    role_actions_mysql__tasks__restore_mysql_databases__databases: []
+#      - name: "{{ common_var_application_database }}"
+#        file: "{{ common_var_application_database }}.sql"
+#        force_source: false
+
+#
+# Restoring MySQL databases from assets dir
+#
+    role_actions_mysql__tasks__restore_mysql_assets_databases__databases: []
+#      - name: test
+#        file: test.sql
+#        force_source: true
+
+#
+# Cycling MySQL databases (create if needed, load original or backup, create backup) from assets
+#
+    role_actions_mysql__tasks__cycle_mysql_assets_databases__databases:
+      - database: "{{ common_var_application_database }}"
+        original: "{{ common_var_application_database }}.sql"
+        backup: "{{ common_var_application_database }}_backup.sql.gz"
+
+#
+# USERNAME PLAYBOOK TWEEK TO MAKE SURE SAME USERNAMES ARE BEING REMOVED AND THEN REENTERED WITH ONLY DESIRED PRIVS
+#
+    playbook_mysql_users:
+      - username: "{{ common_var_admin_user }}"
+        password: "{{ common_var_admin_pass }}"
+        host: "127.0.0.1"
+      - username: "{{ common_var_admin_user }}"
+        password: "{{ common_var_admin_pass }}"
+        host: "{{ common_var_host_box_ip }}"
+      - username: "{{ common_var_admin_user }}"
+        password: "{{ common_var_admin_pass }}"
+        host: "localhost"
+      - username: "{{ common_var_read_only_user }}"
+        password: "{{ common_var_read_only_pass }}"
+        host: "%"
+        priv: "*.*:SELECT"
+
+# NOTE: ROOT USER CAN NOT BE MANAGED
+
+#
+# Removing MySQL users by usernames
+#
+    role_actions_mysql__tasks__remove_mysql_users_by_username__users: "{{ playbook_mysql_users }}"
+#      - username: USERNAME_TO_REMOVE
+
+#
+# Removing MySQL users
+#
+    role_actions_mysql__tasks__remove_mysql_users__users: "{{ playbook_mysql_users }}"
+#      - username: USERNAME_TO_REMOVE
+
+#
+# Adding MySQL users
+#
+    role_actions_mysql__tasks__create_mysql_users__users: "{{ playbook_mysql_users }}"
+#      - username: USERNAME
+#        password: PASSWORD
+#        host: HOST_VALID_TO_LOGIN_FROM_IF_NOT_LOCAL_HOST (USE "%" FOR ALL)
+#        priv: PRIVILAGES_IF_NOT_ALL
+
+#
+# Setting mysql bind address
+#
+    role_actions_mysql__tasks__set_mysql_bind_address__address: 0.0.0.0
+
+######################
+ # ACTIONS : Log.io #
+######################
+
+#
+# Log.io default config for user
+#
+    role_actions_logio__tasks__copy_default_logio_harvester_user_configs__user:
+      - vagrant
+
+#####################
+ # ACTIONS : Php 5 #
+#####################
+
+#
+# Remove Php 5 modules
+#
+    role_actions_php5__tasks__remove_php5_modules__modules: [ ]
+    role_actions_php5__tasks__remove_php5_modules__purge: yes
+
+
+#
+# Install Php 5 modules
+#
+    role_actions_php5__tasks__install_php5_modules__modules:
+      - apcu
+    role_actions_php5__tasks__install_php5_modules__latest: yes
+
+#
+# Disable Php 5 modules
+#
+    role_actions_php5__tasks__disable_php5_modules__modules: [ ]
+
+#
+# Enable Php 5 modules
+#
+    role_actions_php5__tasks__enable_php5_modules__modules: []
+
+#
+# Php 5 ini config for FPM and CLI
+#
+    role_actions_php5__tasks__php5_ini__common_ini: []
+#      - section: PHP
+#        content:
+#          - option: date.timezone
+#            value: UTC
+
+#
+# Cli only Php 5 ini config
+#
+    role_actions_php5__tasks__php5_ini__cli_ini: []
+#      - section: PHP
+#        content:
+#          - option: html_errors
+#            value: "Off"
+
+#
+# Fpm only Php 5 ini config
+#
+    role_actions_php5__tasks__php5_ini__fpm_ini: []
+#      - section: PHP
+#        content:
+#          - option: html_errors
+#            value: "On"
+
+#######################
+ # ACTIONS: Composer #
+#######################
+
+#
+#  Install composer packages
+#
+    role_actions_composer__tasks__install_composer_packages:
+      - fabpot/php-cs-fixer
+
+############################
+ # ACTIONS : Php 5 xDebug #
+############################
+
+#
+# Should var_dump be enhanced (both HTML and CLI)
+#
+    
+    role_actions_php5_xdebug__tasks__configure_xdebug__enhance_var_dump: yes
+
+#
+# Remote debuging configuration (IP, Port, Debug key). If no IP specified, autoconnect is enabled
+#
+    role_actions_php5_xdebug__tasks__configure_xdebug__remote_ip: "{{ common_var_host_box_ip }}"
+    role_actions_php5_xdebug__tasks__configure_xdebug__remote_port: 9000
+    role_actions_php5_xdebug__tasks__configure_xdebug__remote_idekey: "XDEBUG-{{ common_var_dev_env_name|replace('_', '-')|upper }}"
+
+#
+# Setup error settings for xdebug
+#
+    role_actions_php5_xdebug__tasks__configure_xdebug__setup_errors: yes
+
+#
+# Actual error settings
+#
+    role_actions_php5_xdebug__tasks__configure_xdebug__force_errors: E_ALL | E_STRICT
+    role_actions_php5_xdebug__tasks__configure_xdebug__halt_level: E_WARNING|E_NOTICE|E_USER_WARNING|E_USER_NOTICE
+    role_actions_php5_xdebug__tasks__configure_xdebug__scream: yes
+
+
+
+#
+# Setup remote debug for xdebug
+#
+    role_actions_php5_xdebug__tasks__configure_xdebug__setup_debugging: yes
+#
+# Actual remote debug settings
+#
+    role_actions_php5_xdebug__tasks__configure_xdebug__remote_ip: "{{ common_var_host_box_ip }}"
+    role_actions_php5_xdebug__tasks__configure_xdebug__remote_port: 9000
+    role_actions_php5_xdebug__tasks__configure_xdebug__remote_idekey: "XDEBUG-{{ common_var_dev_env_name|replace('_', '-')|upper }}"
+    role_actions_php5_xdebug__tasks__configure_xdebug__remote_server_name: "XDEBUG-{{ common_var_dev_env_name|replace('_', '-')|upper }}"
+
+#
+# User specified configuration
+#
+    role_actions_php5_xdebug__tasks__configure_xdebug__config: []
+#      - option: xdebug.auto_trace
+#        value: 1
+
+#####################
+ # ACTIONS : Nginx #
+#####################
+
+#
+# Sites to disable in Nginx
+#
+    role_actions_nginx__tasks__disable_nginx_sites__sites: []
+
+######################
+ # ACTIONS: MailHog #
+######################
+
+#
+# Remove all passwords from MailHog auth
+#
+    role_actions_mailhog__tasks__remove_passwords: true
+    role_actions_mailhog__tasks__set_passwords: []
+#      - username: "{{ common_var_admin_user }}"
+#        password: "{{ common_var_admin_pass }}"
+
+#############################
+ # ACTIONS : Elasticsearch #
+#############################
+
+#
+# Removes elastic search plugins
+#
+    role_actions_elasticsearch__tasks__remove_elasticsearch_plugins: [ ]
+
+#
+# Installs elastic search plugins
+#
+    role_actions_elasticsearch__tasks__install_elasticsearch_plugins:
+      - royrusso/elasticsearch-HQ
+
+#############################
+ # ACTIONS : RabbitMQ #
+#############################
+
+#
+# Disables RabbitMQ plugins
+#
+    role_actions_rabbitmq__tasks__disable_plugins: []
+
+#
+# Enables RabbitMQ plugins
+#
+    role_actions_rabbitmq__tasks__enable_plugins:
+      - 'rabbitmq_management'
+
+#
+# Removes RabbitMQ users
+#
+    role_actions_rabbitmq__tasks__remove_users:
+      - username: guest
+
+#
+# Adds RabbitMQ users
+#
+    role_actions_rabbitmq__tasks__add_users:
+      - username: "{{ common_var_admin_user }}"
+        password: "{{ common_var_admin_pass }}"
+        tags: administrator
+        configure_priv: '.*'
+        read_priv: '.*'
+        write_priv: '.*'
+      - username: "{{ common_var_read_only_user }}"
+        password: "{{ common_var_read_only_pass }}"
+        tags: monitoring
+        configure_priv: '^$'
+        read_priv: '.*'
+        write_priv: '^$'
+
+
+######################
+ # ACTIONS: Varnish #
+######################
+
+#
+# Removes Varnish configs
+#
+    role_actions_varnish__tasks__remove_varnish_configs__configs: []
+
+################
+ #
+#############
+
+#
+# Redis commander login
+#
+    role_actions_redis_commander__tasks__auth_username: "{{ common_var_admin_user }}"
+    role_actions_redis_commander__tasks__auth_password: "{{ common_var_admin_pass }}"
+

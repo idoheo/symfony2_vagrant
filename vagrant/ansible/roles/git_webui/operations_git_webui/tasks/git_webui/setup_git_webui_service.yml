@@ -1,0 +1,35 @@
+---
+###
+# Setup Git WebUI service
+###
+#
+#	DESCRIPTION:
+#
+#		Sets up a Git WebUI service
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_git_webui_service_name        - REQUIRED - Service name
+#		parameter_git_webui_service_location    - REQUIRED - Location of git root
+#		parameter_git_webui_service_port        - REQUIRED - Port on which to run
+#		parameter_git_webui_service_user        - OPTIONAL - User as which to run
+#		parameter_git_webui_service_description - OPTIONAL - Simple description
+#		parameter_git_webui_service_title       - OPTIONAL - Alternative descriptive title of action taken
+###
+
+- include: ../../../../upstart/operations_upstart/tasks/upstart/build_upstarts.yml
+  vars:
+    parameter_build_upstarts_title: "{{ parameter_git_webui_service_title | default ('Creating Git WebUI service') }}"
+    parameter_build_upstarts:
+      - service: "git-webui-{{ parameter_git_webui_service_name | mandatory }}"
+        name: "Git WebUI ({{ parameter_git_webui_service_description | default(parameter_git_webui_service_location | mandatory) }}) [{{ parameter_git_webui_service_port | mandatory }}]"
+        script:
+          - 'if [ -d "{{ parameter_git_webui_service_location }}/.git" ]; then'
+          - '  sudo -u {{ parameter_git_webui_service_user | default("root") }} -H {{ role_package_git_webui__var__location }}/release/libexec/git-core/git-webui  --port "{{ parameter_git_webui_service_port }}" --repo-root "{{ parameter_git_webui_service_location }}" --no-browser --allow-hosts 127.0.0.1 LOGS'
+          - 'else'
+          - '  sleep 5;'
+          - 'fi'
+        logs_string: LOGS
+        respawn_parameters: limit unlimited

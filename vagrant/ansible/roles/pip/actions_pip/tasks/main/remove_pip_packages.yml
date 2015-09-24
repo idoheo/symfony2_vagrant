@@ -1,0 +1,4 @@
+- include: ../../../operations_pip/tasks/pip_packages/remove_pip_packages.yml
+  vars:
+    parameter_remove_pip_packages_title: "Removing User specified Python PIP packages"
+    parameter_remove_pip_packages: "{{ role_actions_pip__tasks__remove_pip_packages__packages }}"

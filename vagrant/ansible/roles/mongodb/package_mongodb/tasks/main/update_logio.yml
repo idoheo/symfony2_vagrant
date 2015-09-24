@@ -1,0 +1,6 @@
+- include: ../../../../logio/operations_logio/tasks/logio_configs/update_logio_harvester.yml
+  vars:
+    parameter_update_logio_harvester_title: Adding MongoDB logs to Log.io
+    parameter_update_logio_harvester_name: MongoDB
+    parameter_update_logio_harvester_files:
+      - "/var/log/mongodb/mongodb.log"

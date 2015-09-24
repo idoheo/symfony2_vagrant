@@ -1,0 +1,4 @@
+- include: ../../../operations_php5/tasks/php5_modules/enable_php5_modules.yml
+  vars:
+    parameter_enable_php5_modules_title: "Enabling User specified Php 5 modules"
+    parameter_enable_php5_modules: "{{ role_actions_php5__tasks__enable_php5_modules__modules }}"

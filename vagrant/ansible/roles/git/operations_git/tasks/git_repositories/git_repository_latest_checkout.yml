@@ -1,0 +1,59 @@
+###
+# Git repository latest tag
+###
+#
+#	DESCRIPTION:
+#
+#		Gets latest tag of repository
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_git_repository_latest_checkout_repo              - REQUIRED - git, SSH, or HTTP protocol address of the git repository.
+#		parameter_git_repository_latest_checkout_dest              - REQUIRED - Absolute path of where the repository should be checked out to. This parameter is required, unless clone is set to no.
+#		parameter_git_repository_latest_checkout_version_prefix    - OPTIONAL - Prefix for versions
+#		parameter_git_repository_latest_checkout_version_seperator - OPTIONAL - Version seperator
+#		parameter_git_repository_latest_checkout_accept_hostkey    - OPTIONAL - if yes, adds the hostkey for the repo url if not already added. Ignored if ssh_args contains "-o StrictHostKeyChecking=no".
+#		parameter_git_repository_latest_checkout_clone             - OPTIONAL - If no, do not clone the repository if it does not exist locally.
+#		parameter_git_repository_latest_checkout_force             - OPTIONAL - If yes, any modified files in the working repository will be discarded.
+#		parameter_git_repository_latest_checkout_recursive         - OPTIONAL - If no, repository will be cloned without the --recursive option, skipping sub-modules.
+#		parameter_git_repository_latest_checkout_update            - OPTIONAL - If no, do not retrieve new revisions from the origin repository
+#		parameter_git_repository_latest_checkout_title             - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_git_repository_latest_checkout_user              - OPTIONAL - User owner
+#		parameter_git_repository_latest_checkout_group             - OPTIONAL - Group owner
+#		parameter_git_repository_latest_checkout_folder_mode       - OPTIONAL - Folder mode
+###
+
+- include: git_repository_latest_version.yml
+  vars:
+    parameter_git_repository_latest_version_repo: "{{ parameter_git_repository_latest_checkout_repo }}"
+    parameter_git_repository_latest_version_version_prefix: "{{ parameter_git_repository_latest_checkout_version_prefix | default(null) }}"
+    parameter_git_repository_latest_version_version_seperator: "{{ parameter_git_repository_latest_checkout_version_seperator | default('.') }}"
+    parameter_git_repository_latest_version_title: "{{ parameter_git_repository_latest_checkout_title | default('Checking out latest tag of a GIT repository') }} (Getting latest version of repository)"
+
+
+#- name: "{{ parameter_git_repository_latest_checkout_title | default('Checking out latest tag of a GIT repository') }} (creating directory)"
+#  file: path="{{ parameter_git_repository_latest_checkout_dest | mandatory }}"
+#        state="directory"
+#        mode="755"
+#        recurse="true"
+#        owner="{{ parameter_git_repository_latest_checkout_user | default( fact_user_environment_user_home_dir_user ) }}"
+#        group="{{ parameter_git_repository_latest_checkout_group | default( parameter_git_repository_latest_checkout_user | default( fact_user_environment_user_home_dir_group) ) }}"
+#  sudo: true
+
+- include: git_repositories_checkout.yml
+  vars:
+    parameter_checkout_git_repositories_title: "{{ parameter_git_repository_latest_checkout_title | default('Checking out latest tag of a GIT repository') }} (checking out repository)"
+    parameter_checkout_git_repositories:
+      - repo: "{{ parameter_git_repository_latest_checkout_repo | mandatory }}"
+        dest: "{{ parameter_git_repository_latest_checkout_dest | mandatory }}"
+        version: "{{ result_git_repository_latest_tag }}"
+        accept_hostkey: "{{ parameter_git_repository_latest_checkout_accept_hostkey | default(false) }}"
+        clone: "{{ parameter_git_repository_latest_checkout_clone | default(true) }}"
+        force: "{{ parameter_git_repository_latest_checkout_clone | default(false) }}"
+        recursive: "{{ parameter_git_repository_latest_checkout_recursive | default(yes) }}"
+        update: "{{ parameter_git_repository_latest_checkout_update | default(yes) }}"
+        user: "{{ parameter_git_repository_latest_checkout_user | default(fact_user_environment_user) }}"
+        group: "{{ parameter_git_repository_latest_checkout_group | default(fact_user_environment_group) }}"
+        folder_mode: "{{ parameter_git_repository_latest_checkout_folder_mode | default('755') }}"

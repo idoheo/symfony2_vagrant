@@ -1,0 +1,8 @@
+---
+- name: Enabling RabbitMQ Management plugin
+  rabbitmq_plugin: names="{{ item }}"
+                   new_only=yes
+                   state=enabled
+  sudo: true
+  with_items:
+    - rabbitmq_management

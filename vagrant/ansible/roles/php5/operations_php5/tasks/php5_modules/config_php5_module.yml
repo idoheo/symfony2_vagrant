@@ -1,0 +1,40 @@
+###
+# Config Php 5 module
+###
+#
+#	DESCRIPTION:
+#
+#		Updates Php 5 modules configs
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_config_php5_module                           - REQUIRED - Name of module to configure
+#		parameter_config_php5_module_config[]                  - REQUIRED - Configuration for module
+#		                                     .section          - OPTIONAL - Name of subsection in ini file if different then module name
+#		                                     .content[]        - REQUIRED - Content of configuration
+#		                                               .option - REQUIRED - Option name
+#		                                               .value  - REQUIRED - Option value
+#		parameter_config_php5_module_create_if_not_existing    - OPTIONAL - Creates module file if not existing
+#		parameter_config_php5_module_title                     - OPTIONAL - Alternative title for actions taken
+#		parameter_config_php5_module_notify                    - OPTIONAL - Notifications to trigger if anything has changed
+#
+###
+---
+- name: "{{ parameter_config_php5_module_title | default('Updating PHP 5 module config for ' ~ parameter_config_php5_module ~ ' module exists') }} (Ensuring config exists)"
+  file: path="{{ role_package_php5__var__mods_available }}/{{ parameter_config_php5_module }}.ini"
+        owner="root"
+        group="root"
+        mode="0644"
+        state="touch"
+  sudo: true
+  when: parameter_config_php5_module_create_if_not_existing | default ( false )
+
+- include: ../../../../ini_files/operations_ini_files/tasks/ini_files/update_ini_files.yml
+  vars:
+    parameter_update_ini_file: "{{ role_package_php5__var__mods_available }}/{{ parameter_config_php5_module }}.ini"
+    parameter_update_ini_file_content: "{{ parameter_config_php5_module_config | mandatory }}"
+    parameter_update_ini_file_title: "{{ parameter_config_php5_module_title | default ('Updating PHP 5 module config for ' ~ parameter_config_php5_module ~ ' module') }}"
+    parameter_update_ini_file_notify: "{{ parameter_config_php5_module_notify | default ('Dummy Php 5 operation notification') }}"
+    parameter_update_ini_file_default_section: "{{ parameter_config_php5_module }}"

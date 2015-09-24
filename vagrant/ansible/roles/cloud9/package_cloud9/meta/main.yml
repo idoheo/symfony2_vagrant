@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: nodejs/operations_nodejs }
+  - { role: git/operations_git }

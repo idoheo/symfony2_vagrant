@@ -1,0 +1,4 @@
+- include: ../../../operations_nodejs/tasks/nodejs_packages/remove_nodejs_packages.yml
+  vars:
+    parameter_remove_nodejs_packages_title: "Removing User specified Node.js packages"
+    parameter_remove_nodejs_packages: "{{ role_actions_nodejs__tasks__remove_nodejs_packages__packages }}"

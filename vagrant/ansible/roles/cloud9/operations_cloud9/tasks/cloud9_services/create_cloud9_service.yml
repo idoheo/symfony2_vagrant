@@ -1,0 +1,29 @@
+---
+###
+# Create Cloud9 services
+###
+#
+#	DESCRIPTION
+#
+#		Creats cloud9 service
+###
+#
+#	VARIABLES:
+#		parameter_create_cloud9_service_name   - REQUIRED - Name of service
+#		parameter_create_cloud9_service_port   - REQUIRED - Port to run on
+#		parameter_create_cloud9_service_path   - REQUIRED - Path for run
+#               parameter_create_cloud9_service_auth   - OPTIONAL - username:password access credentials
+#               parameter_create_cloud9_service_title  - OPTIONAL - Alternative descriptive title
+#
+###
+
+- include: ../../../../upstart/operations_upstart/tasks/upstart/build_upstarts.yml
+  vars:
+    parameter_build_upstarts:
+      - service: "cloud9-{{ parameter_create_cloud9_service_name | mandatory }}"
+        chdir: "{{ parameter_create_cloud9_service_path }}"
+        command: 'sudo -u {{ role_package_cloud9__var__user }} -H node {{ role_package_cloud9__var__location }}/server.js --port {{ parameter_create_cloud9_service_port | mandatory }} --listen 0.0.0.0 --auth {{ parameter_create_cloud9_service_auth | default(":") }} -w "{{ parameter_create_cloud9_service_path }}" '
+        name: "Cloud9 {{ parameter_create_cloud9_service_name }} [{{ parameter_create_cloud9_service_port | mandatory }}]"
+        respawn_parameters: limit 0 120
+        post_stop: sleep 1
+    parameter_build_upstarts_title: "{{ parameter_create_cloud9_service_title | default('Creating Cloud9 service') }}"

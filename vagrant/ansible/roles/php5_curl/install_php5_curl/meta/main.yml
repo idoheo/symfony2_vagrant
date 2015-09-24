@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: php5_curl/package_php5_curl }

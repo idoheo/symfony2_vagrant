@@ -1,0 +1,3 @@
+---
+- include: main/gather_user_dir_facts.yml
+- include: main/create_bin_directory.yml

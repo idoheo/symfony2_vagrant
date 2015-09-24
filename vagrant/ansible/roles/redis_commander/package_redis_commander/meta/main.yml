@@ -1,0 +1,5 @@
+---
+dependencies:
+  - { role: nodejs/operations_nodejs }
+  - { role: logio/operations_logio }
+  - { role: upstart/operations_upstart }

@@ -1,0 +1,18 @@
+---
+- name: Creating Nginx PhpMyAdmin logs dir and files
+  file: path="{{ item.name }}"
+        state="{{ item.state }}"
+        mode=0755
+        owner="{{ fact_nginx_sites_available_dir_user }}"
+        group="{{ fact_nginx_sites_available_dir_group }}"
+  sudo: true
+  with_items:
+    - name: "{{ role_nginx_phpmyadmin__var__logs_dir }}"
+      state: directory
+      mode: 755
+    - name: "{{ role_nginx_phpmyadmin__var__logs_log }}"
+      state: touch
+      mode: 644
+    - name: "{{ role_nginx_phpmyadmin__var__logs_err }}"
+      state: touch
+      mode: 644

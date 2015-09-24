@@ -1,0 +1,3 @@
+---
+- include: main/setup_git_colors.yml
+- include: main/setup_git_options.yml

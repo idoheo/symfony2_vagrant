@@ -1,0 +1,5 @@
+- include: ../../../operations_pip/tasks/pip_packages/install_pip_packages.yml
+  vars:
+    parameter_install_pip_packages_title: "Installing User specified Python PIP packages"
+    parameter_install_pip_packages: "{{ role_actions_pip__tasks__install_pip_packages__packages }}"
+    parameter_install_pip_packages_latest: "{{ role_actions_pip__tasks__install_pip_packages__latest }}"

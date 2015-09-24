@@ -1,0 +1,55 @@
+#!/bin/bash
+
+MAILER=$(which mailx);
+RETURN=0;
+
+if [ ! -f $MAILER ]; then
+        echo "Unable to find mailx executable";
+        RETURN=$(($RETURN + 1));
+fi;
+
+if [ "$RETURN" -gt "0" ]; then
+        echo "Exiting with error code $RETURN";
+        exit $RETURN;
+fi;
+
+NOW=$(date +"%Y-%m-%d %H-%M-%S %N");
+
+DEFAULT_MAILSERVER_ADDRESS="127.0.0.1"
+DEFAULT_MAILSERVER_PORT="25"
+DEFAULT_MAIL_RECIPIENT="Recipient<recipient@$('hostname')>"
+DEFAULT_MAIL_SENDER="Heirloom Mailx<sender@$('hostname')>"
+DEFAULT_MAIL_SUBJECT="Test mail on $('hostname') at $NOW"
+
+echo ""
+echo "---------------------"
+echo "  Create test email  "
+echo "---------------------"
+echo ""
+
+read -p "Mail Server address: " -i "$DEFAULT_MAILSERVER_ADDRESS" -e VAR_MAILSERVER_ADDRESS
+read -p "Mail Server port:    " -i "$DEFAULT_MAILSERVER_PORT" -e VAR_MAILSERVER_PORT
+read -p "Mail Sender:         " -i "$DEFAULT_MAIL_SENDER" -e VAR_MAIL_SENDER
+read -p "Mail Recipient:      " -i "$DEFAULT_MAIL_RECIPIENT" -e VAR_MAIL_RECIPIENT
+read -p "Mail Subject:        " -i "$DEFAULT_MAIL_SUBJECT" -e VAR_MAIL_SUBJECT
+
+echo ""
+echo "-----------"
+echo "  Summary  "
+echo "-----------"
+echo ""
+
+echo "Send via: $VAR_MAILSERVER_ADDRESS:$VAR_MAILSERVER_PORT"
+echo "From:     $VAR_MAIL_SENDER"
+echo "To:       $VAR_MAIL_RECIPIENT"
+echo "Subject:  $VAR_MAIL_SUBJECT"
+echo ""
+echo " -- Starting test -- "
+echo ""
+
+echo "This is a test mail triggered at $NOW from $(hostname)" | $MAILER -v -s "$VAR_MAIL_SUBJECT" -r "$VAR_MAIL_SENDER" -S smtp="$VAR_MAILSERVER_ADDRESS:$VAR_MAILSERVER_PORT" "$VAR_MAIL_RECIPIENT"
+
+echo ""
+echo " -- Test done -- "
+echo ""
+

@@ -1,0 +1,7 @@
+---
+dependencies:
+  - { role: dev_site/install_dev_site }
+  - { role: vagrant_assets/operations_vagrant_assets }
+  - { role: openssl/operations_openssl }
+  - { role: nginx/operations_nginx }
+  - { role: logio/operations_logio }

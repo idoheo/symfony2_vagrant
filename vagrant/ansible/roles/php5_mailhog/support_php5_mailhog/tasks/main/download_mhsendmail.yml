@@ -1,0 +1,6 @@
+---
+- include: ../../../../go_lang/operations_go_lang/tasks/go/go_get.yml
+  vars:
+    parameter_go_get:
+      - github.com/mailhog/mhsendmail
+    parameter_go_get_title: Installing MailHog Sendmail

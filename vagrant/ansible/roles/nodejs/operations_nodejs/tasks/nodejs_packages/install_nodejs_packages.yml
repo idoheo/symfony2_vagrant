@@ -1,0 +1,25 @@
+###
+# Install Node.js Packages
+###
+#
+#	DESCRIPTION:
+#
+#		Installs specified Node.js packages
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_install_nodejs_packages        - REQUIRED - List of packages to manage
+#		parameter_install_nodejs_packages_title  - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_install_nodejs_packages_latest - OPTIONAL - Should latest packages be installed
+#		parameter_install_nodejs_packages_notify - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+
+- include: ./manage_nodejs_packages.yml
+  vars:
+    parameter_manage_nodejs_packages: "{{ parameter_install_nodejs_packages | mandatory }}"
+    parameter_manage_nodejs_packages_title: "{{ parameter_install_nodejs_packages_title | default('Installing Node.js packages') }}"
+    parameter_manage_nodejs_packages_state: "{% if (parameter_install_nodejs_packages_latest | default( task_default__operations_nodejs__nodejs_packages__install_nodejs_packages__latest )) %}latest{% else %}present{% endif %}"
+    parameter_manage_nodejs_packages_notify: "{{ parameter_install_nodejs_packages_noftify | default('Dummy Node.js operation notification') }}"

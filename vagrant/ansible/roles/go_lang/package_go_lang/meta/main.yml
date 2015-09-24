@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: git/operations_git }
+  - { role: go_lang_1_4/install_go_lang_1_4 }

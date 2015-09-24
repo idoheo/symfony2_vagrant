@@ -1,0 +1,4 @@
+role_package_redis_commander__var__nodejs_packages:
+  - redis-commander
+role_package_redis_commander__var__config_dir: "/etc/redis-commander"
+role_package_redis_commander__var__config_auth: "{{ role_package_redis_commander__var__config_dir }}/auth"

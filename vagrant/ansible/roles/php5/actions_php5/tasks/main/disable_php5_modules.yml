@@ -1,0 +1,4 @@
+- include: ../../../operations_php5/tasks/php5_modules/disable_php5_modules.yml
+  vars:
+    parameter_disable_php5_modules_title: "Disabling User specified Php 5 modules"
+    parameter_disable_php5_modules: "{{ role_actions_php5__tasks__disable_php5_modules__modules }}"

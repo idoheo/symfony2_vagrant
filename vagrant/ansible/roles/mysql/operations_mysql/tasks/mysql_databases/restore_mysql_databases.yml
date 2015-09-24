@@ -1,0 +1,28 @@
+###
+# Restore MySQL databses
+###
+#
+#	DESCRIPTION:
+#
+#		Restores specified MySQL databases
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_restore_mysql_databases[]              - REQUIRED - List of databases to backup
+#		                                  .name          - REQUIRED - Database name
+#		                                  .file          - REQUIRED - File location
+#		                                  .force_restore - OPTIONAL - Set if file must exist and restore made
+#		parameter_restore_mysql_databases_file_prefix    - OPTIONAL - File prefix for file locations
+#		parameter_restore_mysql_databases_title          - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_restore_mysql_databases_notify         - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+- include: ./manage_mysql_databases.yml
+  vars:
+    parameter_manage_mysql_databases: "{{ parameter_restore_mysql_databases|mandatory }}"
+    parameter_manage_mysql_databases_title: "{{ parameter_restore_mysql_databases_title | default('Restoring MySQL databases') }}"
+    parameter_manage_mysql_databases_state: "import"
+    parameter_manage_mysql_databases_file_prefix: "{{ parameter_restore_mysql_databases_file_prefix|default('') }}"
+    parameter_manage_mysql_databases_notify: "{{ parameter_restore_mysql_databases_noftify | default('Dummy MySQL operation notification') }}"

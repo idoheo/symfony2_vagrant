@@ -1,0 +1,3 @@
+---
+- include: main/create_assets_dir.yml
+- include: main/create_certificates.yml

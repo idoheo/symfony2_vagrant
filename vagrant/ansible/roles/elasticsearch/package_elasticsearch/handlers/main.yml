@@ -1,0 +1,9 @@
+---
+- name: Restart Elasticsearch
+  service: name="{{ item }}"
+           sleep="2"
+           state="restarted"
+  with_items:
+    - "{{ role_package_elasticsearch__service }}"
+  sudo: true
+

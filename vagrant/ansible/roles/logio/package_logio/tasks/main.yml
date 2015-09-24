@@ -1,0 +1,5 @@
+---
+- include: main/gather_logio_user_facts.yml
+- include: main/install_logio.yml
+- include: main/setup_logio_service_logs.yml
+- include: main/setup_logio_service.yml

@@ -1,0 +1,3 @@
+---
+- include: main/download_mhsendmail.yml
+- include: main/make_mailhog_php_module.yml

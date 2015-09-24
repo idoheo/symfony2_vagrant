@@ -1,0 +1,4 @@
+- name: "Dummy Varnish operation notification"
+  debug: msg="Dummy Varnish operation notification"
+  when: false
+  

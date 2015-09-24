@@ -1,0 +1,34 @@
+---
+###
+# Read jq
+###
+#
+#	DESCRIPTION:
+#
+#		Reads JSON value using .jq
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_read_jq_input    - REQUIRED - Command used to print out input JSON
+#		parameter_read_jq_path     - REQUIRED - Path to Json variable
+#		parameter_read_jq_nullable - OPTIONAL - Is nullable result valid
+#		parameter_read_jq_title    - OPTIONAL - Alternative descriptive title of action taken
+
+#
+###
+- name: "{{ parameter_read_jq_title|default('Reading JSON value') }}"
+  shell: "{{ parameter_read_jq_input | mandatory }} | jq '.{{ parameter_read_jq_path | mandatory }}' | sed -e 's/^\"//'  -e 's/\"$//'"
+  sudo: true
+  register: result_read_jq
+  failed_when: "
+                    (result_read_jq.stdout == 'null' and not {{ parameter_read_jq_nullable | default(false) }} )
+                 or (result_read_jq.stdout[:13] == 'parse error: ')
+                 or (result_read_jq.rc != 0)
+              "
+
+- name: "{{ parameter_read_jq_title|default('Reading JSON value') }} (Recording result into Ansible fact) "
+  set_fact: 
+    result_read_jq: "{{ result_read_jq.stdout }}"
+

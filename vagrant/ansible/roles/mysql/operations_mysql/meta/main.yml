@@ -1,0 +1,7 @@
+---
+dependencies:
+  - { role: mysql/install_mysql }
+  - { role: mysql/support_mysql }
+  - { role: ini_files/operations_ini_files }
+  - { role: ansible_unarchive_support/install_ansible_unarchive_support }
+  - { role: ansible_archive_support/install_ansible_archive_support }

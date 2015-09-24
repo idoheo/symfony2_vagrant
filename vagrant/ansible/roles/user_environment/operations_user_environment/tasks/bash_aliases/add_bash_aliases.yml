@@ -1,0 +1,39 @@
+---
+###
+# Add bash aliases
+###
+#
+#	DESCRIPTION
+#
+#		Adds Bash aliases
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_add_bash_aliases[]         - REQUIRED - Aliases to add
+#		                            .name    - REQUIRED - Alias name
+#		                            .command - REQUIRED - Alias command
+#		parameter_add_bash_aliases_title     - OPTIONAL - Alternative descriptive title for actions taken
+#		parameter_add_bash_aliases_notify    - OPTIONAL - Notification to trigger
+#
+###
+- name: "{{ parameter_add_bash_aliases_title | default('Setting up bash aliases') }} (Removing Bash aliases prior reinserting them)"
+  lineinfile: dest="{{ fact_user_environment_user_home_dir ~ '/.bash_aliases'  }}"
+              regexp="^alias {{ item.name }}=(.*)$"
+              state=absent
+              owner="{{ fact_user_environment_user_home_dir_user }}"
+              group="{{ fact_user_environment_user_home_dir_group }}"
+  sudo: true
+  with_items: parameter_add_bash_aliases
+  register: result_removed_aliases
+  until: not result_removed_aliases.changed
+
+- name: "{{ parameter_add_bash_aliases_title | default('Setting up bash aliases') }} (Adding Bash aliases)"
+  lineinfile: dest="{{ fact_user_environment_user_home_dir ~ '/.bash_aliases'  }}"
+              line="alias {{ item.name }}='{{ item.command }}'"
+              owner="{{ fact_user_environment_user_home_dir_user }}"
+              group="{{ fact_user_environment_user_home_dir_group }}"
+              create=yes
+  sudo: true
+  with_items: parameter_add_bash_aliases

@@ -1,0 +1,12 @@
+server {
+    listen {{ role_support_dev_site_ssl__setup__nginx_https_port }} default_server;
+    
+    {% include 'roles/dev_site/support_dev_site/templates/nginx_sites/common/website_config_php_fpm_common.j2' %}
+
+    access_log {{ role_support_dev_site__setup__logs_path }}/{{ role_support_dev_site_ssl__setup__nginx_https_port }}_{{ role_support_dev_site__setup__nginx_fpm_error_log_string }}_ssl_access.log;
+    error_log {{ role_support_dev_site__setup__logs_path }}/{{ role_support_dev_site_ssl__setup__nginx_https_port }}_{{ role_support_dev_site__setup__nginx_fpm_error_log_string }}_ssl_error.log;
+
+    ssl on;
+    ssl_certificate {{ role_support_dev_site_ssl__setup__ssl_path }}/{{ role_support_dev_site_ssl__setup__ssl_file }};
+    ssl_certificate_key {{ role_support_dev_site_ssl__setup__ssl_path }}/{{ role_support_dev_site_ssl__setup__ssl_key_file }};	
+}

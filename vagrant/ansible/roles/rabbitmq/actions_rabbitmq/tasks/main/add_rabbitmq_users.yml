@@ -1,0 +1,5 @@
+---
+- include: ../../../operations_rabbitmq/tasks/users/add_rabbitmq_users.yml
+  vars:
+    parameter_add_rabbitmq_users_title: "Adding user specified RabbitMQ users"
+    parameter_add_rabbitmq_users: "{{ role_actions_rabbitmq__tasks__add_users }}"

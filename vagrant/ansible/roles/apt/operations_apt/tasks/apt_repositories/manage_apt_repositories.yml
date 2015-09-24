@@ -1,0 +1,28 @@
+###
+# Manage Apt Repositories
+###
+#
+#	DESCRIPTION:
+#
+#		Manages specified Apt repositories, adding them or removing them
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_manage_apt_repositories                - REQUIRED - List of repositories to manage
+#		parameter_manage_apt_repositories_state          - REQUIRED - State of repository (absent, present)
+#		parameter_manage_apt_repositories_update_cache   - REQUIRED - Should caches be updated upon changes
+#		parameter_manage_apt_repositories_title          - OPTIONAL - Alternative descriptive title of action taken
+#               parameter_manage_apt_repositories_valdate_certs  - OPTIONAL - Should SSL certificates of target repos be validated
+#		parameter_manage_apt_repositories_notify         - OPTIONAL - Notification to trigger if changes have been made
+###
+
+- name: "{{ parameter_manage_apt_repositories_title | default('Managing APT Repositories') }}"
+  apt_repository: repo="{{ item[1] }}"
+                  state="{{ parameter_manage_apt_repositories_state | mandatory }}"
+                  update_cache="{{ parameter_manage_apt_repositories_update_cache | mandatory }}"
+                  validate_certs="{{ parameter_manage_apt_repositories_valdate_certs | default( task_default__operations_apt__apt_repositories__manage_apt_repositories__validate_certs ) }}"
+  sudo: true
+  with_indexed_items: parameter_manage_apt_repositories | mandatory
+  notify: "{{ parameter_manage_apt_packages_noftify | default('Dummy APT operation notification') }}"

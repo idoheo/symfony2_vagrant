@@ -1,0 +1,20 @@
+---
+- name: "Setting Error reporting options for PHP"
+  ini_file: dest="{{ item[0] }}"
+            section="PHP"
+            option="{{ item[1].option }}"
+            value="{{ item[1].value }}"
+  with_nested:
+    - 
+      - "{{ role_package_php5__var__fpm_ini }}"
+      - "{{ role_package_php5__var__cli_ini }}"
+    -
+      - option: error_reporting
+        value: "E_ALL"
+      - option: display_errors
+        value: "On"
+      - option: display_startup_errors
+        value: "On"
+      - option: log_errors
+        value: "On"
+  sudo: true

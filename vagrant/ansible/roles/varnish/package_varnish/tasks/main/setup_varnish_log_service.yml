@@ -1,0 +1,12 @@
+---
+
+- include: ../../../../upstart/operations_upstart/tasks/upstart/build_upstarts.yml
+  vars:
+    parameter_build_upstarts_title: Creating Varnish log service
+    parameter_build_upstarts:
+      - service: varnish-log
+        name: "Varnish Log"
+        command: 'sudo -u root -H "$(which varnishncsa)"'
+        respawn_parameters: limit 0 120
+        post_stop:
+          - sleep 5

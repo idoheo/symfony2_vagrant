@@ -1,0 +1,3 @@
+## Task default variables ##
+
+task_default__operations_pip__pip_packages__install_pip_packages__latest: yes

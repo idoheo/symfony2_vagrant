@@ -1,0 +1,9 @@
+---
+- name: Creating usr bin directory
+  file: path="{{ fact_user_environment_user_home_dir }}/{{ role_support_user_environment__setup__usr_local_bin }}"
+        owner="{{ fact_user_environment_user_home_dir_user }}"
+        group="{{ fact_user_environment_user_home_dir_group }}"
+        mode="755"
+        state="directory"
+        recurse=yes
+  sudo: true

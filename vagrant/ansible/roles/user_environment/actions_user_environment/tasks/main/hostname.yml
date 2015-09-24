@@ -1,0 +1,5 @@
+---
+- name: Setting user specified hostname
+  hostname: name="{{ role_actions_user_environment__tasks__hostname }}"
+  when: role_actions_user_environment__tasks__hostname|trim|length > 0
+  sudo: true

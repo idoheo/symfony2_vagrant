@@ -1,0 +1,7 @@
+role_package_logio__var__nodejs_packages:
+  - log.io
+role_package_logio__var__user: root
+role_package_logio__var__server_service: log.io-server
+role_package_logio__var__harvester_service: log.io-harvester
+role_package_logio__var__logs_folder: /var/log/log.io
+role_package_logio_logs_list: []

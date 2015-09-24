@@ -1,0 +1,5 @@
+---
+dependencies:
+  - { role: apt/operations_apt }
+  - { role: git/install_git }
+  - { role: build_tools/install_build_tools }

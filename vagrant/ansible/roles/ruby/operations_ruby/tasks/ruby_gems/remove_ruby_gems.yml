@@ -1,0 +1,23 @@
+###
+# Remove Ruby gems
+###
+#
+#	DESCRIPTION:
+#
+#		Removes specified Ruby gems
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_remove_ruby_gems        - REQUIRED - List of gems to remove
+#		parameter_remove_ruby_gems_title  - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_remove_ruby_gems_notify - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+- include: ./manage_ruby_gems.yml
+  vars:
+    parameter_manage_ruby_gems: "{{ parameter_remove_ruby_gems | mandatory }}"
+    parameter_manage_ruby_gems_title: "{{ parameter_remove_ruby_gems_title | default('Removing Ruby gems') }}"
+    parameter_manage_ruby_gems_state: "absent"
+    parameter_manage_ruby_gems_notify: "{{ parameter_remove_ruby_gems_noftify | default('Dummy Ruby operation notification') }}"

@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: jq/install_jq }
+  - { role: curl/install_curl }

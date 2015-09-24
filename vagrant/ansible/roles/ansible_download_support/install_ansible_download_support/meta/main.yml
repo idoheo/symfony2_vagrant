@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: ansible_download_support/package_ansible_download_support }

@@ -1,0 +1,48 @@
+###
+# Git repositories checkout
+###
+#
+#	DESCRIPTION:
+#
+#		Checks out git repositories
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_checkout_git_repositories[]                - REQUIRED - Git repositories to checkout
+#		                                     .repo           - REQUIRED - git, SSH, or HTTP protocol address of the git repository.
+#		                                     .dest           - REQUIRED - Absolute path of where the repository should be checked out to. This parameter is required, unless clone is set to no.
+#		                                     .version        - OPTIONAL - What version of the repository to check out.
+#		                                     .accept_hostkey - OPTIONAL - if yes, adds the hostkey for the repo url if not already added. Ignored if ssh_args contains "-o StrictHostKeyChecking=no".
+#		                                     .clone          - OPTIONAL - If no, do not clone the repository if it does not exist locally.
+#		                                     .force          - OPTIONAL - If yes, any modified files in the working repository will be discarded.
+#		                                     .recursive      - OPTIONAL - If no, repository will be cloned without the --recursive option, skipping sub-modules.
+#						     .update         - OPTIONAL - If no, do not retrieve new revisions from the origin repository
+#						     .user           - OPTIONAL - Run as user
+#						     .group          - OPTIONAL - Group
+#						     .folder_mode    - OPTIONAL - Folder mode
+#		parameter_checkout_git_repositories_title            - OPTIONAL - Alternative descriptive title of action taken
+###
+- name: "{{ parameter_checkout_git_repositories_title | default('Checking out GIT repositories') }} (Creating directories)"
+  file: path="{{ item.dest }}"
+        state="directory"
+        mode="{{ item.folder_mode | default(755) }}"
+        recurse=false
+        owner="{{ item.user | default('root') }}"
+        group="{{ item.group | default( item.user | default('root') ) }}"
+  sudo: true
+  with_items: parameter_checkout_git_repositories        
+
+- name: "{{ parameter_checkout_git_repositories_title | default('Checking out GIT repositories') }} (Checking out files)"
+  git: repo="{{ item.repo }}"
+       dest="{{ item.dest }}"
+       version="{{ item.version | default('HEAD') }}"
+       accept_hostkey="{{ item.accept_hostkey | default(false) }}"
+       clone="{{ item.clone | default(yes) }}"
+       force="{{ item.force | default(false) }}"
+       recursive="{{ item.recursive | default(true) }}"
+       update="{{ item.update | default(true) | bool }}"
+  sudo: true
+  sudo_user: "{{ item.user | default(fact_user_environment_user) }}"
+  with_items: parameter_checkout_git_repositories

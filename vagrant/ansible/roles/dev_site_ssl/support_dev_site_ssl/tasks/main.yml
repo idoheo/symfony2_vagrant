@@ -1,0 +1,5 @@
+---
+- include: main/create_ssl_cert.yml
+- include: main/logs_setup.yml
+- include: main/copy_nginx_sites.yml
+- include: main/update_logio.yml

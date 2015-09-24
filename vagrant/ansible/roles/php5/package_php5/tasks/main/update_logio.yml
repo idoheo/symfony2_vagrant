@@ -1,0 +1,6 @@
+- include: ../../../../logio/operations_logio/tasks/logio_configs/update_logio_harvester.yml
+  vars:
+    parameter_update_logio_harvester_title: Adding Php 5 FPM logs to Log.io
+    parameter_update_logio_harvester_name: Php 5 FPM
+    parameter_update_logio_harvester_files:
+      - /var/log/php5-fpm.log

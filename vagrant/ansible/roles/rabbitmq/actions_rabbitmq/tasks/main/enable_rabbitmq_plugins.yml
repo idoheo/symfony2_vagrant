@@ -1,0 +1,6 @@
+---
+- include: ../../../operations_rabbitmq/tasks/plugins/enable_rabbitmq_plugins.yml
+  vars:
+    parameter_enable_rabbitmq_plugins_title: "Enabling user specified RabbitMQ plugins"
+    parameter_enable_rabbitmq_plugins: "{{ role_actions_rabbitmq__tasks__enable_plugins }}"
+

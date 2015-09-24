@@ -1,0 +1,15 @@
+---
+- name: Creating Redis Commander config dir and files
+  file: path="{{ item.name }}"
+        state="{{ item.state }}"
+        mode=0755
+        owner=root
+        group=root
+  sudo: true
+  with_items:
+    - name: "{{ role_package_redis_commander__var__config_dir }}"
+      state: directory
+      mode: 755
+    - name: "{{ role_package_redis_commander__var__config_auth }}"
+      state: touch
+      mode: 644

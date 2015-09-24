@@ -1,0 +1,3 @@
+---
+- include: main/remove_varnish_configs.yml
+- include: main/copy_varnsih_configs.yml

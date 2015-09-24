@@ -1,0 +1,25 @@
+---
+###
+# Adds Nginx webconfigs from templates in role
+###
+#
+#	DESCRIPTION:
+#
+#		Adds nginx webconfigs from templates in role
+###
+#
+#	VARIABLES:
+#
+#		parameter_add_nginx_config_templates_from_role_name           - REQUIRED - Name of role
+#		parameter_add_nginx_config_templates_from_role_dir            - REQUIRED - Template dir in role
+#		parameter_add_nginx_config_templates_from_role_enable_configs - REQUIRED - Should given templates be enabled instantly
+#		parameter_add_nginx_config_templates_from_role_title          - OPTIONAL - Alternative descriptive title of what is being done
+#		parameter_add_nginx_config_templates_from_role_notify         - OPTIONAL - Notification to be triggered on any changes made
+#
+###
+- include: ./add_nginx_config_templates.yml
+  vars:
+    parameter_add_nginx_config_templates_dir: "../../../../{{ parameter_add_nginx_config_templates_from_role_name | mandatory }}/templates/{{ parameter_add_nginx_config_templates_from_role_dir | mandatory }}"
+    parameter_add_nginx_config_templates_enable_configs: "{{ parameter_add_nginx_config_templates_from_role_enable_configs | mandatory }}"
+    parameter_add_nginx_config_templates_title: "{{ parameter_add_nginx_config_templates_from_role_title | default('Adding Nginx config templates from role') }}"
+    parameter_add_nginx_config_templates_notify: "{{ parameter_add_nginx_config_templates_from_role_notify | default('Dummy Nginx operation notification') }}"

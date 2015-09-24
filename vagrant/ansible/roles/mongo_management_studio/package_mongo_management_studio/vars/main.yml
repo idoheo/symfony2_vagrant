@@ -1,0 +1,17 @@
+---
+role_package_mongo_management_studio__var__version_json_url: http://packages.litixsoft.de/mms/mms.json
+role_package_mongo_management_studio__var__version_json_variable: '["version"]["Community Edition"]["version"]["darwin"]'
+
+
+role_package_mongo_management_studio__var__install_url: "http://packages.litixsoft.de/mms/{{ fact_mongo_management_studio_version }}/mms-v{{ fact_mongo_management_studio_version }}-community-linux.tar.gz"
+role_package_mongo_management_studio__var__arhitecture:
+  x86_64:
+    archive: "mms-v{{ fact_mongo_management_studio_version }}-community-linux-x86_64.tar.gz"
+    archive_folder: "mms-v{{ fact_mongo_management_studio_version }}-community-linux-x86_64"
+  i386:
+    archive: "mms-v{{ fact_mongo_management_studio_version }}-community-linux-x86.tar.gz"
+    archive_folder: "mms-v{{ fact_mongo_management_studio_version }}-community-linux-x86"
+role_package_mongo_management_studio__var__path: /opt/lx-mms
+role_package_mongo_management_studio__var__service: mongo-management-studio
+role_package_mongo_management_studio__var__assets_dir: mongo_management_studio
+role_package_mongo_management_studio__var__assets_download: "lx-mms-{{ fact_mongo_management_studio_version }}.tar.gz"

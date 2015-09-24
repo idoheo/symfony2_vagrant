@@ -1,0 +1,44 @@
+###
+# Create openssl certificates
+###
+#
+#	DESCRIPTION
+#
+#		Creates OpenSSL certificates
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_create_openssl_certificates[]                      - REQUIRED - List of certificates to create
+#		                                       .certificate_path     - REQUIRED - Path of certificate
+#		                                       .certificate_key_path - OPTIONAL - Path of certificate key file (if not specified ".key" is appended to certificate_path)
+#                                                      .country_code         - OPTIONAL - Country code to use
+#                                                      .location             - OPTIONAL - Location to use
+#                                                      .county               - OPTIONAL - County to use
+#                                                      .organization_name    - OPTIONAL - Organization to use
+#                                                      .common_name          - OPTIONAL - Common name to use
+#		parameter_create_openssl_certificates_user                   - REQUIRED - User as which to create certificates
+#		parameter_create_openssl_certificates_base_path              - REQUIRED - Base path to use
+#		parameter_create_openssl_certificates_title                  - OPTIONAL - Alternative descriptive title to display during operations
+#		parameter_create_openssl_certificates_notify                 - OPTIONAL - Notification to trigger if anything is changed
+#
+###
+- name: "{{ parameter_create_openssl_certificates_title | default ('Creating OpenSSL certificates') }} (Checking existence of certificate)"
+  stat: path="{{ parameter_create_openssl_certificates_base_path ~ item[1].certificate_path }}"
+  with_indexed_items: parameter_create_openssl_certificates
+  register: result_create_openssl_certificates_cert_exists
+  sudo: true
+
+- name: "{{ parameter_create_openssl_certificates_title | default ('Creating OpenSSL certificates') }} (Checking existence of certificate key)"
+  stat: path="{{ parameter_create_openssl_certificates_base_path ~ item[1].certificate_key_path | default (item[1].certificate_path ~ '.key') }}"
+  with_indexed_items: parameter_create_openssl_certificates
+  register: result_create_openssl_certificates_key_exists
+  sudo: true
+
+- name: "{{ parameter_create_openssl_certificates_title | default ('Creating OpenSSL certificates') }} (Generating certificate and key)"
+  command: openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C={{ item[1].country_code | default( role_operations_openssl_default__cert__create_certificate__country_code ) }}/ST={{ item[1].county | default( role_operations_openssl_default__cert__create_certificate__county ) }}/L={{ item[1].location | default( role_operations_openssl_default__cert__create_certificate__location ) }}/O={{ item[1].organization_name | default( role_operations_openssl_default__cert__create_certificate__organization_name ) }}/CN={{ item[1].common_name | default( role_operations_openssl_default__cert__create_certificate__common_name ) }}" -keyout "{{ parameter_create_openssl_certificates_base_path }}{{ item[1].certificate_key_path | default( item[1].certificate_path ~ '.key' ) }}"  -out "{{ parameter_create_openssl_certificates_base_path }}{{ item[1].certificate_path }}"
+  when: not result_create_openssl_certificates_cert_exists.results[item[0]].stat.exists and not result_create_openssl_certificates_key_exists.results[item[0]].stat.exists
+  with_indexed_items: parameter_create_openssl_certificates
+  sudo: true
+  sudo_user: "{{ parameter_create_openssl_certificates_user }}"

@@ -1,0 +1,3 @@
+- include: main/download_go_lang.yml
+- include: main/install_go_lang.yml
+- include: main/prepare_go_env.yml

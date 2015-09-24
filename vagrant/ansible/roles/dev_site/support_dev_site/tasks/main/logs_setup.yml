@@ -1,0 +1,16 @@
+---
+- name: "Setting site logs dir"
+  file: path="{{ role_support_dev_site__setup__logs_path }}"
+        state="directory"
+        owner="{{ fact_site_source_dir_user }}"
+        group="{{ fact_site_source_dir_group }}"
+  sudo: true
+
+- name: "Creating log files"
+  file: path="{{ role_support_dev_site__setup__logs_path }}/{{ role_support_dev_site__setup__nginx_http_port }}_{{ role_support_dev_site__setup__nginx_fpm_error_log_string }}_{{ item }}.log"
+        state="touch"
+        mode="644"
+  with_items:
+    - "access"
+    - "error"
+  sudo: true

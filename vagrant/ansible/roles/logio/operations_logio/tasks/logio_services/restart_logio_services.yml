@@ -1,0 +1,20 @@
+---
+###
+# Restart Log.io services
+###
+#
+#	DESCRIPTION
+#
+#		Restarts Log.io services
+###
+#
+#	VARIABLES:
+#
+#		- NONE -
+#
+###
+
+- include: ./manage_logio_services.yml
+  vars:
+    parameter_manage_logio_services_status: restarted
+    parameter_manage_logio_services_title: "Restarting Log.io services"

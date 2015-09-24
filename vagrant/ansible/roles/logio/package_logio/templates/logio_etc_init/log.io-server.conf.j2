@@ -1,0 +1,8 @@
+description "Log.io Server"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+
+exec sudo -u {{ fact_logio_user_environment_user }} -H $(which log.io-server) 1>{{ role_package_logio__var__logs_folder }}/server.log 2>{{ role_package_logio__var__logs_folder }}/server.err

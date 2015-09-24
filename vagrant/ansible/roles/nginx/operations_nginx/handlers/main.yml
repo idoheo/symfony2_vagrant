@@ -1,0 +1,4 @@
+- name: "Dummy Nginx operation notification"
+  debug: msg="Dummy Nginx operation notification"
+  when: false
+  

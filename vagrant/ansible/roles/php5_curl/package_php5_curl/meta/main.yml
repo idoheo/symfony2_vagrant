@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: php5/operations_php5 }
+  - { role: curl/install_curl }

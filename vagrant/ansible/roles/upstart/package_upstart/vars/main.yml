@@ -1,0 +1,6 @@
+role_package_upstart__var__apt_packages:
+  - upstart
+role_package_upstart_logs_path: /var/log/ansible_upstart
+role_package_upstart_logs_list: []
+role_package_upstart_error_logs_list: []
+

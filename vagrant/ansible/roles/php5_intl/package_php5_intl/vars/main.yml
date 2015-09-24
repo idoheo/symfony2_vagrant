@@ -1,0 +1,6 @@
+role_package_php5_intl__var__apt_packages:
+  - libicu-dev
+role_package_php5_intl__var__php5_modules_install:
+  - intl
+role_package_php5_intl__var__php5_modules_enable:
+  - intl

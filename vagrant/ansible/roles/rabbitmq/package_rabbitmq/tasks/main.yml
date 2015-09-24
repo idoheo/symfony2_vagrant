@@ -1,0 +1,4 @@
+- include: main/add_rabbitmq_repository.yml
+- include: main/install_rabbitmq.yml
+- include: main/handle_rabbitmq_service.yml
+- include: main/enable_rabbitmq_management.yml

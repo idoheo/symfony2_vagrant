@@ -1,0 +1,14 @@
+---
+- name: Setting composer path
+  lineinfile: dest="{{ fact_user_environment_user_home_dir }}/.profile"
+              insertafter=EOF
+              state="{{ item[0] }}"
+              line="{{ item[1] }}"
+  with_nested:
+    -
+      - absent
+      - present
+    -
+      - "PATH=\"{{ role_package_composer__var__dir }}:$PATH\""
+      - "PATH=\"{{ role_package_composer__var__dir }}/vendor/bin:$PATH\""
+  sudo: true

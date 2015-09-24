@@ -1,0 +1,18 @@
+---
+#- name: Starting RabbitMQ
+#  service: name="{{ item }}"
+#           sleep="2"
+#           state="restarted"
+#  with_items:
+#    - "{{ role_package_rabbitmq__var__service }}"
+#  sudo: true
+  
+- name: Starting RabbitMQ and scheduling restart
+  service: name="{{ item }}"
+           state="restarted"
+           sleep="2"
+  with_items:
+    - "{{ role_package_rabbitmq__var__service }}"
+  changed_when: true
+  notify: Restart RabbitMQ
+  sudo: true

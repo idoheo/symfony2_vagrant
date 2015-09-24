@@ -1,0 +1,5 @@
+---
+dependencies:
+  - { role: apt/operations_apt }
+  - { role: ansible_ini_support/install_ansible_ini_support }
+  - { role: logio/operations_logio }

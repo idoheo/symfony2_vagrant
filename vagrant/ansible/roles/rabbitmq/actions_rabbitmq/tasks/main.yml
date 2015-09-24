@@ -1,0 +1,5 @@
+---
+- include: main/disable_rabbitmq_plugins.yml
+- include: main/enable_rabbitmq_plugins.yml
+- include: main/remove_rabbitmq_users.yml
+- include: main/add_rabbitmq_users.yml

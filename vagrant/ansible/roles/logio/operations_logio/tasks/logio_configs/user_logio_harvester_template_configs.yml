@@ -1,0 +1,55 @@
+---
+###
+# User Log.io harvester template config
+###
+#
+#	DESCRIPTION
+#
+#		Copeies Log.io harvester template config for users
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_user_logio_harvester_template_config_role          - REQUIRED - Role with logio templates
+#		parameter_user_logio_harvester_template_config_templates_dir - REQUIRED - Directory with logio template files
+#		parameter_user_logio_harvester_template_config_users         - REQUIRED - User under whos directory to copy Log.io configs
+#		parameter_user_logio_harvester_template_config_overwrite     - OPTIONAL - Should existing configs be overriden
+#
+###
+
+- name: "Getting users home dirs before copying Log.io harvester template for them"
+  shell: "echo $( cd ~ && pwd )"
+  sudo: true
+  sudo_user: "{{ item[1] }}"
+  with_indexed_items: parameter_user_logio_harvester_template_config_users
+  changed_when: false
+  register: result_user_home_dir_for_logio_harvester_config
+
+- name: "Ensuring users have Log.io config folder"
+  file: path="{{ result_user_home_dir_for_logio_harvester_config.results[item[0]].stdout }}/.log.io"
+        owner="{{ item[1] }}"
+        group="{{ item[1] }}"
+        mode=0755
+        state="directory"
+  with_indexed_items: parameter_user_logio_harvester_template_config_users
+  sudo: true
+
+- name: "Checking existence of Log.io harvester config for users"
+  stat: path="{{ result_user_home_dir_for_logio_harvester_config.results[item[0]].stdout }}/.log.io/harvester.conf"
+  sudo: true
+  with_indexed_items: parameter_user_logio_harvester_template_config_users
+  changed_when: false
+  register: result_user_logio_harvester_config_file_stat
+
+
+- name: "Copying Log.io config templates for users"
+  template: src="../../../../{{ parameter_user_logio_harvester_template_config_role }}/templates/{{ parameter_user_logio_harvester_template_config_templates_dir}}/harvester.conf.j2"
+            dest="{{ result_user_home_dir_for_logio_harvester_config.results[item[0]].stdout }}/.log.io/harvester.conf"
+            owner="{{ item[1] }}"
+            group="{{ item[1] }}"
+            mode=0644
+  when: not result_user_logio_harvester_config_file_stat.results[item[0]].stat.exists or ( parameter_user_logio_harvester_template_config_overwrite | default ( no ) )
+  with_indexed_items: parameter_user_logio_harvester_template_config_users
+  sudo: true
+

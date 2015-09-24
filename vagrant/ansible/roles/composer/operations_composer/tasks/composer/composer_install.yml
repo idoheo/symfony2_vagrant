@@ -1,0 +1,25 @@
+###
+# Install Composer packages
+###
+#
+#	DESCRIPTION:
+#
+#		Installs specified composer packages
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_install_composer_packages[]      - REQUIRED - List of composer packages to install
+#		parameter_install_composer_packeges_title  - OPTIONAL - Alternative descriptive title of action taken
+#
+###
+- name: "{{ parameter_install_composer_packeges_title | default('Installing Composer tools') }}"
+  shell: "{{ role_package_composer__var__composer }} --working-dir=\"{{ role_package_composer__var__dir }}\" global require --no-progress --update-no-dev --update-with-dependencies --no-ansi --no-interaction {{ item }}"
+  args:
+    chdir: "{{ role_package_composer__var__dir }}"
+  sudo: true
+  sudo_user: "{{ fact_user_environment_user }}"
+  with_items: parameter_install_composer_packages
+  changed_when: not('Nothing to install or update' in result_composer_install.stderr)
+  register: result_composer_install

@@ -1,0 +1,16 @@
+---
+- include: ../../../../git/operations_git/tasks/git_repositories/git_repository_latest_checkout.yml
+  vars:
+    parameter_git_repository_latest_checkout_repo: "https://github.com/alberthier/git-webui.git"
+    parameter_git_repository_latest_checkout_dest: "{{ role_package_git_webui__var__location }}"
+    parameter_git_repository_latest_checkout_version_prefix: "v"
+    parameter_git_repository_latest_checkout_version_seperator: "."
+    parameter_git_repository_latest_checkout_accept_hostkey: true
+    parameter_git_repository_latest_checkout_clone: true
+    parameter_git_repository_latest_checkout_force: true
+    parameter_git_repository_latest_checkout_recursive: true
+    parameter_git_repository_latest_checkout_update: true
+    parameter_git_repository_latest_checkout_title: "Downloading Git WebUI"
+    parameter_git_repository_latest_checkout_user: root
+    parameter_git_repository_latest_checkout_group: root
+  

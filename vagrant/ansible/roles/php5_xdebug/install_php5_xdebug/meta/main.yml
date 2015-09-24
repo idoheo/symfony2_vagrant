@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: php5_xdebug/package_php5_xdebug }

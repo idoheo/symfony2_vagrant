@@ -1,0 +1,12 @@
+---
+- include: ../../../../nginx/operations_nginx/tasks/nginx_websites/disable_nginx_websites.yml
+  vars:
+    parameter_disable_nginx_sites:
+      - default
+    parameter_disable_nginx_sites_title: Disabling Default site for nginx
+
+- include: ../../../../nginx/operations_nginx/tasks/nginx_websites/add_nginx_site_templates_from_role.yml
+  vars:
+    parameter_add_nginx_site_templates_from_role_name: dev_site/support_dev_site
+    parameter_add_nginx_site_templates_from_role_dir: nginx_sites
+    parameter_add_nginx_site_templates_from_role_enable_sites: yes

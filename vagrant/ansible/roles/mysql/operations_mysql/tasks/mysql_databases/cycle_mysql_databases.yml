@@ -1,0 +1,65 @@
+###
+# Backup MySQL databses
+###
+#
+#	DESCRIPTION:
+#
+#		Backups specified MySQL databases
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_cycle_mysql_databases[]              - REQUIRED - List of databases to backup
+#		                                 .database     - REQUIRED - Database name
+#		                                 .original     - REQUIRED - File location of original dump
+#		                                 .backup       - REQUIRED - File location of backup dump
+#		parameter_cycle_mysql_databases_file_prefix    - OPTIONAL - File prefix for file locations
+#		parameter_cycle_mysql_databases_title          - OPTIONAL - Alternative descriptive title of action taken
+#
+###
+- name: "{{ parameter_cycle_mysql_databases_title|default('Cyceling MySQL databases') }} (Checking existence of original files) [1/6]"
+  stat: path="{{ parameter_cycle_mysql_databases_file_prefix | default('') }}{{ item[1].original | mandatory }}"
+  with_indexed_items: parameter_cycle_mysql_databases
+  sudo: true
+  register: result_cycle_mysql_databases_original_exists
+
+- name: "{{ parameter_cycle_mysql_databases_title|default('Cyceling MySQL databases') }} (Checking existence of backup files) [2/6]"
+  stat: path="{{ parameter_cycle_mysql_databases_file_prefix | default('') }}{{ item[1].backup | mandatory }}"
+  with_indexed_items: parameter_cycle_mysql_databases
+  sudo: true
+  register: result_cycle_mysql_databases_backup_exists
+
+- name: "{{ parameter_cycle_mysql_databases_title|default('Cyceling MySQL databases') }} (Creating missing databases) [3/6]"
+  mysql_db: name="{{ item[1].database | mandatory }}"
+            collation="{{ item[1].collation|default('utf8_unicode_ci') }}"
+            encoding="{{ item[1].encoding|default('utf8') }}"
+            state=present
+            login_unix_socket="/var/run/mysqld/mysqld.sock"
+  with_indexed_items: parameter_cycle_mysql_databases
+  register: result_cycle_mysql_databases_database_creation
+
+- name: "{{ parameter_cycle_mysql_databases_title|default('Cyceling MySQL databases') }} (Loading backups in new databases where available) [4/6]"
+  mysql_db: name="{{ item[1].database | mandatory }}"
+            target="{{ parameter_cycle_mysql_databases_file_prefix | default('') }}{{ item[1].backup | mandatory }}"
+            state=import
+            login_unix_socket="/var/run/mysqld/mysqld.sock"
+  with_indexed_items: parameter_cycle_mysql_databases
+  when: (result_cycle_mysql_databases_backup_exists.results[item[0]].stat.exists) and (result_cycle_mysql_databases_database_creation.results[item[0]].changed)
+
+
+- name: "{{ parameter_cycle_mysql_databases_title|default('Cyceling MySQL databases') }} (Loading originals in new databases without backups) [5/6]"
+  mysql_db: name="{{ item[1].database | mandatory }}"
+            target="{{ parameter_cycle_mysql_databases_file_prefix | default('') }}{{ item[1].original | mandatory }}"
+            state=import
+            login_unix_socket="/var/run/mysqld/mysqld.sock"
+  with_indexed_items: parameter_cycle_mysql_databases
+  when: not(result_cycle_mysql_databases_backup_exists.results[item[0]].stat.exists) and (result_cycle_mysql_databases_original_exists.results[item[0]].stat.exists) and (result_cycle_mysql_databases_database_creation.results[item[0]].changed)
+
+- name: "{{ parameter_cycle_mysql_databases_title|default('Cyceling MySQL databases') }} (Backing up previous databases) [6/6]"
+  mysql_db: name="{{ item[1].database | mandatory }}"
+            target="{{ parameter_cycle_mysql_databases_file_prefix | default('') }}{{ item[1].backup | mandatory }}"
+            state=dump
+            login_unix_socket="/var/run/mysqld/mysqld.sock"
+  with_indexed_items: parameter_cycle_mysql_databases
+  when: not(result_cycle_mysql_databases_database_creation.results[item[0]].changed)

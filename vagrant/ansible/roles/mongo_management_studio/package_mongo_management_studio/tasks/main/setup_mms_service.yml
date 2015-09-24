@@ -1,0 +1,9 @@
+---
+- include: ../../../../upstart/operations_upstart/tasks/upstart/build_upstarts.yml
+  vars:
+    parameter_build_upstarts_title: Creating Mongo Management Studio service
+    parameter_build_upstarts:
+      - service: mongo-management-studio
+        name: "Mongo Management Studio [{{ role_package_mongo_management_studio__config__web_server__port }}]"
+        command: 'sudo -u root -H "{{ role_package_mongo_management_studio__var__path }}/start"'
+

@@ -1,0 +1,5 @@
+---
+dependencies:
+  - { role: ansible_download_support/install_ansible_download_support}
+  - { role: ansible_unarchive_support/install_ansible_unarchive_support}
+  - { role: vagrant_assets/operations_vagrant_assets }

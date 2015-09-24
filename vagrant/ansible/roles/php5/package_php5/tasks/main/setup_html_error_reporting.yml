@@ -1,0 +1,12 @@
+---
+- name: "Setting HTML error reporting options for PHP"
+  ini_file: dest="{{ item.ini_file }}"
+            section="PHP"
+            option="html_errors"
+            value="{{ item.value }}"
+  with_items:
+    - ini_file: "{{ role_package_php5__var__fpm_ini }}"
+      value: "On"
+    - ini_file: "{{ role_package_php5__var__cli_ini }}"
+      value: "Off"
+  sudo: true

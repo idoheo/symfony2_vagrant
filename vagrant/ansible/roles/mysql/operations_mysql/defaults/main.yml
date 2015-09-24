@@ -1,0 +1,3 @@
+## Task default variables ##
+task_default__operations_mysql__mysql_databases__manage_mysql_databases__collation: "utf8_unicode_ci"
+task_default__operations_mysql__mysql_databases__manage_mysql_databases__encoding: "utf8"

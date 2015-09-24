@@ -1,0 +1,25 @@
+---
+###
+# Create asset downloads dirs
+###
+#
+#	DESCRIPTION
+#
+#		Create asset downloads dirs
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_create_assets_download_dirs_dirs   - REQUIRED - Lists of assets dirs to create
+#		parameter_create_assets_download_dirs_prefix - OPTIONAL - Prefix for all dirs created
+#		parameter_create_assets_download_dirs_title  - OPTIONAL - Alternative descriptive title for actions taken
+#		parameter_create_assets_download_dirs_notify - OPTIONAL - Notification to trigger
+#
+###
+- include: ../../../../vagrant_assets/operations_vagrant_assets/tasks/assets_dirs/create_assets_dirs.yml
+  vars:
+    parameter_create_assets_dirs: "{{ parameter_create_assets_download_dirs | default([]) }}"
+    parameter_create_assets_dirs_prefix: "{{ role_support_asset_downloads__var__downloads_dir }}/{{ parameter_create_assets_download_dirs_prefix | default('') }}"
+    parameter_create_assets_dirs_title: "{{ parameter_create_assets_download_dirs_title | default('Creating asset downloads dirs ') }}"
+    parameter_create_assets_dirs_notify: "{{ parameter_create_assets_download_dirs_notify | default('Dummy asset downloads operation notification') }}"

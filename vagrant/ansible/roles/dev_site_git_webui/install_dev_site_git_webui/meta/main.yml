@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: dev_site_git_webui/support_dev_site_git_webui }

@@ -1,0 +1,6 @@
+---
+- include: ../../../../nodejs/operations_nodejs/tasks/nodejs_packages/install_nodejs_packages.yml
+  vars:
+    parameter_install_nodejs_packages_title: Installing Redis-Commander
+    parameter_install_nodejs_packages: "{{ role_package_redis_commander__var__nodejs_packages }}"
+  

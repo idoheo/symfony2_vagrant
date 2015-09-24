@@ -1,0 +1,9 @@
+role_package_composer__var__dir: "{{ fact_user_environment_user_home_dir }}/composer"
+role_package_composer__var__composer: "{{ role_package_composer__var__dir }}/composer.phar"
+role_package_composer__var__url: "https://getcomposer.org/composer.phar"
+role_package_composer__var__user: "{{ fact_user_environment_user_home_dir_user }}"
+role_package_composer__var__group: "{{ fact_user_environment_user_home_dir_group }}"
+role_package_composer__var__php5_modules_install:
+  - json
+role_package_composer__var__php5_modules_enable:
+  - json

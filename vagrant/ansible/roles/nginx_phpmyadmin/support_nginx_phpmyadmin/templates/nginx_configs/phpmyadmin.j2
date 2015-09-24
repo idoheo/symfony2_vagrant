@@ -1,0 +1,36 @@
+location /phpmyadmin {
+    alias /usr/share/phpmyadmin/;
+	index index.php;
+}
+
+location ~ ^/phpmyadmin/(.+\.php)$ {
+    alias /usr/share/phpmyadmin/$1;
+
+    fastcgi_pass {{ role_nginx_php5_support__setup__fpm_listen }};
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $request_filename;
+
+    fastcgi_param PHP_FLAG "magic_quotes_gpc = Off \n track_vars = On \n register_globals = Off";
+    fastcgi_param PHP_ADMIN_FLAG "allow_url_fopen = Off";
+    fastcgi_param PHP_VALUE "include_path = .";
+    fastcgi_param PHP_ADMIN_VALUE "xdebug.coverage_enable = 0 \n xdebug.default_enable = 0 \n xdebug.profiler_enable = 0 \n xdebug.profiler_enable_trigger = 0 \n xdebug.remote_connect_back = 0 \n xdebug.remote_enable = 0 \n xdebug.remote_autostart = 0 \n  xdebug.remote_collect_assigments = 0 \n xdebug.collect_includes = 0 \n  xdebug.collect_params = 0 \n  xdebug.collect_return = 0 \n xdebug.collect_vars = 0 \n upload_tmp_dir = /var/lib/phpmyadmin/tmp \n open_basedir = /usr/share/phpmyadmin/:/etc/phpmyadmin/:/var/lib/phpmyadmin/:/usr/share/php/php-gettext/:/usr/share/javascript/";
+
+    # From fastcgi_params
+    fastcgi_param  QUERY_STRING       $query_string;
+    fastcgi_param  REQUEST_METHOD     $request_method;
+    fastcgi_param  CONTENT_TYPE       $content_type;
+    fastcgi_param  CONTENT_LENGTH     $content_length;
+    fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
+    fastcgi_param  REQUEST_URI        $request_uri;
+    fastcgi_param  DOCUMENT_URI       $document_uri;
+    fastcgi_param  DOCUMENT_ROOT      /usr/share/phpmyadmin; # <-- Changed
+    fastcgi_param  SERVER_PROTOCOL    $server_protocol;
+    fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
+    fastcgi_param  SERVER_SOFTWARE    nginx/$nginx_version;
+    fastcgi_param  REMOTE_ADDR        $remote_addr;
+    fastcgi_param  REMOTE_PORT        $remote_port;
+    fastcgi_param  SERVER_ADDR        $server_addr;
+    fastcgi_param  SERVER_PORT        $server_port;
+    fastcgi_param  SERVER_NAME        $server_name;
+    fastcgi_param  REDIRECT_STATUS    200;
+}

@@ -1,0 +1,6 @@
+role_package_php5_imagick__var__apt_packages:
+  - imagemagick
+role_package_php5_imagick__var__php5_modules_install:
+  - imagick
+role_package_php5_imagick__var__php5_modules_enable:
+  - imagick

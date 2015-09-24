@@ -1,0 +1,4 @@
+role_package_php5_xdebug__var__php5_modules_install:
+  - xdebug
+role_package_php5_xdebug__var__php5_modules_enable:
+  - xdebug

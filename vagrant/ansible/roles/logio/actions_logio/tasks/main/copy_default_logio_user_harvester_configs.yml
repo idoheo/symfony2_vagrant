@@ -1,0 +1,6 @@
+- include: ../../../operations_logio/tasks/logio_configs/user_logio_harvester_template_configs.yml
+  vars:
+    parameter_user_logio_harvester_template_config_role: logio/actions_logio
+    parameter_user_logio_harvester_template_config_templates_dir: logio_default_configs
+    parameter_user_logio_harvester_template_config_users: "{{ role_actions_logio__tasks__copy_default_logio_harvester_user_configs__user }}"
+    parameter_user_logio_harvester_template_config_overwrite: no

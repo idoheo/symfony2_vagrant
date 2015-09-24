@@ -1,0 +1,31 @@
+---
+###
+# Copy Dev site config files from role templates
+###
+#
+#	DESCRIPTION:
+#
+#		Copies dev set config files from role templates
+###
+#
+#	VARIABLES:
+#
+#		paremeter_copy_dev_site_configs_role     - REQUIRED - Role containting configuration templates
+#		parameter_copy_dev_site_configs_dir      - REQUIRED - Template directory inside role
+#		parameter_copy_dev_site_configs_pattern  - OPTIONAL - File pattern (before ".j2")
+#		parameter_copy_dev_site_configs_title    - OPTIONAL - Alternative descriptive title of what is being done
+#
+###
+- name: "{{ parameter_copy_dev_site_configs_title | default('Copying dev site nginx configs') }}"
+  template: src="{{ item }}"
+            dest="{{ role_support_dev_site__setup__nginx_path ~ "/" ~(item[:(item|length-3)]|basename) }}"
+            owner="{{ fact_nginx_sites_available_dir_user }}"
+            group="{{ fact_nginx_sites_available_dir_group }}"
+            mode=0644
+  with_fileglob:
+    - "../../../../{{ paremeter_copy_dev_site_configs_role | mandatory }}/templates/{{ parameter_copy_dev_site_configs_dir | mandatory }}/*.j2"
+  notify: "Restart Nginx"
+  sudo: true
+  register: result
+
+

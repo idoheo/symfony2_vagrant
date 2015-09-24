@@ -1,0 +1,13 @@
+- name: "Creating Go directory"
+  file: path="{{ role_package_go_lang__var__path }}"
+        state="directory"
+        mode="755"
+        recurse="true"
+        owner="root"
+        group="root"
+  sudo: true
+
+- name: Setting Go Lang facts
+  set_fact:
+    fact_go_lang_go_bin: "{{ role_package_go_lang__var__root }}/bin/go"
+    fact_go_lang_go_bins: "{{ role_package_go_lang__var__path }}/bin/"

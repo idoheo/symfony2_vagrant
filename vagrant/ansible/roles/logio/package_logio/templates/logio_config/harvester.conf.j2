@@ -1,0 +1,29 @@
+exports.config = {
+  nodeName: "Vagrant dev box",
+  logStreams: {
+    "Log.io Harvester": [
+        "{{ role_package_logio__var__logs_folder }}/harvester.log",
+    ],
+    "Log.io Harvester (error)": [
+        "{{ role_package_logio__var__logs_folder }}/harvester.err",
+    ],
+    "Log.io Server": [
+        "{{ role_package_logio__var__logs_folder }}/server.log",
+    ],
+    "Log.io Server (error)": [
+        "{{ role_package_logio__var__logs_folder }}/server.err",
+    ],
+    {% for logio_group in role_package_logio_logs_list %}
+      "{{ logio_group.name }}": [
+          {% for logio_file in logio_group.files %}
+            "{{ logio_file }}",
+          {% endfor %}
+      ],
+    {% endfor %}
+  },
+  server: {
+    host: '{{ role_package_logio__config__log_server__host }}',
+    port: {{ role_package_logio__config__log_server__port }}
+  }
+}
+

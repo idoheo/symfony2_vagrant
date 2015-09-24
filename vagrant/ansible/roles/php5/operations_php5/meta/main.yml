@@ -1,0 +1,5 @@
+---
+dependencies:
+  - { role: php5/install_php5 }
+  - { role: apt/operations_apt }
+  - { role: ini_files/operations_ini_files }

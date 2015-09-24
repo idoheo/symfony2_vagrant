@@ -1,0 +1,32 @@
+---
+- name: "Setting site ssl dir ownership"
+  file: path="{{ role_support_dev_site_ssl__setup__ssl_path }}"
+        state="directory"
+        owner="{{ fact_site_source_dir_user }}"
+        group="{{ fact_site_source_dir_group }}"
+  sudo: true
+
+- include: ../../../../vagrant_assets/operations_vagrant_assets/tasks/assets_dirs/create_assets_dirs.yml
+  vars:
+    parameter_create_assets_dirs: "{{ role_support_dev_site_ssl__setup__assets_path }}/{{ role_support_dev_site_ssl__setup__ssl_assets_sub_path }}"
+    parameter_create_assets_dirs_title: "Creating assets dir for dev site SSL files"
+
+- include: ../../../../openssl/operations_openssl/tasks/certificates/create_certificates.yml
+  vars:
+    parameter_create_openssl_certificates:
+      - certificate_path: "{{ role_support_dev_site_ssl__setup__ssl_file }}"
+        certificate_key_path: "{{ role_support_dev_site_ssl__setup__ssl_key_file }}"
+        common_name: "{{ role_support_dev_site__setup__nginx_server_name }}"
+    parameter_create_openssl_certificates_user: "{{ fact_assets_dir_user }}"
+    parameter_create_openssl_certificates_base_path: "{{ fact_assets_dir_path }}/{{ role_support_dev_site_ssl__setup__assets_path }}/{{ role_support_dev_site_ssl__setup__ssl_assets_sub_path }}/"
+
+- name: Copying Dev site SSL files
+  copy: src="{{ fact_assets_dir_path }}/{{ role_support_dev_site_ssl__setup__assets_path }}/{{ role_support_dev_site_ssl__setup__ssl_assets_sub_path }}/{{ item }}"
+        dest="{{ role_support_dev_site_ssl__setup__ssl_path }}/{{ item }}"
+        group="{{ fact_site_dir_group }}"
+        owner="{{ fact_site_dir_user }}"
+        mode="0644"
+  sudo: true
+  with_items:
+    - "{{ role_support_dev_site_ssl__setup__ssl_file }}"
+    - "{{ role_support_dev_site_ssl__setup__ssl_key_file }}"

@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: ansible_apt_support/install_ansible_apt_support }

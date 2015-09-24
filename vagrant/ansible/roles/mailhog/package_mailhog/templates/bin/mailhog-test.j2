@@ -1,0 +1,49 @@
+#!/bin/bash
+
+MAILER=$(which mailx);
+RETURN=0;
+
+if [ ! -f $MAILER ]; then
+        echo "Unable to find mailx executable";
+        RETURN=$(($RETURN + 1));
+fi;
+
+if [ "$RETURN" -gt "0" ]; then
+        echo "Exiting with error code $RETURN";
+        exit $RETURN;
+fi;
+
+NOW=$(date +"%Y-%m-%d %H-%M-%S %N");
+
+DEFAULT_MAILSERVER_ADDRESS="{% if role_package_mailhog__config__smtp_server__host == '0.0.0.0' %}127.0.0.1{% else %}{{ role_package_mailhog__config__smtp_server__host }}{% endif %}"
+DEFAULT_MAILSERVER_PORT="{{ role_package_mailhog__config__smtp_server__port }}"
+DEFAULT_MAIL_RECIPIENT="MailHog<mailhog@$('hostname')>"
+DEFAULT_MAIL_SENDER="Heirloom Mailx<sender@$('hostname')>"
+DEFAULT_MAIL_SUBJECT="Test mail on $('hostname') at $NOW for MailHog"
+
+echo ""
+echo "-------------------"
+echo "  Testing MailHog  "
+echo "-------------------"
+echo ""
+
+VAR_MAILSERVER_ADDRESS=$DEFAULT_MAILSERVER_ADDRESS
+VAR_MAILSERVER_PORT=$DEFAULT_MAILSERVER_PORT
+VAR_MAIL_SENDER=$DEFAULT_MAIL_SENDER
+VAR_MAIL_RECIPIENT=$DEFAULT_MAIL_RECIPIENT
+VAR_MAIL_SUBJECT=$DEFAULT_MAIL_SUBJECT
+
+echo "Send via: $VAR_MAILSERVER_ADDRESS:$VAR_MAILSERVER_PORT"
+echo "From:     $VAR_MAIL_SENDER"
+echo "To:       $VAR_MAIL_RECIPIENT"
+echo "Subject:  $VAR_MAIL_SUBJECT"
+echo ""
+echo " -- Starting test -- "
+echo ""
+
+echo "This is a test mail triggered at $NOW from $(hostname)" | $MAILER -v -s "$VAR_MAIL_SUBJECT" -r "$VAR_MAIL_SENDER" -S smtp="$VAR_MAILSERVER_ADDRESS:$VAR_MAILSERVER_PORT" "$VAR_MAIL_RECIPIENT"
+
+echo ""
+echo " -- Test done -- "
+echo ""
+

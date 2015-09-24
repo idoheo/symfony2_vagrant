@@ -1,0 +1,6 @@
+---
+dependencies:
+  - { role: mysql/install_mysql }
+  - { role: php5/operations_php5 }
+  - { role: apt/operations_apt }
+  - { role: php5_mcrypt/install_php5_mcrypt }

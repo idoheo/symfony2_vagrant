@@ -1,0 +1,6 @@
+- include: ../../../operations_apt/tasks/apt_packages/remove_apt_packages.yml
+  vars:
+    parameter_remove_apt_packages_title: "Removing User specified APT packages"
+    parameter_remove_apt_packages: "{{ role_actions_apt__tasks__remove_apt_packages__packages }}"
+    parameter_remove_apt_packages_force: "{{ role_actions_apt__tasks__remove_apt_packages__force }}"
+    parameter_remove_apt_packages_purge: "{{ role_actions_apt__tasks__remove_apt_packages__purge }}"

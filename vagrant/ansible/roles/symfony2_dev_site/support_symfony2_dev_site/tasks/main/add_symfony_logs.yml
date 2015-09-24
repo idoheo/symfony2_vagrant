@@ -1,0 +1,36 @@
+---
+- name: Checking for existence of Symfony2 logs dir
+  stat: path="{{ role_symfony2_dev_site__var__logs_dir }}"
+  sudo: true
+  register: result_symfony2_logs_dir
+
+- name: Ensuring Symfony2 logs exist
+  file: path="{{ role_symfony2_dev_site__var__logs_dir }}/{{ item|basename|regex_replace('^config_(.*).yml$', '\\1') }}.log"
+        state=touch
+        owner="{{ fact_site_dir_user }}"
+        group="{{ fact_site_dir_group }}"
+  when: result_symfony2_logs_dir.stat.exists and result_symfony2_logs_dir.stat.isdir
+  sudo: true
+  with_fileglob:
+    - "{{ role_symfony2_dev_site__var__configs_dir }}/config_*.yml"
+
+- name: Gathering Symfony2 logs for Log.io (1/2)
+  set_fact:
+    role_symfony2_dev_site_gathered: []
+
+- name: Gathering Symfony2 logs for Log.io (2/2)
+  set_fact:
+    role_symfony2_dev_site_gathered: "{{ [ {'name': 'Symfony - ' ~ item|basename|regex_replace('^config_(.*).yml$', '\\\\1') , 'files': [role_symfony2_dev_site__var__logs_dir ~ '/' ~ item|basename|regex_replace('^config_(.*).yml$', '\\\\1') ~ '.log'] }] }}"
+  with_fileglob:
+    - "{{ role_symfony2_dev_site__var__configs_dir }}/config_*.yml"
+  register: result_symfony2_logs
+
+- name: Adding Symfony2 logs to Log.io
+  set_fact:
+    role_package_logio_logs_list: "{{ role_package_logio_logs_list +  (result_symfony2_logs.results | map(attribute='ansible_facts.role_symfony2_dev_site_gathered.0') | list  ) }}"
+  when: role_symfony2_dev_site_gathered|length > 0
+
+- include: ../../../../logio/operations_logio/tasks/logio_configs/update_logio_harvester_config.yml
+  vars:
+    parameter_update_logio_harvester_config_title: Updating Log.io with Symfony2 logs
+  when: role_symfony2_dev_site_gathered|length > 0

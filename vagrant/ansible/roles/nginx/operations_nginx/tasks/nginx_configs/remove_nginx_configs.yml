@@ -1,0 +1,27 @@
+---
+###
+# Remove Nginx webconfigs
+###
+#	DESCRIPTION:
+#
+#		Removes Nginx webconfigs
+###
+#
+#	VARIABLES:
+#
+#		parameter_remove_nginx_configs        - REQUIRED - List of Nginx webconfigs to disable
+#		parameter_remove_nginx_configs_title  - OPTIONAL - Alternative descriptive title of what is being done
+#		parameter_remove_nginx_configs_notify - OPTIONAL - Notification to be triggered on any changes made
+###
+- include: ./disable_nginx_webconfigs.yml
+  vars:
+    parameter_disable_nginx_configs_title: "{{ parameter_remove_nginx_configs | default('Preparing to remove Nginx configs') }} (Disabling Nginx configs before removal)"
+    parameter_disable_nginx_configs: "{{ parameter_remove_nginx_configs | mandatory }}"
+    parameter_disable_nginx_configs_notify: "{{ parameter_remove_nginx_configs_notify | default('Dummy Nginx operation notification') }}"
+
+- name: "{{ parameter_remove_nginx_configs_title | default('Removing Nginx webconfig configurations') }}"
+  file: path="{{ fact_nginx_configs_available_dir }}/{{ (item|basename) }}"
+        state=absent
+  with_items: parameter_remove_nginx_configs
+  sudo: true
+  notify: "{{ parameter_remove_nginx_configs_notify | default('Dummy Nginx operation notification') }}"

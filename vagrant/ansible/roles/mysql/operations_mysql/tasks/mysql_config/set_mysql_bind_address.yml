@@ -1,0 +1,28 @@
+###
+# Set MySQL bind address
+###
+#
+#	DESCRIPTION:
+#
+#		Sets MySQL bind address
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_set_mysql_bind_address        - REQUIRED - Bind address to set
+#		parameter_set_mysql_bind_address_title  - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_set_mysql_bind_address_notify - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+
+- include: ./update_mysql_config.yml
+  vars:
+    parameter_update_mysql_config_title: "{{ parameter_set_mysql_bind_address_title | default('Updating MySQL bind address') }}"
+    parameter_update_mysql_config:
+      - section: mysqld
+        content:
+          - option: "bind-address"
+            value: "{{ parameter_set_mysql_bind_address }}"
+    parameter_update_mysql_config_notify: "{{ parameter_set_mysql_bind_address_notify | default('Dummy MySQL operation notification') }}"
+  when: parameter_set_mysql_bind_address|length > 0

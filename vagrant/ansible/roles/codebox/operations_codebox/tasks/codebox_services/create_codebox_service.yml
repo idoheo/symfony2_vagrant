@@ -1,0 +1,29 @@
+---
+###
+# Create Codebox services
+###
+#
+#	DESCRIPTION
+#
+#		Creats codebox service
+###
+#
+#	VARIABLES:
+#		parameter_create_codebox_service_name      - REQUIRED - Name of service
+#		parameter_create_codebox_service_port      - REQUIRED - Port to run on
+#		parameter_create_codebox_service_path      - REQUIRED - Path for run
+#		parameter_create_codebox_service_user      - REQUIRED - User as which to run service
+#               parameter_create_codebox_service_passwords - REQUIRED - Comma separated list of username:password access credentials
+#               parameter_create_codebox_service_title     - OPTIONAL - Alternative descriptive title
+#
+###
+
+- include: ../../../../upstart/operations_upstart/tasks/upstart/build_upstarts.yml
+  vars:
+    parameter_build_upstarts:
+      - service: "codebox-{{ parameter_create_codebox_service_name | mandatory }}"
+        command: 'sudo -u {{ parameter_create_codebox_service_user | mandatory }} -H codebox run {{ parameter_create_codebox_service_path | mandatory }} --port {{ parameter_create_codebox_service_port | mandatory }} {% if parameter_create_codebox_service_passwords is defined and parameter_create_codebox_service_passwords|trim|length > 0 %}--users "{{ parameter_create_codebox_service_passwords|trim }}"{% endif %}'
+        name: "Codebox {{ parameter_create_codebox_service_name }} [{{ parameter_create_codebox_service_port | mandatory }}]"
+        respawn_parameters: limit 0 120
+        post_stop: sleep 1
+    parameter_build_upstarts_title: "{{ parameter_create_codebox_service_title | default('Creating Codebox service') }}"

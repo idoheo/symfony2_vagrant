@@ -1,0 +1,10 @@
+role_package_smyfony2__var__php5_modules_install:
+  - curl
+  - json
+role_package_smyfony2__var__php5_modules_enable:
+  - curl
+  - json
+  - pdo
+role_symfony2_dev_site__var__app_dir: "{{ role_support_dev_site__setup__source_path }}/app"
+role_symfony2_dev_site__var__logs_dir: "{{ role_symfony2_dev_site__var__app_dir }}/logs"
+role_symfony2_dev_site__var__configs_dir: "{{ role_symfony2_dev_site__var__app_dir }}/config"

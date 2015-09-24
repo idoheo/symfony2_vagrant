@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: upstart/package_upstart }

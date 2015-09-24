@@ -1,0 +1,4 @@
+- name: "Dummy MySQL operation notification"
+  debug: msg="Dummy MySQL operation notification"
+  when: false
+  

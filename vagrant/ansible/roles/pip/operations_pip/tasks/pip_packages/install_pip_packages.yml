@@ -1,0 +1,25 @@
+###
+# Install Python PIP Packages
+###
+#
+#	DESCRIPTION:
+#
+#		Installs specified Python PIP packages
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_install_pip_packages        - REQUIRED - List of packages to manage
+#		parameter_install_pip_packages_title  - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_install_pip_packages_latest - OPTIONAL - Should latest packages be installed
+#		parameter_install_pip_packages_notify - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+
+- include: ./manage_pip_packages.yml
+  vars:
+    parameter_manage_pip_packages: "{{ parameter_install_pip_packages | mandatory }}"
+    parameter_manage_pip_packages_title: "{{ parameter_install_pip_packages_title | default('Installing Python PIP packages') }}"
+    parameter_manage_pip_packages_state: "{% if (parameter_install_pip_packages_latest | default( task_default__operations_pip__pip_packages__install_pip_packages__latest )) %}latest{% else %}present{% endif %}"
+    parameter_manage_pip_packages_notify: "{{ parameter_install_pip_packages_noftify | default('Dummy Python PIP operation notification') }}"

@@ -1,0 +1,9 @@
+- name: "Dummy upstart operation notification"
+  debug: msg="Dummy upstart operation notification"
+  when: false
+  
+- name: "Restart upstart services"
+  service: name="{{ item }}"
+           state=restarted
+  sudo: true
+  with_items: "{{ role_upstart__operations_upstart__upstart_services }}"

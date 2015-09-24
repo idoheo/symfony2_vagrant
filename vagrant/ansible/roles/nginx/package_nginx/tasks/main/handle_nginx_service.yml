@@ -1,0 +1,17 @@
+---
+- name: Starting Nginx
+  service: name="{{ item }}"
+           sleep="2"
+           state="restarted"
+  with_items:
+    - "{{ role_package_nginx__var__service }}"
+  sudo: true
+  
+- name: Stopping Nginx and scheduling restart
+  service: name="{{ item }}"
+           state="stopped"
+  with_items:
+    - "{{ role_package_nginx__var__service }}"
+  changed_when: true
+  notify: Restart Nginx
+  sudo: true

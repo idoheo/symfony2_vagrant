@@ -1,0 +1,5 @@
+- include: main/add_varnish_repository.yml
+- include: main/install_varnish.yml
+- include: main/handle_varnish_service.yml
+- include: main/gather_varnish_facts.yml
+- include: main/setup_varnish_log_service.yml

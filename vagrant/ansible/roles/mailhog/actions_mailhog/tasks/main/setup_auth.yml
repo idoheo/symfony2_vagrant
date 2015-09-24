@@ -1,0 +1,5 @@
+---
+- include: ../../../operations_mailhog/tasks/auth/set_auth_password.yml
+  vars:
+    parameter_mailhog_auth: "{{ role_actions_mailhog__tasks__set_passwords }}"
+    parameter_mailhog_auth_title: Setting User defined MailHog passwords

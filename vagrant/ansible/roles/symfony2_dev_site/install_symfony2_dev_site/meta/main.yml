@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: symfony2_dev_site/support_symfony2_dev_site }

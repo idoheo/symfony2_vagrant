@@ -1,0 +1,3 @@
+---
+- include: main/remove_elasticsearch_plugins.yml
+- include: main/install_elasticsearch_plugins.yml

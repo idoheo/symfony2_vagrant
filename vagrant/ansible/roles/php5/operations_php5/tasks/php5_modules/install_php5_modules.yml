@@ -1,0 +1,25 @@
+###
+# Install Php5 Modules Packages
+###
+#
+#	DESCRIPTION:
+#
+#		Installs Php 5 modules packages
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_install_php5_modules        - REQUIRED - List of Php 5 modules to install
+#		parameter_install_php5_modules_title  - OPTIONAL - Alternative descriptive title of what is being installed
+#		parameter_install_php5_modules_notify - OPTIONAL - Notification to trigger if anything has changed
+#
+###
+---
+- include: ../../../../apt/operations_apt/tasks/apt_packages/install_apt_packages.yml
+  vars:
+    parameter_install_apt_packages_title: "{{ parameter_install_php5_modules_title  | default( 'Installing Php 5 modules' ) }}"
+    parameter_install_apt_packages: "{{ parameter_install_php5_modules }}"
+    parameter_install_apt_packages_latest: "{{ parameter_install_php5_modules_latest | default( task_default__operations_php5__php5_modules__install_php5_modules__latest ) }}"
+    parameter_install_apt_packages_prefix: "php5-"
+    parameter_install_apt_packages_notify: "{{ parameter_install_php5_modules_notify | default('Dummy Php 5 operation notification') }}"

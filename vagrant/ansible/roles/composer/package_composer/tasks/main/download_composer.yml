@@ -1,0 +1,26 @@
+---
+- name: Creating Composer dir
+  file: path="{{ role_package_composer__var__dir }}"
+        mode=755
+        owner="{{ role_package_composer__var__user }}"
+        group="{{ role_package_composer__var__group }}"
+        state=directory
+  sudo: true
+
+- name: Downloading Composer
+  get_url: dest="{{ role_package_composer__var__composer }}"
+           force="no"
+           url="{{ role_package_composer__var__url }}"
+           validate_certs=yes
+           owner="{{ role_package_composer__var__user }}"
+           group="{{ role_package_composer__var__group }}"
+           mode="0755"
+  sudo: true
+  register: result_download_composer
+
+- name: Updating composer
+  shell: "{{ role_package_composer__var__composer }} self-update"
+  sudo: true
+  when: not result_download_composer.changed
+  register: result_update_composer
+  changed_when: result_update_composer.rc == 0 and result_update_composer.stderr[:39] != 'You are already using composer version '

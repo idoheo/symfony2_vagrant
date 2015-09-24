@@ -1,0 +1,8 @@
+---
+- include: ../../../../upstart/operations_upstart/tasks/upstart/build_upstarts.yml
+  vars:
+    parameter_build_upstarts_title: Creating Redis Commander service
+    parameter_build_upstarts:
+      - service: redis-commander
+        name: "Redis Commander [{{ role_package_redis_commander__config__web_server__port }}]"
+        command: 'sudo -u root -H redis-commander --port {{ role_package_redis_commander__config__web_server__port }} --address {{ role_package_redis_commander__config__web_server__host }} $(cat {{ role_package_redis_commander__var__config_auth }})'

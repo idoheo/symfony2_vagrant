@@ -1,0 +1,8 @@
+---
+- name: "Disabling default Nginx website"
+  file: path="{{ fact_nginx_sites_enabled_dir }}/{{ (item|basename) }}"
+        state=absent
+  with_items:
+    - default
+  sudo: true
+  notify: "Restart Nginx"

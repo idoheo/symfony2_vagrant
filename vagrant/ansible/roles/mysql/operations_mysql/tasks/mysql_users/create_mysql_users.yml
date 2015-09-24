@@ -1,0 +1,27 @@
+###
+# Create MySQL users
+###
+#
+#	DESCRIPTION:
+#
+#		Creates specified MySQL users
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_create_mysql_users[]               - REQUIRED - List of packages to manage
+#		                                  .username  - REQUIRED - Login username
+#		                                  .password  - OPTIONAL - Login password
+#		                                  .priv      - OPTIONAL - Privilages to assign (if not *.*:ALL,GRANT)
+#		parameter_create_mysql_users_title           - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_create_mysql_users_notify          - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+
+- include: ./manage_mysql_users.yml
+  vars:
+    parameter_manage_mysql_users: "{{ parameter_create_mysql_users|mandatory }}"
+    parameter_manage_mysql_users_title: "{{ parameter_create_mysql_users_title | default('Creating MySQL users') }}"
+    parameter_manage_mysql_users_state: "present"
+    parameter_manage_mysql_users_notify: "{{ parameter_create_mysql_users_noftify | default('Dummy MySQL operation notification') }}"

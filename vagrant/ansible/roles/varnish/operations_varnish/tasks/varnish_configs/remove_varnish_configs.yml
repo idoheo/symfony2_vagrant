@@ -1,0 +1,21 @@
+---
+###
+# Remove Nginx webconfigs
+###
+#	DESCRIPTION:
+#
+#		Removes Nginx webconfigs
+###
+#
+#	VARIABLES:
+#
+#		parameter_remove_varnish_configs        - REQUIRED - List of Nginx configs to remove
+#		parameter_remove_varnish_configs_title  - OPTIONAL - Alternative descriptive title of what is being done
+#		parameter_remove_varnish_configs_notify - OPTIONAL - Notification to be triggered on any changes made
+###
+- name: "{{ parameter_remove_varnish_configs_title | default('Removing Varnish configurations') }}"
+  file: path="{{ fact_varnish_configs_dir }}/{{ (item|basename) }}"
+        state=absent
+  with_items: parameter_remove_varnish_configs
+  sudo: true
+  notify: "{{ parameter_remove_varnish_configs_notify | default('Dummy Varnish operation notification') }}"

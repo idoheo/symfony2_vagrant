@@ -1,0 +1,8 @@
+---
+role_package_go_lang_1_4__var__git: https://go.googlesource.com/go
+role_package_go_lang_1_4__var__root: /usr/local/go1.4
+role_package_go_lang_1_4__var__path: /go_lang_1.4
+role_package_go_lang_1_4__var__git_version_prefix: "go1.4."
+role_package_go_lang_1_4__var__go_environment:
+  GOPATH: "{{ role_package_go_lang_1_4__var__path }}"
+  GOROOT_BOOTSTRAP: "{{ role_package_go_lang_1_4__var__root }}"

@@ -1,0 +1,9 @@
+---
+- include: ../../../../git_webui/operations_git_webui/tasks/git_webui/setup_git_webui_service.yml
+  vars:
+    parameter_git_webui_service_name: dev-site
+    parameter_git_webui_service_location: "{{ role_support_dev_site__setup__source_path }}"
+    parameter_git_webui_service_port: "{{ role_package_dev_site_git_webui__config__port }}"
+    parameter_git_webui_service_user: "{{ fact_site_dir_user }}"
+    parameter_git_webui_service_description: Dev site
+    parameter_git_webui_service_title: Setting up Git WebUI for Dev site

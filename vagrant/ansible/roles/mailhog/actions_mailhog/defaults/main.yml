@@ -1,0 +1,2 @@
+role_actions_mailhog__tasks__remove_passwords: false
+role_actions_mailhog__tasks__set_passwords: []

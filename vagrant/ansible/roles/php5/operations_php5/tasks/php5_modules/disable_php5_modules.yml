@@ -1,0 +1,23 @@
+###
+# Disable Php5 Modules
+###
+#
+#	DESCRIPTION:
+#
+#		Disables Php 5 modules modules
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_disable_php5_modules        - REQUIRED - List of Php 5 modules to disable
+#		parameter_disable_php5_modules_title  - OPTIONAL - Alternative descriptive title of what is being disabled
+#		parameter_disable_php5_modules_notify - OPTIONAL - Notification to trigger if anything has changed
+#
+###
+---
+- name: "{{ parameter_disable_php5_modules_title | default ('Disabling Php 5 modules') }}"
+  shell: "php5dismod {{ item }}"
+  sudo: yes
+  with_items: parameter_disable_php5_modules | default([])
+  notify: "{{ parameter_disable_php5_modules_notify | default('Dummy Php 5 operation notification') }}"

@@ -1,0 +1,2 @@
+---
+role_operations_elasticsearch__var__plugin_bin: "/usr/share/elasticsearch/bin/plugin"

@@ -1,0 +1,92 @@
+---
+
+- include: ../../../../jq/operations_jq/tasks/jq/read_web_jq.yml
+  vars:
+    parameter_read_web_jq_url: "{{ role_package_mongo_management_studio__var__version_json_url }}"
+    parameter_read_web_jq_path: "{{ role_package_mongo_management_studio__var__version_json_variable }}"
+    parameter_read_web_jq_nullable: false
+    parameter_read_web_jq_title: Getting Mongo Management studio version
+
+- name: "Setting Mongo Management Studio version"
+  set_fact: 
+    fact_mongo_management_studio_version: "{{ result_read_jq }}"
+
+- name: Getting string for temp Mongo Management Studio installation work dir
+  shell: echo "/tmp/mongo_management_studio_$(date --utc +%Y%m%d%H%M%S%N)"
+  register: result_mms_download_dir
+
+- name: Emptying download dir form Mongo Management Studio
+  file: path="{{ result_mms_download_dir.stdout }}"
+        state="absent"
+  sudo: true
+
+- name: Creating temp dirs form Mongo Management Studio installation
+  file: path="{{ item }}"
+        state="directory"
+        mode="0755"
+  with_items:
+    - "{{ result_mms_download_dir.stdout }}"
+    - "{{ result_mms_download_dir.stdout }}/extracted"
+    - "{{ result_mms_download_dir.stdout }}/arhitecture_{{ ansible_architecture }}"
+  sudo: true
+
+- include: ../../../../asset_downloads/operations_asset_downloads/tasks/download_dirs/create_assets_download_dirs.yml
+  vars:
+    parameter_create_assets_download_dirs: "{{ role_package_mongo_management_studio__var__assets_dir }}"
+    parameter_create_assets_download_dirs_prefix: ""
+    parameter_create_assets_download_dirs_title: "Creating download dir for Mongo Management Studio"
+
+- include: ../../../../asset_downloads/operations_asset_downloads/tasks/download/download_assets.yml
+  vars:
+    parameter_download_assets_title: "Downloading Mongo Management Studio"
+    parameter_download_assets_validate_certs: yes
+    parameter_download_assets:
+      - url: "{{ role_package_mongo_management_studio__var__install_url }}"
+        dest: "{{ role_package_mongo_management_studio__var__assets_dir }}/{{ role_package_mongo_management_studio__var__assets_download }}"
+        force: false
+        extract_to: "{{ result_mms_download_dir.stdout }}/extracted"
+        extract_user: "root"
+        extract_group: "root"
+
+- name: Extracting Mongo Management Studio installation
+  unarchive: src="{{ item.from }}"
+             dest="{{ item. to }}"
+             owner="root"
+             group="root"
+  with_items:
+    - from: "{{ result_mms_download_dir.stdout }}/extracted/{{ role_package_mongo_management_studio__var__arhitecture[ ansible_architecture ].archive }}"
+      to: "{{ result_mms_download_dir.stdout }}/arhitecture_{{ ansible_architecture }}"
+  sudo: true
+
+- name: Stopping Mongo Management Studio if service exists
+  service: name="{{ role_package_mongo_management_studio__var__service }}"
+           status=stopped
+  failed_when: false
+  sudo: true
+
+- name: Installing Mongo Management Studio
+  shell: ./install.sh
+  args:
+    chdir: "{{ result_mms_download_dir.stdout }}/arhitecture_{{ ansible_architecture }}/{{ role_package_mongo_management_studio__var__arhitecture[ ansible_architecture ].archive_folder }}"
+  sudo: true
+  sudo_user: root
+
+- name: Deleting Downloaded Mongo Management Studio Data
+  file: path="{{ item }}"
+        state="absent"
+  with_items:
+    - "{{ result_mms_download_dir.stdout }}/arhitecture_{{ ansible_architecture }}"
+    - "{{ result_mms_download_dir.stdout }}/extracted"
+    - "{{ result_mms_download_dir.stdout }}"
+  sudo: true
+
+- name: Copying Mongo Management Studio Configuration
+  template: src="{{ item }}"
+            dest="{{ role_package_mongo_management_studio__var__path }}/{{(item[:(item|length-3)]|basename) }}"
+            owner="root"
+            group="root"
+            mode=0644
+  with_fileglob:
+    - "../../templates/mms/*.j2"
+  sudo: true
+

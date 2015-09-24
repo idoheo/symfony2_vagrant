@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: go_lang_1_4/package_go_lang_1_4 }

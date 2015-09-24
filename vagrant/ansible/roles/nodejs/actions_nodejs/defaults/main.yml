@@ -1,0 +1,5 @@
+role_actions_nodejs__tasks__install_nodejs_packages__packages: []
+role_actions_nodejs__tasks__install_nodejs_packages__latest: yes
+
+role_actions_nodejs__tasks__remove_nodejs_packages__packages: []
+

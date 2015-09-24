@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: php5_intl/package_php5_intl }

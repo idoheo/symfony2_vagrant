@@ -1,0 +1,7 @@
+role_package_webmin__var__apt_packages:
+  - webmin
+role_package_webmin__service: webmin
+
+role_package_webmin__var__apt_key_url: http://www.webmin.com/jcameron-key.asc
+role_package_webmin__var__apt_key_id:  
+role_package_webmin__var__apt_repository: deb http://download.webmin.com/download/repository sarge contrib

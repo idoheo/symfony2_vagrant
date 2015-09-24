@@ -1,0 +1,4 @@
+- name: "Dummy Node.js operation notification"
+  debug: msg="Dummy Node.js operation notification"
+  when: false
+  

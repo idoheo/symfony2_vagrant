@@ -1,0 +1,20 @@
+---
+###
+# Start Log.io services
+###
+#
+#	DESCRIPTION
+#
+#		Starts Log.io services
+###
+#
+#	VARIABLES:
+#
+#		- NONE -
+#
+###
+
+- include: ./manage_logio_services.yml
+  vars:
+    parameter_manage_logio_services_status: started
+    parameter_manage_logio_services_title: "Starting Log.io services"

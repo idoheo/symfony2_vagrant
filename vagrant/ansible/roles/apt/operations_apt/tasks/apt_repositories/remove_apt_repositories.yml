@@ -1,0 +1,26 @@
+###
+# Remove Apt Repositories
+###
+#
+#	DESCRIPTION:
+#
+#		Removes specified Apt repositories
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_remove_apt_repositories                - REQUIRED - List of repositories to remove
+#		parameter_remove_apt_repositories_update_cache   - REQUIRED - Should caches be updated upon changes
+#		parameter_remove_apt_repositories_title          - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_remove_apt_repositories_notify         - OPTIONAL - Notification to trigger if changes have been made
+###
+
+- include: ./manage_apt_repositories.yml
+  vars:
+    parameter_manage_apt_repositories: "{{ parameter_remove_apt_repositories | mandatory }}"
+    parameter_manage_apt_repositories_update_cache: "{{ parameter_remove_apt_repositories_update_cache | mandatory }}"
+    parameter_manage_apt_repositories_state: "absent"
+    parameter_manage_apt_repositories_title: "{{ parameter_remove_apt_repositories_title | default('Removing APT repositories') }}"
+    parameter_manage_apt_repositories_validate_certs: no
+    parameter_manage_apt_repositories_notify: "{{ parameter_remove_apt_repositories_notify | default('Dummy APT operation notification') }}" 

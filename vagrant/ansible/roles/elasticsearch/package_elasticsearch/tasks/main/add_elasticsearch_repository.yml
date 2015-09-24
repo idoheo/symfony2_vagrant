@@ -1,0 +1,16 @@
+---
+- include: ../../../../apt/operations_apt/tasks/apt_keys/download_apt_keys.yml
+  vars:
+    parameter_download_apt_keys_title: Adding ElasticSearch apt key
+    parameter_download_apt_keys_validate_certs: yes
+    parameter_download_apt_keys:
+      - url: "{{ role_package_elasticsearch__var__apt_key_url }}"
+        key: "{{ role_package_elasticsearch__var__apt_key_id }}"
+
+- include: ../../../../apt/operations_apt/tasks/apt_repositories/add_apt_repositories.yml
+  vars:
+    parameter_add_apt_repositories_title: Adding ElasitcSearch repository
+    parameter_add_apt_repositories_update_cache: yes
+    parameter_add_apt_repositories_valdate_certs: yes
+    parameter_add_apt_repositories:
+      - "{{ role_package_elasticsearch__var__apt_repository }}"

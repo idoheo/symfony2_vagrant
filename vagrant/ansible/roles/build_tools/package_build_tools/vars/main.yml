@@ -1,0 +1,10 @@
+role_package_build_tools__var__apt_packages:
+  - make
+  - cpp
+  - gcc
+  - g++
+  - build-essential
+  - autotools-dev
+  - autoconf
+  - automake
+  - libtool

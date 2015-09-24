@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: go_lang/install_go_lang }

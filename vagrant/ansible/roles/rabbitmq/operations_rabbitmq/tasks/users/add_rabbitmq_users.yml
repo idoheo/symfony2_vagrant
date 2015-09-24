@@ -1,0 +1,36 @@
+---
+###
+# Add RabbitMQ users
+###
+#
+#	DESCRIPTION
+#
+#		Adds RabbitMQ users
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_add_rabbitmq_users[]                - REQUIRED - List of RabbitMQ users
+#		                              .username       - REQUIRED - Username
+#		                              .password       - REQUIRED - Password for inserting user
+#		                              .tags           - OPTIONAL - Tags (comma separated) for insering user (default: administrator)
+#		                              .write_priv     - OPTIONAL - Write privilages (all granted by default)
+#		                              .read_priv      - OPTIONAL - Read privilages (all granted by default)
+#		                              .configure_priv - OPTIONAL - Configure privilages (all granted by default)
+#		parameter_add_rabbitmq_users_title            - OPTIONAL - Alternative descriptive title of actions taken
+#		parameter_add_rabbitmq_users_notify           - OPTIONAL - Notification to trigger if any changes are made
+#
+###
+- name: "{{ parameter_add_rabbitmq_users_title | default('Adding RabbitMQ users') }}"
+  rabbitmq_user: user="{{ item.username }}"
+                 password="{{ item.password }}"
+                 state="present"
+                 tags="{{ item.tags|default('administrator') }}"
+                 force="yes"
+                 write_priv="{{ item.write_priv | default('.*') }}"
+                 read_priv="{{ item.read_priv | default('.*') }}"
+                 configure_priv="{{ item.configure_priv | default('.*') }}"
+  sudo: true
+  with_items: parameter_add_rabbitmq_users|default([])
+  notify: "{{ parameter_add_rabbitmq_users_notify | default('Dummy RabbitMQ operation notification') }}"

@@ -1,0 +1,16 @@
+---
+- include: ../../../../git/operations_git/tasks/git_repositories/git_repository_latest_checkout.yml
+  vars:
+    parameter_git_repository_latest_checkout_title: Downloading Go Lang from official source
+    parameter_git_repository_latest_checkout_repo: "{{ role_package_go_lang__var__git }}"
+    parameter_git_repository_latest_checkout_dest: "{{ role_package_go_lang__var__root }}"
+    parameter_git_repository_latest_checkout_version_prefix: "{{ role_package_go_lang__var__git_version_prefix }}"
+    parameter_git_repository_latest_checkout_accept_hostkey: yes
+    parameter_git_repository_latest_checkout_clone: yes
+    parameter_git_repository_latest_checkout_force: yes
+    parameter_git_repository_latest_checkout_key_file: ~
+    parameter_git_repository_latest_checkout_recursive: yes
+    parameter_git_repository_latest_checkout_update: yes
+    parameter_git_repository_latest_checkout_user: root
+    parameter_git_repository_latest_checkout_group: root
+  

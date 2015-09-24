@@ -1,0 +1,16 @@
+---
+- include: ../../../../apt/operations_apt/tasks/apt_packages/install_apt_packages.yml
+  vars:
+    parameter_install_apt_packages_title: Installing De-/Encryption library (mcrypt)
+    parameter_install_apt_packages: "{{ role_package_php5_mcrypt__var__apt_packages }}"
+
+- include: ../../../../php5/operations_php5/tasks/php5_modules/install_php5_modules.yml
+  vars:
+    parameter_install_php5_modules_title: Installing mcrypt PHP module
+    parameter_install_php5_modules: "{{ role_package_php5_mcrypt__var__php5_modules_install }}"
+
+- include: ../../../../php5/operations_php5/tasks/php5_modules/enable_php5_modules.yml
+  vars:
+    parameter_enable_php5_modules_title: Enabling mcrypt PHP module
+    parameter_enable_php5_modules: "{{ role_package_php5_mcrypt__var__php5_modules_enable }}"
+  

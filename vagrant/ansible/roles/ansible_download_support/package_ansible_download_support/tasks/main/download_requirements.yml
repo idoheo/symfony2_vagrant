@@ -1,0 +1,5 @@
+---
+- include: ../../../../apt/operations_apt/tasks/apt_packages/install_apt_packages.yml
+  vars:
+    parameter_install_apt_packages_title: Installing Ansible support packages for downloading
+    parameter_install_apt_packages: "{{ role_package_ansible_download_support__var__apt_packages }}"

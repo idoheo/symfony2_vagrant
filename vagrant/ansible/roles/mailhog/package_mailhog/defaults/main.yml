@@ -1,0 +1,8 @@
+---
+role_package_mailhog__config__smtp_server__host: "127.0.0.1"
+role_package_mailhog__config__smtp_server__port: "25"
+role_package_mailhog__config__api_server__host: "0.0.0.0"
+role_package_mailhog__config__api_server__port: "1082"
+role_package_mailhog__config__web_server__host: "0.0.0.0"
+role_package_mailhog__config__web_server__port: "{{ role_package_mailhog__config__api_server__port }}"
+role_package_mailhog__config__storage: mongodb

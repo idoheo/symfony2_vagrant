@@ -1,0 +1,5 @@
+---
+- include: ../../../operations_varnish/tasks/varnish_configs/remove_varnish_configs.yml
+  vars:
+    parameter_remove_varnish_configs_title: "Removing user specified Varnish configs"
+    parameter_remove_varnish_configs: "{{ role_actions_varnish__tasks__remove_varnish_configs__configs | mandatory }}"

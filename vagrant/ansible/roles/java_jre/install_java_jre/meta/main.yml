@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: java_jre/package_java_jre }

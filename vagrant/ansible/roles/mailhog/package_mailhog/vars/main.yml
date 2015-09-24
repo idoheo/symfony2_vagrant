@@ -1,0 +1,6 @@
+---
+role_package_mailhog__var__git: https://github.com/mailhog/MailHog.git
+role_package_mailhog__var__service: mailhog
+role_package_mailhog__var__config_dir: /etc/mailhog
+role_package_mailhog__var__config_auth: "{{ role_package_mailhog__var__config_dir }}/auth"
+role_package_mailhog__var__bin: "{{ fact_go_lang_go_bins }}/MailHog"

@@ -1,0 +1,14 @@
+---
+- name: Starting MySQL
+  service: name="{{ item }}"
+           sleep="2"
+           state="restarted"
+  with_items:
+    - "{{ role_package_mysql__service }}"
+  sudo: true
+  
+- name: Scheduling restart for MySQL
+  shell: 'echo ""'
+  notify: Restart MySQL
+  changed_when: true
+  sudo: true

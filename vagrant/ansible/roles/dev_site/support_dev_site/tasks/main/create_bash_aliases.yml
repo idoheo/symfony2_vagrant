@@ -1,0 +1,5 @@
+---
+- include: ../../../../user_environment/operations_user_environment/tasks/bash_aliases/add_bash_aliases.yml
+  vars:
+    parameter_add_bash_aliases: "{{ role_support_dev_site__setup__bash_aliases }}"
+    parameter_add_bash_aliases_title: Creating Bash Aliases for Dev site

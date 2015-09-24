@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: redis_commander/package_redis_commander }

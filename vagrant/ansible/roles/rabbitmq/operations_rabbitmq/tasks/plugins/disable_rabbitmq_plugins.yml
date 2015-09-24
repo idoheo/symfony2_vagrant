@@ -1,0 +1,24 @@
+---
+###
+# Disable RabbitMQ plugins
+###
+#
+#	DESCRIPTION
+#
+#		Disables RabbitMQ plugins
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_disable_rabbitmq_plugins        - REQUIRED - List of RabbitMQ plugins
+#		parameter_disable_rabbitmq_plugins_title  - OPTIONAL - Alternative descriptive title of actions taken
+#		parameter_disable_rabbitmq_plugins_notify - OPTIONAL - Notification to trigger if any changes are made
+#
+###
+- include: ./manage_rabbitmq_plugins.yml
+  vars:
+    parameter_manage_rabbitmq_plugins: "{{ parameter_disable_rabbitmq_plugins|default([]) }}"
+    parameter_manage_rabbitmq_plugins_state: "disabled"
+    parameter_manage_rabbitmq_plugins_title: "{{ parameter_disable_rabbitmq_plugins_title | default('Disabling RabbitMQ plugins') }}"
+    parameter_manage_rabbitmq_plugins_notify: "{{ parameter_disable_rabbitmq_plugins_notify | default('Dummy RabbitMQ operation notification') }}"

@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: apt/operations_apt }
+  - { role: logio/operations_logio }

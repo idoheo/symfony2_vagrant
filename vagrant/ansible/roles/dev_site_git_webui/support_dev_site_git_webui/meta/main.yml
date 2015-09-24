@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: dev_site/install_dev_site }
+  - { role: git_webui/operations_git_webui }

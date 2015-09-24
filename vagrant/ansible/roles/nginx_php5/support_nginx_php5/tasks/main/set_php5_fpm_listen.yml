@@ -1,0 +1,4 @@
+- include: ../../../../php5/operations_php5/tasks/php5_fpm_www_pool/php5_fpm_www_pool_listen.yml
+  vars:
+    parameter_php5_fpm_www_pool_title: "Setting up Php 5 FPM www pool listen config"
+    parameter_php5_fpm_www_pool_listen: "{{ role_nginx_php5_support__setup__fpm_listen }}"

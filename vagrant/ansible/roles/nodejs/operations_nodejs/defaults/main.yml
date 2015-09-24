@@ -1,0 +1,3 @@
+## Task default variables ##
+
+task_default__operations_nodejs__nodejs_packages__install_nodejs_packages__latest: yes

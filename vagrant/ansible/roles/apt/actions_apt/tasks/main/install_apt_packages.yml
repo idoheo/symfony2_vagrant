@@ -1,0 +1,7 @@
+- include: ../../../operations_apt/tasks/apt_packages/install_apt_packages.yml
+  vars:
+    parameter_install_apt_packages_title: "Installing User specified APT packages"
+    parameter_install_apt_packages: "{{ role_actions_apt__tasks__install_apt_packages__packages }}"
+    parameter_install_apt_packages_latest: "{{ role_actions_apt__tasks__install_apt_packages__latest }}"
+    parameter_install_apt_packages_force: "{{ role_actions_apt__tasks__install_apt_packages__force }}"
+    parameter_install_apt_packages_install_recommends: "{{ role_actions_apt__tasks__install_apt_packages__install_recommends }}"

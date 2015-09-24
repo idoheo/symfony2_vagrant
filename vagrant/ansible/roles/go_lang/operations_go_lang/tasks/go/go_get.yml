@@ -1,0 +1,22 @@
+###
+# Go Get
+###
+#
+#	DESCRIPTION:
+#
+#		Run go get
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_go_get[]     - REQUIRED - Items to fetch with go get
+#		parameter_go_get_title - OPTIONAL - Alternative descriptive title of actions taken
+#
+###
+
+- name: "{{ parameter_go_get_title | default('Getting Go lang packages') }}"
+  shell: "{{ fact_go_lang_go_bin }} get {{ item }}"
+  sudo: true
+  with_items: parameter_go_get
+  environment: "{{ role_package_go_lang__var__go_environment }}"

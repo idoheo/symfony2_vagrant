@@ -1,0 +1,7 @@
+role_package_phpmyadmin__var__apt_packages:
+  - phpmyadmin
+role_package_phpmyadmin__var__php5_modules_install:
+ - json
+ - gd
+role_package_phpmyadmin__var__php5_modules_enable:
+ - mysqli

@@ -1,0 +1,6 @@
+---
+- include: ../../../../nginx/operations_nginx/tasks/nginx_websites/add_nginx_site_templates_from_role.yml
+  vars:
+    parameter_add_nginx_site_templates_from_role_name: nginx_phpmyadmin/support_nginx_phpmyadmin
+    parameter_add_nginx_site_templates_from_role_dir: nginx_sites
+    parameter_add_nginx_site_templates_from_role_enable_sites: yes

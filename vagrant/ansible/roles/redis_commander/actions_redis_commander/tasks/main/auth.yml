@@ -1,0 +1,6 @@
+---
+- include: ../../../operations_redis_commander/tasks/auth/setup_auth_password.yml
+  vars:
+    parameter_redis_commander_auth_username: "{{ role_actions_redis_commander__tasks__auth_username }}"
+    parameter_redis_commander_auth_password: "{{ role_actions_redis_commander__tasks__auth_password }}"
+    parameter_redis_commander_auth_title: Setting Redis Commander password as defined by user

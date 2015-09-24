@@ -1,0 +1,22 @@
+---
+- name: Checking if python-apt is available
+  shell: "dpkg-query -W -f='${Status}' python-apt"
+  sudo: true
+  changed_when: false
+  register: result_python_apt_available
+
+- name: Installing python-apt
+  shell: apt-get install python-apt --no-install-recommends
+  sudo: true
+  when: result_python_apt_available.stdout != 'install ok installed'
+
+- name: Checking if aptitude is available
+  shell: "dpkg-query -W -f='${Status}' aptitude"
+  sudo: true
+  changed_when: false
+  register: result_aptitude_available
+
+- name: Installing aptitude
+  shell: apt-get install aptitude --no-install-recommends
+  sudo: true
+  when: result_aptitude_available.stdout != 'install ok installed'

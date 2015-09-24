@@ -1,0 +1,4 @@
+- include: ../../../operations_mysql/tasks/mysql_users/create_mysql_users.yml
+  vars:
+    parameter_create_mysql_users_title: "Creating User specified MySQL users"
+    parameter_create_mysql_users: "{{ role_actions_mysql__tasks__create_mysql_users__users }}"

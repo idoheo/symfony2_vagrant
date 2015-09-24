@@ -1,0 +1,15 @@
+---
+- include: ../../../../logio/operations_logio/tasks/logio_configs/update_logio_harvester.yml
+  vars:
+    parameter_update_logio_harvester_title: Adding Dev site HTTPS Nginx access logs to Log.io
+    parameter_update_logio_harvester_name: Dev Site HTTPS [{{ role_support_dev_site_ssl__setup__nginx_https_port }}] (access)
+    parameter_update_logio_harvester_files:
+      - "{{ role_support_dev_site__setup__logs_path }}/{{ role_support_dev_site_ssl__setup__nginx_https_port }}_{{ role_support_dev_site__setup__nginx_fpm_error_log_string }}_ssl_access.log"
+
+- include: ../../../../logio/operations_logio/tasks/logio_configs/update_logio_harvester.yml
+  vars:
+    parameter_update_logio_harvester_title: Adding Dev site HTTPS Nginx error logs to Log.io
+    parameter_update_logio_harvester_name: Dev Site HTTPS [{{ role_support_dev_site_ssl__setup__nginx_https_port }}] (error)
+    parameter_update_logio_harvester_files:
+      - "{{ role_support_dev_site__setup__logs_path }}/{{ role_support_dev_site_ssl__setup__nginx_https_port }}_{{ role_support_dev_site__setup__nginx_fpm_error_log_string }}_ssl_error.log"
+

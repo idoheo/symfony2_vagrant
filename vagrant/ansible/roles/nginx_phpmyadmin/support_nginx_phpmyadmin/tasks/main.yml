@@ -1,0 +1,5 @@
+---
+#- include: main/copy_nginx_configs.yml
+- include: main/setup_logs.yml
+- include: main/copy_nginx_sites.yml
+- include: main/update_logio.yml

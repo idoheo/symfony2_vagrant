@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: build_tools/package_build_tools }

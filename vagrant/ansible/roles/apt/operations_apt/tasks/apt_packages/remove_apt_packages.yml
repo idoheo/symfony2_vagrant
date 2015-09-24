@@ -1,0 +1,33 @@
+###
+# Remove Apt Packages
+###
+#
+#	DESCRIPTION:
+#
+#		Removes specified Apt packages
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_remove_apt_packages[]       - REQUIRED - List of packages to remove
+#		parameter_remove_apt_packages_prefix  - OPTIONAL - Prefix to apt packages names
+#		parameter_remove_apt_packages_postfix - OPTIONAL - Postfix to apt packages names
+#		parameter_remove_apt_packages_title   - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_remove_apt_packages_force   - OPTIONAL - Should packages removal be forced
+#		parameter_remove_apt_packages_purge   - OPTIONAL - Should configuration files be removed also
+#		parameter_remove_apt_packages_notify  - OPTIONAL - Notification to trigger if removal has occurred
+#
+###
+
+- include: ./manage_apt_packages.yml
+  vars:
+    parameter_manage_apt_packages: "{{ parameter_remove_apt_packages | mandatory }}"
+    parameter_manage_apt_packages_prefix: "{{ parameter_remove_apt_packages_prefix | default ('') }}"
+    parameter_manage_apt_packages_postfix: "{{ parameter_remove_apt_packages_postfix | default ('') }}"
+    parameter_manage_apt_packages_title: "{{ parameter_remove_apt_packages_title | default('Removing APT packages') }}"
+    parameter_manage_apt_packages_state: "absent"
+    parameter_manage_apt_packages_force: "{{ parameter_remove_apt_packages_force | default( task_default__operations_apt__apt_packages__remove_apt_packages__force ) }}"
+    parameter_manage_apt_packages_remove_recommends: no
+    parameter_manage_apt_packages_purge: "{{ parameter_remove_apt_packages_purge | default( task_default__operations_apt__apt_packages__remove_apt_packages__purge ) }}"
+    parameter_manage_apt_packages_notify: "{{ parameter_remove_apt_packages_noftify | default('Dummy APT operation notification') }}"

@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: dev_site/install_dev_site }
+  - { role: cloud9/operations_cloud9 }

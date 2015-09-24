@@ -1,0 +1,6 @@
+---
+- include: ../../../opeartions_elasticsearch/tasks/plugins/install_elasticsearch_plugins.yml
+  vars:
+    parameter_install_elasticsearch_plugins_title: Installing user specified Elasticsearch plugins
+    parameter_install_elasticsearch_plugins: "{{ role_actions_elasticsearch__tasks__install_elasticsearch_plugins }}"
+

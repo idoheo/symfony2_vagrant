@@ -1,0 +1,6 @@
+---
+- include: ../../../operations_rabbitmq/tasks/plugins/disable_rabbitmq_plugins.yml
+  vars:
+    parameter_disable_rabbitmq_plugins_title: "Disabling user specified RabbitMQ plugins"
+    parameter_disable_rabbitmq_plugins: "{{ role_actions_rabbitmq__tasks__disable_plugins }}"
+

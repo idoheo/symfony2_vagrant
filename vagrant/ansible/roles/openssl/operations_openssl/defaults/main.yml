@@ -1,0 +1,7 @@
+---
+role_operations_openssl_default__cert__create_certificate__country_code: "UK"
+role_operations_openssl_default__cert__create_certificate__location: "London"
+role_operations_openssl_default__cert__create_certificate__county: "County of London"
+role_operations_openssl_default__cert__create_certificate__organization_name: "Development box"
+role_operations_openssl_default__cert__create_certificate__common_name: "localhost"
+

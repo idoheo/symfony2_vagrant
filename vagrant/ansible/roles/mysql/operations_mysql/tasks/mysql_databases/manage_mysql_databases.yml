@@ -1,0 +1,50 @@
+###
+# Manage MySQL databases
+###
+#
+#	DESCRIPTION:
+#
+#		Manages specified MySQL databases adding or removing them
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_manage_mysql_databases[]               - REQUIRED - List of databases to manage
+#		                                  .name          - REQUIRED - Database name
+#		                                  .collation     - OPTIONAL - Collation used for database if not default
+#		                                  .encoding      - OPTIONAL - Encoding used for database if not default
+#		                                  .file          - OPTIONAL - File to create or load backup from
+#		                                  .force_source  - OPTIONAL - Set if database/file must exist and during backup/restore
+#		parameter_manage_mysql_databases_state           - REQUIRED - State of databases (absent, present)
+#		parameter_manage_mysql_databases_title           - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_manage_mysql_databases_notify          - OPTIONAL - Notification to trigger if changes have been made
+#		parameter_manage_mysql_databases_ignore_error    - OPTIONAL - Should missing database error be ignored
+#		parameter_manage_mysql_databases_file_prefix     - OPTIONAL - File prefix for file locations
+#
+###
+- name: "{{ parameter_manage_mysql_databases_title | default('Managing MySQL databases') }}"
+  mysql_db: name={{ item.name | mandatory }}
+            collation="{{ item.collation | default( task_default__operations_mysql__mysql_databases__manage_mysql_databases__collation ) }}"
+            encoding="{{ item.encoding | default( task_default__operations_mysql__mysql_databases__manage_mysql_databases__encoding ) }}"
+            state="{{ parameter_manage_mysql_databases_state|mandatory }}"
+            target="{{ parameter_manage_mysql_databases_file_prefix|default('') }}{{ item.file|default('') }}"
+            login_unix_socket="/var/run/mysqld/mysqld.sock"
+  with_items: parameter_manage_mysql_databases
+  notify: "{{ parameter_manage_mysql_databases_notify | default('Dummy MySQL operation notification') }}"
+  failed_when: "{{ 
+                     result.failed|default(false)
+                     and not(
+                             parameter_manage_mysql_databases_state == 'dump'
+                         and (not (item.force_source|default(false)))
+                         and (result.msg[:12] == 'ERROR: 1049 ')
+                     )
+                     and not (
+                             parameter_manage_mysql_databases_state == 'import'
+                         and (not (item.force_source|default(false)))
+                         and (result.msg[:7] == 'target ')
+                         and (result.msg[result.msg|length - 27:] == ' does not exist on the host')
+                     )
+                }}"
+  register: result
+

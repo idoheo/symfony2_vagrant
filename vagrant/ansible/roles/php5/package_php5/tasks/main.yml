@@ -1,0 +1,6 @@
+- include: main/install_php5.yml
+- include: main/setup_html_error_reporting.yml
+- include: main/setup_error_reporting.yml
+- include: main/setup_timezone.yml
+- include: main/restart_php5_service.yml
+- include: main/update_logio.yml

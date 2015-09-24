@@ -1,0 +1,4 @@
+role_nginx_phpmyadmin__var__logs_dir: /var/log/nginx_phpmyadmin
+role_nginx_phpmyadmin__var__logs_log: "{{ role_nginx_phpmyadmin__var__logs_dir }}/phpmyadmin.log"
+role_nginx_phpmyadmin__var__logs_err: "{{ role_nginx_phpmyadmin__var__logs_dir }}/phpmyadmin.err"
+role_nginx_phpmyadmin__var__port: 1081

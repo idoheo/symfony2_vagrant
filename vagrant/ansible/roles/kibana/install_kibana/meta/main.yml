@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: kibana/package_kibana }

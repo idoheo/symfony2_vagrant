@@ -1,0 +1,9 @@
+role_package_varnish__var__apt_packages:
+  - apt-transport-https
+  - varnish
+role_package_varnish__service: varnish
+role_package_varnish__var__configs: /etc/varnish
+
+role_package_varnish__var__apt_key_url: https://repo.varnish-cache.org/GPG-key.txt
+role_package_varnish__var__apt_key_id: C4DEFFEB
+role_package_varnish__var__apt_repository: deb https://repo.varnish-cache.org/ubuntu/ precise varnish-4.0

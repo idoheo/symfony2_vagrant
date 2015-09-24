@@ -1,0 +1,27 @@
+###
+# Remove MySQL users by username
+###
+#
+#	DESCRIPTION:
+#
+#		Removes specified MySQL users
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_remove_mysql_users_by_username[]               - REQUIRED - List of packages to manage
+#		                                              .username  - REQUIRED - Login username
+#		parameter_remove_mysql_users_title_by_username           - OPTIONAL - Alternative descriptive title of action taken
+#		parameter_remove_mysql_users_notify_by_username          - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+
+- name: "{{ parameter_remove_mysql_users_title | default('Removing MySQL users by username') }}"
+  mysql_user: name="{{ item.username | mandatory }}"
+              state="absent"
+              login_unix_socket="/var/run/mysqld/mysqld.sock"
+  when: item.username != 'root'
+  failed_when: item.username == 'root'
+  with_items: parameter_remove_mysql_users_by_username
+  notify: "{{ parameter_remove_mysql_users_by_usernamenotify | default('Dummy MySQL operation notification') }}"

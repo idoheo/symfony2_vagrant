@@ -1,0 +1,15 @@
+---
+- name: Starting Php 5
+  command: "service {{ item }} restart"
+  with_items:
+    - "{{ role_package_php5__var__fpm_service }}"
+  sudo: true
+  register: result
+
+- name: Stopping Php 5 and scheduling restart
+  command: "service {{ item }} stop"
+  with_items:
+    - "{{ role_package_php5__var__fpm_service }}"
+  changed_when: true
+  notify: Restart Php 5
+  sudo: true

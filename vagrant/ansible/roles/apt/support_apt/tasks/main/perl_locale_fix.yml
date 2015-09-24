@@ -1,0 +1,13 @@
+---
+- name: Building Perl Locales
+  raw: '[[ "`echo ${{ item }}`" != "" ]] && locale-gen `echo ${{ item }}`'
+  sudo: yes
+  with_items: role_support_apt__var__perl_locales
+  changed_when: result_build_locale.stdout|length > 0
+  register: result_build_locale
+  failed_when: result_build_locale.rc != 0 and not (result_build_locale.rc == 1 and result_build_locale.stdout == "")
+
+- name: Reconfiguring Perl Locales
+  shell: dpkg-reconfigure locales
+  sudo: yes
+  register: temp

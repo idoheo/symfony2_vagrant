@@ -1,0 +1,78 @@
+description "{{ item.name | default( item.service | mandatory ) }}"
+
+start on {{ item.start_on | default('runlevel [2345]') }}
+stop on {{ item.stop_on | default('runlevel [!2345]') }}
+
+{% if item.chdir is defined %}
+chdir {{ item.chdir }}
+{% endif %}
+
+{% if item.respawn|default(true) %}
+respawn 
+{%if item.respawn_parameters is defined %}respawn {{ item.respawn_parameters }} {% endif %}
+{% endif %}
+
+{% if item.script is not defined %}
+exec {{ item.command }} 1>{{ role_package_upstart_logs_path }}/{{ item.service | mandatory }}/{{ item.service | mandatory }}.log 2>{{ role_package_upstart_logs_path }}/{{ item.service | mandatory }}/{{ item.service | mandatory }}.err
+{% else %}
+script
+	{% for line in item.script %}
+		{{ line | replace(
+			item.logs_string | default('LOGS'),
+			"1>" ~ role_package_upstart_logs_path ~ "/" ~ (item.service | mandatory) ~ "/" ~ (item.service | mandatory) ~ ".log 2>" ~ role_package_upstart_logs_path ~ "/" ~ (item.service | mandatory) ~ "/" ~  (item.service | mandatory) ~ ".err" ) }}
+	{% endfor %}
+
+end script
+{% endif %}
+
+{% if item.pre_start is defined %}
+{% if item.pre_start is sequence and item.pre_start is not string %}
+pre-start script
+  	{% for line in item.pre_start %}
+		{{ line }}
+	{% endfor %}
+
+end script
+{% else %}
+pre-start exec {{ item.pre_start }}
+{% endif %}
+{% endif %}
+
+{% if item.post_start is defined %}
+{% if item.post_start is sequence and item.post_start is not string %}
+post-start script
+  	{% for line in item.post_start %}
+		{{ line }}
+	{% endfor %}
+
+end script
+{% else %}
+post-start exec {{ item.post_start }}
+{% endif %}
+{% endif %}
+
+{% if item.pre_stop is defined %}
+{% if item.pre_stop is sequence and item.pre_stop is not string %}
+pre-stop script
+  	{% for line in item.pre_stop %}
+		{{ line }}
+	{% endfor %}
+
+end script
+{% else %}
+pre-stop exec {{ item.pre_stop }}
+{% endif %}
+{% endif %}
+
+{% if item.post_stop is defined %}
+{% if item.post_stop is sequence and item.post_stop is not string%}
+post-stop script
+  	{% for line in item.post_stop %}
+		{{ line }}
+	{% endfor %}
+
+end script
+{% else %}
+post-stop exec {{ item.post_stop }}
+{% endif %}
+{% endif %}

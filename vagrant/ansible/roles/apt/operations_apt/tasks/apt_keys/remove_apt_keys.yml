@@ -1,0 +1,25 @@
+###
+# Remove Apt Keys
+###
+#
+#	DESCRIPTION:
+#
+#		Removes specified Apt keys
+#
+###
+#
+#	VARIABLES:
+#
+#		parameter_remove_apt_keys[]              - REQUIRED - List of key keys to remove.
+#		                           .key          - REQUIRED - Key
+#		parameter_remove_apt_keys_title          - OPTIONAL - Alternative descriptive title of actions taken
+#		parameter_remove_apt_keys_notify         - OPTIONAL - Notification to trigger if changes have been made
+#
+###
+
+- name: "{{ parameter_download_apt_keys_title | default('Removing APT keys ') }}"
+  apt_key: id="{{ item[1].key }}"
+           state=absent
+  sudo: true
+  with_indexed_items: parameter_remove_apt_keys | mandatory
+  notify: "{{ parameter_remove_apt_keys_notify | default('Dummy APT operation notification') }}"

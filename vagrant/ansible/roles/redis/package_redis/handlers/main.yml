@@ -1,0 +1,7 @@
+---
+- name: Restart Redis
+  service: name="{{ item }}"
+           state="restarted"
+  with_items:
+    - "{{ role_package_redis__var__service }}"
+  sudo: true

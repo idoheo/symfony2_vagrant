@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: ini_files/support_ini_files }

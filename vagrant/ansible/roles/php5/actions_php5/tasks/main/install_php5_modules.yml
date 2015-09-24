@@ -1,0 +1,5 @@
+- include: ../../../operations_php5/tasks/php5_modules/install_php5_modules.yml
+  vars:
+    parameter_install_php5_modules_title: "Installing User specified Php 5 modules"
+    parameter_install_php5_modules: "{{ role_actions_php5__tasks__install_php5_modules__modules }}"
+    parameter_install_php5_modules_latest: "{{ role_actions_php5__tasks__install_php5_modules__latest }}"
