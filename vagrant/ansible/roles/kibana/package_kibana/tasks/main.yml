@@ -1,2 +1,5 @@
-- include: main/install_kibana.yml
+- include: main/get_kibana_data.yml
+- include: main/stop_kibana.yml
+- include: main/prepare_kibana_dirs.yml
+- include: main/download_kibana.yml
 - include: main/setup_kibana_service.yml

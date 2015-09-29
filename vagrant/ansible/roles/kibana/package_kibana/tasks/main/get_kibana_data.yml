@@ -1,0 +1,17 @@
+- include: ../../../../git/operations_git/tasks/git_repositories/git_repository_latest_version.yml
+  vars:
+    parameter_git_repository_latest_version_repo: "{{ role_package_kibana__var__repository_url }}"
+    parameter_git_repository_latest_version_version_prefix: "v"
+    parameter_git_repository_latest_version_title: "Getting latest Kibana version from Git"
+
+- name: Selecting Kibana arhitecture
+  set_fact:
+    fact_kibana_arhitecture: "{% if fact_environment['arhitecture']['64bit'] %}x64{% else %}{% if fact_environment['arhitecture']['32bit'] %}x86{% else %}UNKNOWN{% endif %}{% endif %}"
+
+- name: Setting Kibana data
+  set_fact:
+    fact_kibana:
+      version: "{{ result_git_repository_latest_tag[1:] }}"
+      arhitecture: "{{ fact_kibana_arhitecture }}"
+      dist: "{{ role_package_kibana__var__dist_template | replace('[_KIBANA_VERSION_]', result_git_repository_latest_tag[1:]) | replace ('[_KIBANA_AHRITECTURE_]',  fact_kibana_arhitecture ) }}"
+

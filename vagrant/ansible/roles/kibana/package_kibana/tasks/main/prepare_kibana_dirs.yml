@@ -1,0 +1,18 @@
+- include: ../../../../asset_downloads/operations_asset_downloads/tasks/download_dirs/create_assets_download_dirs.yml
+  vars:
+    parameter_create_assets_download_dirs: "{{ role_package_kibana__var__assets_dir }}"
+    parameter_create_assets_download_dirs_prefix: ""
+    parameter_create_assets_download_dirs_title: "Creating download dir for Kibana"
+
+- name: Removing old Kibana
+  file: path="{{ role_package_kibana__var__kibana_dir }}"
+        state="absent"
+  sudo: true
+
+- name: Creating Kibana directory
+  file: path="{{ role_package_kibana__var__kibana_dir }}"
+        state="directory"
+        owner="root"
+        group="root"
+        mode="0755"
+  sudo: true

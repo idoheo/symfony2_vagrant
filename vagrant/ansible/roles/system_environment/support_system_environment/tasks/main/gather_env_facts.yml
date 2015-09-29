@@ -1,0 +1,8 @@
+---
+- name: Setting up env facts
+  set_fact:
+    fact_environment:
+      arhitecture:
+        arhitecture: "{{ ansible_architecture }}"
+        32bit: "{{ ansible_architecture == 'x86_32' or ansible_architecture == 'i386' }}"
+        64bit: "{{ ansible_architecture == 'x86_64' }}"

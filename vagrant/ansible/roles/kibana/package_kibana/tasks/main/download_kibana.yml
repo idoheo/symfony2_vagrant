@@ -1,0 +1,18 @@
+- include: ../../../../asset_downloads/operations_asset_downloads/tasks/download/download_assets.yml
+  vars:
+    parameter_download_assets_title: "Downloading Kibana"
+    parameter_download_assets_validate_certs: yes
+    parameter_download_assets:
+      - url: "{{ role_package_kibana__var__url_root }}{{ fact_kibana['dist'] }}.tar.gz"
+        dest: "{{ role_package_kibana__var__assets_dir }}/{{ fact_kibana['dist'] }}.tar.gz"
+        force: false
+        extract_to: "{{ role_package_kibana__var__kibana_dir }}"
+        extract_user: "root"
+        extract_group: "root"
+
+- name: Moving Kibana dir
+  shell: "mv {{ role_package_kibana__var__kibana_dir }}/{{ item.from }} {{ role_package_kibana__var__kibana_dir }}/{{ item.to }}"
+  sudo: true
+  with_items:
+    - from: "{{ fact_kibana['dist'] }}"
+      to: "kibana"

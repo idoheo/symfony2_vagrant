@@ -4,5 +4,5 @@
     parameter_build_upstarts_title: Creating Kibana service
     parameter_build_upstarts:
       - service: "{{ role_package_kibana__var__service }}"
-        name: "Kibana"
+        name: "Kibana {{ fact_kibana['version'] }}"
         command: 'sudo -u root -H "{{ role_package_kibana__var__kibana_dir }}/kibana/bin/kibana"'

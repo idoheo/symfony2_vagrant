@@ -1,5 +1,6 @@
 ---
 dependencies:
+  - { role: system_environment/install_system_environment }
   - { role: apt/operations_apt }
   - { role: git/operations_git }
   - { role: upstart/operations_upstart }
