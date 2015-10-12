@@ -1,0 +1,2 @@
+---
+- include: main/gather_assets_dir_facts.yml

@@ -1,0 +1,4 @@
+- name: "Dummy vagrant assets operation notification"
+  debug: msg="Dummy vagrant assets operation notification"
+  when: false
+  

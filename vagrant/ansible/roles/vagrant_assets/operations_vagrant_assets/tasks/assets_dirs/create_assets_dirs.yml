@@ -1,0 +1,27 @@
+---
+###
+# Create assets dirs
+###
+#
+#	DESCRIPTION
+#
+#		Creates assets dirs
+#
+###
+#
+#	VARIABLES
+#
+#		parameter_create_assets_dirs        - REQUIRED - Lists of assets dirs to create
+#		parameter_create_assets_dirs_prefix - OPTIONAL - Prefix for all dirs created
+#		parameter_create_assets_dirs_title  - OPTIONAL - Alternative descriptive title for actions taken
+#		parameter_create_assets_dirs_notify - OPTIONAL - Notification to trigger
+#
+###
+- name: "{{ parameter_create_assets_dirs_title | default('Creating assets subdirs') }}"
+  file: path="{{ fact_assets_dir_path }}/{{ parameter_create_assets_dirs_prefix|default('') }}{{ item }}"
+        state="directory"
+        owner="{{ fact_assets_dir_user }}"
+        group="{{ fact_assets_dir_group }}"
+  sudo: true
+  with_items: parameter_create_assets_dirs
+  notify: "{{ parameter_create_assets_dirs_notify | default('Dummy vagrant assets operation notification') }}"

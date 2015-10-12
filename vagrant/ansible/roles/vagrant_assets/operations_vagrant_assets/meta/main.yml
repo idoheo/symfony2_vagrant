@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: vagrant_assets/support_vagrant_assets }
