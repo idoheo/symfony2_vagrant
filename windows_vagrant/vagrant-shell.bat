@@ -12,9 +12,9 @@ echo. Vagrant shell
 WHERE vagrant.exe 1>NUL 2>NUL
 IF %ERRORLEVEL% NEQ 0 (
     echo ------------------------------------------------------------
-	echo. Vagrant not installed.
+    echo. Vagrant not installed.
     echo. Install Vagrant first from http://www.vagrantup.com
-	goto vagrant_finish
+    goto vagrant_finish
 )
 
 if not exist .\Vagrantfile (
@@ -23,14 +23,14 @@ if not exist .\Vagrantfile (
     goto vagrant_finish
 )
 
-for /f "tokens=2" %%i in ('vagrant -v') do set vv=%%i
+for /f "tokens=2" %%i in ('vagrant -v') do set vagrant_version=%%i
 
 echo. Directory: %cd%
 echo ------------------------------------------------------------
 :vagrant_loop
 echo.
 set vagrant_cmd=
-set /p vagrant_cmd="[vagrant %vv%]: "
+set /p vagrant_cmd="[vagrant %vagrant_version%]: "
 echo.
 if not defined vagrant_cmd (
   echo.

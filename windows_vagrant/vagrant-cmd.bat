@@ -12,9 +12,9 @@ echo. Vagrant execution
 WHERE vagrant.exe 1>NUL 2>NUL
 IF %ERRORLEVEL% NEQ 0 (
     echo ------------------------------------------------------------
-	echo. Vagrant not installed.
+    echo. Vagrant not installed.
     echo. Install Vagrant first from http://www.vagrantup.com
-	goto vagrant_finish
+    goto vagrant_finish
 )
 
 if not exist .\Vagrantfile (
@@ -53,4 +53,4 @@ goto vagrant_finish
 :vagrant_finish
     echo.
     echo ------------------------------------------------------------
-	cd %vagrant_start%
+    cd %vagrant_start%
