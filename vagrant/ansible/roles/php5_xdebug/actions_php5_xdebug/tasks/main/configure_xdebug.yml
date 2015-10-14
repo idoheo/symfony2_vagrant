@@ -35,8 +35,6 @@
             value: "{{ role_actions_php5_xdebug__tasks__configure_xdebug__force_errors }}"
           - option: xdebug.halt_level
             value: "{{ role_actions_php5_xdebug__tasks__configure_xdebug__halt_level }}"
-          - option: xdebug.scream
-            value: "{% if role_actions_php5_xdebug__tasks__configure_xdebug__scream %}1{% else %}0{% endif %}"
 
 - include: ../../../operations_php5_xdebug/tasks/config_xdebug/config_xdebug_module.yml
   vars:

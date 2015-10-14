@@ -1,0 +1,18 @@
+---
+- name: Downloading Symfony2 Installer
+  get_url: dest="{{ role_package_symfony2_installer__var__symfony2 }}"
+           force="no"
+           url="{{ role_package_symfony2_installer__var__url }}"
+           validate_certs=yes
+           owner="{{ role_package_symfony2_installer__var__user }}"
+           group="{{ role_package_symfony2_installer__var__group }}"
+           mode="0755"
+  sudo: true
+  register: result_download_symfony2
+
+- name: Updating Symfony2 Installer
+  shell: "{{ role_package_symfony2_installer__var__symfony2 }} self-update"
+  sudo: true
+  when: not result_download_symfony2.changed
+  register: result_update_symfony2
+  changed_when: result_update_symfony2.rc == 0 and result_update_symfony2.stdout[:39] != 'Symfony Installer is already up to date'

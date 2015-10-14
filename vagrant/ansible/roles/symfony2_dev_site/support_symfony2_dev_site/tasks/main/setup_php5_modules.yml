@@ -27,3 +27,13 @@
             value: "Off"
           - option: date.timezone
             value: "UTC"
+
+- include: ../../../../php5_xdebug/operations_php5_xdebug/tasks/config_xdebug/config_xdebug_module.yml
+  vars:
+      parameter_config_xdebug_module_title: "Configuring Xdebug for Symfony2"
+      parameter_config_xdebug_module:
+        - content:
+            - option: "xdebug.scream"
+              value: 0
+            - option: "xdebug.max_nesting_level"
+              value: 250

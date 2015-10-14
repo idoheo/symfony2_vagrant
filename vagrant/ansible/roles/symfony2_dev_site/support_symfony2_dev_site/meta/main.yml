@@ -1,6 +1,9 @@
 ---
 dependencies:
+  - { role: dev_site/install_dev_site }
+  - { role: symfony2_installer/install_symfony2_installer }
+  - { role: composer/install_composer }
   - { role: php5/operations_php5 }
   - { role: php5_intl/install_php5_intl }
-  - { role: dev_site/install_dev_site }
+  - { role: php5_xdebug/operations_php5_xdebug }
   - { role: logio/operations_logio }

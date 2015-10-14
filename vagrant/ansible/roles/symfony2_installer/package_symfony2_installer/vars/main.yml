@@ -1,0 +1,9 @@
+role_package_symfony2_installer__var__dir: "/usr/local/bin"
+role_package_symfony2_installer__var__symfony2: "{{ role_package_symfony2_installer__var__dir }}/symfony"
+role_package_symfony2_installer__var__url: "http://symfony.com/installer"
+role_package_symfony2_installer__var__user: "root"
+role_package_symfony2_installer__var__group: "root"
+role_package_symfony2_installer__var__php5_modules_install:
+  - json
+role_package_symfony2_installer__var__php5_modules_enable:
+  - json

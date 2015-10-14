@@ -1,0 +1,3 @@
+---
+- include: main/setup_php5_modules.yml
+- include: main/download_symfony2_installer.yml
