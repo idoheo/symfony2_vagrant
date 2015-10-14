@@ -14,8 +14,8 @@
 #		parameter_php5_fpm_www_pool[]                  - REQUIRED - Configuration for FPM www pool
 #		                             .section          - OPTIONAL - Name of subsection in ini file if different then module name
 #		                             .content[]        - REQUIRED - Content of configuration
-#                                                      .option - REQUIRED - Option name
-#                                                      .value  - REQUIRED - Option value
+#                                              .option - REQUIRED - Option name
+#                                              .value  - REQUIRED - Option value
 #		parameter_php5_fpm_www_pool_title              - OPTIONAL - Alternative title for actions taken
 #		parameter_php5_fpm_www_pool_notify             - OPTIONAL - Notifications to trigger if anything has changed
 #
@@ -26,5 +26,5 @@
       - content:
           - option: listen
             value: "{% if parameter_php5_fpm_www_pool_listen|trim|length > 0 %}{{ parameter_php5_fpm_www_pool_listen }}{% else %}{{ role_package_php5__var__fpm_socket }}{% endif %}"
-    parameter_php5_fpm_www_pool_title: "{{ parameter_php4_fpm_www_pool_listen_title | default('Setting up listen configuration for Php 5 FPM www pool') }}"
+    parameter_php5_fpm_www_pool_title: "{{ parameter_php5_fpm_www_pool_listen_title | default('Setting up listen configuration for Php 5 FPM www pool') }}"
     parameter_php5_fpm_www_pool_notify: "{{ parameter_php5_fpm_www_pool_listen_notify | default ('Dummy Php 5 operation notification') }}"

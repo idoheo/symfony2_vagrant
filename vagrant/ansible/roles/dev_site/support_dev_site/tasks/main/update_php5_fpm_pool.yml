@@ -1,0 +1,31 @@
+---
+- include: ../../../../php5/operations_php5/tasks/php5_fpm_pool/php5_fpm_pool.yml
+  vars:
+    parameter_php5_fpm_pool_title: Configuring PHP 5 for Dev site
+    parameter_php5_fpm_pool_name: devsite
+    parameter_php5_fpm_pool:
+      - content:
+        - option: "listen"
+          value: "{{ role_support_dev_site__setup__fpm_listen }}"
+        - option: "user"
+          value: "{{ fact_site_source_dir_user }}"
+        - option: "group"
+          value: "{{ fact_site_source_dir_group }}"
+        - option: "listen.owner"
+          value: "www-data"
+        - option: "listen.group"
+          value: "www-data"
+        - option: "pm"
+          value: "dynamic"
+        - option: "pm.max_children"
+          value: "5"
+        - option: "pm.start_servers"
+          value: "2"
+        - option: "pm.min_spare_servers"
+          value: "1"
+        - option: "pm.max_spare_servers"
+          value: "3"
+        - option: "chdir"
+          value: "/"
+          
+    

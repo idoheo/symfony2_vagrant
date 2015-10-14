@@ -20,10 +20,9 @@
 #
 ###
 ---
-- include: ../../../../ini_files/operations_ini_files/tasks/ini_files/update_ini_files.yml
+- include: ../php5_fpm_pool/php5_fpm_pool.yml
   vars:
-    parameter_update_ini_file: "{{ role_package_php5__var__fpm_www_pool_conf }}"
-    parameter_update_ini_file_content: "{{ parameter_php5_fpm_www_pool }}"
-    parameter_update_ini_file_title: "{{ parameter_php5_fpm_www_pool_title | default('Updating Php 5 WWW pool configuration') }}"
+    parameter_php5_fpm_pool_name: "www"
+    parameter_php5_fpm_pool: "{{ parameter_php5_fpm_www_pool }}"
+    parameter_php5_fpm_pool_title: "{{ parameter_php5_fpm_www_pool_title | default('Updating Php 5 WWW pool configuration') }}"
     parameter_update_ini_file_notify: "{{ parameter_php5_fpm_www_pool_notify | default ('Dummy Php 5 operation notification') }}"
-    parameter_update_ini_file_default_section: "www"

@@ -4,7 +4,26 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+module OS
+  def OS.windows?
+    (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.mac?
+    (/darwin/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.unix?
+    !OS.windows?
+  end
+
+  def OS.linux?
+    OS.unix? and not OS.mac?
+  end
+end
+  
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
   config.vm.box = "ubuntu/trusty64"
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -32,8 +51,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.synced_folder "./vagrant", "/vagrant", disabled: false
   config.vm.synced_folder "./vagrant_assets", "/vagrant_assets", disabled: false, create: true
-  config.vm.synced_folder "./vagrant_source", "/opt/dev-site/source", disabled: false, create: true, type: "nfs"
-
+  if OS.windows? then
+	config.vm.synced_folder "./vagrant_source", "/opt/dev-site/source", disabled: false, create: true, type: "smb", smb_host:"192.168.100.1"
+  else
+    config.vm.synced_folder "./vagrant_source", "/opt/dev-site/source", disabled: false, create: true, type: "nfs"
+  end
+  
   config.vm.provision "shell",
     inline: "chmod u+x /vagrant/provision-once.sh && /vagrant/provision-once.sh",
 	run: "once"

@@ -1,5 +1,6 @@
 ---
 - include: main/gather_site_dir_facts.yml
+- include: main/update_php5_fpm_pool.yml
 - include: main/create_devsite_folder.yml
 - include: main/logs_setup.yml
 - include: main/copy_site_nginx_config.yml
