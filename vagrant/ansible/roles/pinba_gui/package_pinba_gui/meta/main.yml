@@ -1,0 +1,11 @@
+---
+dependencies:
+  - { role: git/operations_git }
+  - { role: logio/operations_logio }
+  - { role: nginx/operations_nginx }
+  - { role: mysql/operations_mysql }
+  - { role: php5/install_php5 }
+  - { role: composer/install_composer }
+  - { role: nginx_php5/install_nginx_php5 }
+  - { role: pinba/install_pinba }
+

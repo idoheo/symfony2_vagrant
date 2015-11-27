@@ -1,0 +1,24 @@
+---
+role_package_pinba__var__apt_packages:
+  - libprotobuf-dev
+  - libjemalloc1
+  - libjemalloc-dev
+  - libjudydebian1
+  - libjudy-dev
+  - libprotobuf-lite8
+  - protobuf-compiler
+  - libevent-2.0-5
+  - libevent-core-2.0-5
+  - libevent-extra-2.0-5
+  - libevent-openssl-2.0-5
+  - libevent-pthreads-2.0-5
+  - libevent-dev
+  - libboost-all-dev
+
+role_package_pinba__var__git: https://github.com/tony2001/pinba_engine.git
+role_package_pinba__var__root: /opt/pinba
+role_package_pinba__var__git_version_prefix: "RELEASE_"
+role_package_pinba__var__git_version_separator: "_"
+
+role_package_pinba__var__so: libpinba_engine.so
+role_package_pinba__var__db: pinba

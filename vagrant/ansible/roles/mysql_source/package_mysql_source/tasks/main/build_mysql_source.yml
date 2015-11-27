@@ -1,0 +1,9 @@
+---
+- name: Building MySQL sources
+  shell: "{{ item }}"
+  args:
+    chdir: "{{ role_package_mysql_source__var__root }}/mysql-{{ fact_mysql.version.major }}"
+  sudo: true
+  sudo_user: root
+  with_items:
+    - cmake .

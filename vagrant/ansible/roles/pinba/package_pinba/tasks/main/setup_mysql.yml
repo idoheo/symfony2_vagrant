@@ -1,0 +1,26 @@
+---
+- name: Setting up MySQL Pinba plugin
+  shell: "mysql -u root -e \"INSTALL PLUGIN pinba SONAME 'libpinba_engine.so';\""
+  sudo: true
+  sudo_user: root
+
+- include: ../../../../mysql/operations_mysql/tasks/mysql_databases/remove_mysql_databases.yml
+  vars:
+    parameter_remove_mysql_databases_title: "Dropping Pinba MySQL database"
+    parameter_remove_mysql_databases:
+      - name: "{{ role_package_pinba__var__db }}"
+
+- include: ../../../../mysql/operations_mysql/tasks/mysql_databases/create_mysql_databases.yml
+  vars:
+    parameter_create_mysql_databases_title: "Creating Pinba MySQL database"
+    parameter_create_mysql_databases:
+      - name: "{{ role_package_pinba__var__db }}"
+        collation: utf8_unicode_ci
+        encoding: utf8
+
+- name: Loading Pinba default tables in MySQL
+  shell: "mysql -D pinba < default_tables.sql"
+  args:
+    chdir: "{{ role_package_pinba__var__root }}"
+  sudo: true
+  sudo_user: root

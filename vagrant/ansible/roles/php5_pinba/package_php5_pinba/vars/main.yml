@@ -1,0 +1,4 @@
+role_package_php5_pinba__var__php5_modules_install:
+  - pinba
+
+role_package_php5_pinba__var__php5_modules_enable: "{{ role_package_php5_pinba__var__php5_modules_install }}"

@@ -1,0 +1,6 @@
+---
+- include: ../../../../nginx/operations_nginx/tasks/nginx_websites/add_nginx_site_templates_from_role.yml
+  vars:
+    parameter_add_nginx_site_templates_from_role_name: pinba_gui/package_pinba_gui
+    parameter_add_nginx_site_templates_from_role_dir: nginx_sites
+    parameter_add_nginx_site_templates_from_role_enable_sites: yes

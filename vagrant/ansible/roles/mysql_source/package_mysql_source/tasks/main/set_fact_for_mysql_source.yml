@@ -1,0 +1,5 @@
+---
+- name: Setting MySQL source fact
+  set_fact:
+    fact_mysql_source:
+        location: "{{ role_package_mysql_source__var__root }}/mysql-{{ fact_mysql.version.major }}"

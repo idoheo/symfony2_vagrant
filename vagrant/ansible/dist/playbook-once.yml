@@ -34,6 +34,10 @@
     - php5_curl/install_php5_curl
     - php5_intl/install_php5_intl
     - php5_mcrypt/install_php5_mcrypt
+### PINBA
+    - pinba/install_pinba
+    - php5_pinba/install_php5_pinba
+    - pinba_gui/install_pinba_gui
 ### OTHER INSTALLATIONS
     - redis/install_redis
     - nginx_phpmyadmin/install_nginx_phpmyadmin

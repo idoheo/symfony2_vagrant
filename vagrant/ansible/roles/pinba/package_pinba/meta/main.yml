@@ -1,0 +1,7 @@
+---
+dependencies:
+  - { role: build_tools/install_build_tools }
+  - { role: apt/operations_apt }
+  - { role: git/operations_git }
+  - { role: mysql/operations_mysql }
+  - { role: mysql_source/install_mysql_source }

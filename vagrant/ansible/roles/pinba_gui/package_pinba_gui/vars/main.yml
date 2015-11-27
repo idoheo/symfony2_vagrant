@@ -1,0 +1,14 @@
+---
+role_package_pinba_gui__var__git: https://github.com/intaro/pinboard.git
+role_package_pinba_gui__var__root: /opt/pinba_gui
+role_package_pinba_gui__var__git_version_prefix: "v"
+role_package_pinba_gui__var__git_version_separator: "."
+role_package_pinba_gui__var__php5_modules_install:
+ - mysql
+role_package_pinba_gui__var__php5_modules_enable:
+ - pdo_mysql
+role_package_pinba_gui__var__mysql_user: pinba_gui
+role_package_pinba_gui__var__mysql_password: pinba_gui
+role_package_pinba_gui__var__logs_dir: /var/log/pinba_gui
+role_package_pinba_gui__var__logs_log: "{{ role_package_pinba_gui__var__logs_dir }}/pinba_gui.log"
+role_package_pinba_gui__var__logs_err: "{{ role_package_pinba_gui__var__logs_dir }}/pinba_gui.err"

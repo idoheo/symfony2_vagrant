@@ -1,0 +1,26 @@
+---
+- include: ../../../../apt/operations_apt/tasks/apt_packages/install_apt_packages.yml
+  vars:
+    parameter_install_apt_packages_title: Installing MySQL sources and dependencies
+    parameter_install_apt_packages: "{{ role_package_mysql_source__var__apt_packages }}"
+
+- name: Preparing MySQL sources directory
+  file:
+    path: "{{ role_package_mysql_source__var__root }}"
+    state: "{{ item }}"
+    mode: 0755
+    owner: root
+    group: root
+  sudo: yes
+  with_items:
+    - absent
+    - directory
+  
+- name: Extracting MySQL sources
+  unarchive:
+    src: "{{ role_package_mysql_source__var__archive }}"
+    dest: "{{ role_package_mysql_source__var__root }}"
+    mode: 0755
+    owner: root
+    group: root
+  sudo: yes

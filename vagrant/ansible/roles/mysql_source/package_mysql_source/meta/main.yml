@@ -1,0 +1,5 @@
+---
+dependencies:
+  - { role: apt/operations_apt }
+  - { role: mysql/install_mysql }
+  - { role: ansible_unarchive_support/install_ansible_unarchive_support }

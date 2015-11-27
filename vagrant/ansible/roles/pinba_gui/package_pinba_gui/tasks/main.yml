@@ -1,0 +1,9 @@
+---
+- include: main/download_pinba_gui.yml
+- include: main/install_php5_modules.yml
+- include: main/setup_mysql_user.yml
+- include: main/setup_pinba_gui.yml
+- include: main/setup_logs.yml
+- include: main/update_logio.yml
+- include: main/copy_nginx_sites.yml
+

@@ -1,0 +1,36 @@
+server {
+    listen {{ role_package_pinba_gui__var__port }};
+    root {{ role_package_pinba_gui__var__root }}/web;
+	
+	server_name pinba_gui;
+
+    #site root is redirected to the app boot script
+    location = / {
+        try_files @site @site;
+    }
+
+    #all other locations try other files first and go to our front controller if none of them exists
+    location / {
+        try_files $uri $uri/ @site;
+    }
+
+    #return 404 for all php files as we do have a front controller
+    location ~ \.php$ {
+       return 404;
+    }
+
+    location @site {
+        fastcgi_pass {{ role_nginx_php5_support__setup__fpm_listen }};
+        include fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME $document_root/index.php;
+        fastcgi_param HTTPS $https if_not_empty;
+		fastcgi_param PHP_ADMIN_VALUE "xdebug.coverage_enable = 0 \n xdebug.default_enable = 0 \n xdebug.profiler_enable = 0 \n xdebug.profiler_enable_trigger = 0 \n xdebug.remote_connect_back = 0 \n xdebug.remote_enable = 0 \n xdebug.remote_autostart = 0 \n  xdebug.remote_collect_assigments = 0 \n xdebug.collect_includes = 0 \n  xdebug.collect_params = 0 \n  xdebug.collect_return = 0 \n xdebug.collect_vars = 0 \n open_basedir = none \n display_errors = 0";
+    }
+
+    location ~ /\.(ht|svn|git) {
+        deny  all;
+    }
+	
+	access_log {{ role_package_pinba_gui__var__logs_log }};
+	error_log {{ role_package_pinba_gui__var__logs_err }};
+}

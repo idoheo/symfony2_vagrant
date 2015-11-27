@@ -1,0 +1,3 @@
+---
+- include: main/install_php5_pinba.yml
+- include: main/configure_php5_pinba.yml

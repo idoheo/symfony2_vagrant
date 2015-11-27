@@ -1,0 +1,31 @@
+--- 
+- name: Copying Pinba GUI parameters
+  template:
+      src=../../templates/parameters.yml.j2
+      dest={{ role_package_pinba_gui__var__root }}/config/parameters.yml
+      owner=root
+      group=root
+      force=yes
+  sudo: true
+
+- name: Building Pinba GUI
+  shell: "{{ item }}"
+  args:
+    chdir: "{{ role_package_pinba_gui__var__root }}"
+  sudo: true
+  sudo_user: root
+  with_items:
+    - "{{ role_package_composer__var__composer }} install"
+    - "./console migrations:migrate"
+#    - "./console register-crontab"
+
+- name: Setting up Pinba GUI crontab
+  cron: name="Pinba GUI aggregation"
+        minute="*"
+        hour="*"
+        month="*"
+        weekday="*"
+        state=present
+        job="{{ role_package_pinba_gui__var__root }}/console aggregate"
+  sudo: true
+  sudo_user: root

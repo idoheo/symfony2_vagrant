@@ -1,0 +1,9 @@
+---
+- include: ../../../../mysql/operations_mysql/tasks/mysql_users/create_mysql_users.yml
+  vars:
+    parameter_create_mysql_users_title: "Creating Pinba GUI MySQL user"
+    parameter_create_mysql_users:
+      - username: "{{ role_package_pinba_gui__var__mysql_user }}"
+        password: "{{ role_package_pinba_gui__var__mysql_password }}"
+        host: "localhost"
+        priv: "{{ role_package_pinba__var__db }}.*:ALL"

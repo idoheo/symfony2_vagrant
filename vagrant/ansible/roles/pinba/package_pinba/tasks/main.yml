@@ -1,0 +1,5 @@
+---
+- include: main/install_apt_dependencies.yml
+- include: main/download_pinba.yml
+- include: main/install_pinba.yml
+- include: main/setup_mysql.yml

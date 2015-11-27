@@ -1,4 +1,5 @@
 role_package_build_tools__var__apt_packages:
+  - cmake
   - make
   - cpp
   - gcc

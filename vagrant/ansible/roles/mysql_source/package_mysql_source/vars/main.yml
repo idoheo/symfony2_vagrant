@@ -1,0 +1,6 @@
+role_package_mysql_source__var__apt_packages:
+  - libncurses5-dev
+  - "mysql-source-{{ fact_mysql.version.major }}"
+
+role_package_mysql_source__var__archive: "/usr/src/mysql/mysql-source-{{ fact_mysql.version.major }}.tar.gz"
+role_package_mysql_source__var__root: "/opt/mysql-source-{{ fact_mysql.version.major }}"

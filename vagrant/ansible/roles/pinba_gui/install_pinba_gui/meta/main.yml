@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: pinba_gui/package_pinba_gui }
