@@ -1,0 +1,10 @@
+--- 
+- name: Getting list of previously installed plugins
+  shell: "/usr/share/elasticsearch/bin/plugin list | egrep '^[ ]*-' | sed -e 's/^ *-//g' |  sed -e 's/^ //g'"
+  sudo: true
+  register: result_previous_es_plugins
+
+- name: Removing previously installed plugins
+  shell: "/usr/share/elasticsearch/bin/plugin remove {{ item }}"
+  with_items: "{{ result_previous_es_plugins.stdout_lines }}"
+  sudo: true
