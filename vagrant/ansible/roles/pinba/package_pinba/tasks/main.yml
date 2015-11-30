@@ -1,5 +1,7 @@
 ---
 - include: main/install_apt_dependencies.yml
 - include: main/download_pinba.yml
+- include: main/remove_mysql_plugins.yml
+- include: main/setup_mysql_database.yml
 - include: main/install_pinba.yml
-- include: main/setup_mysql.yml
+- include: main/setup_mysql_plugin.yml

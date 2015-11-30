@@ -1,0 +1,11 @@
+---
+- name: Setting up MySQL Pinba plugin
+  shell: "mysql -u root -e \"INSTALL PLUGIN pinba SONAME '{{ role_package_pinba__var__so  }}';\""
+  sudo: true
+  sudo_user: root
+
+- name: Restarting MySQL
+  service: name="mysql"
+           state=restarted
+  sudo: true
+  sudo_user: root

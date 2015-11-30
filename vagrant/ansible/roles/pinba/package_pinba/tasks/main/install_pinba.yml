@@ -1,21 +1,4 @@
 ---
-- name: Checking if Pinba plugin is installed
-  shell:  "mysql -u root -e \"SELECT COUNT(*) FROM mysql.plugin WHERE dl='{{ role_package_pinba__var__so }}'\\G\" | egrep '^COUNT' | egrep -o '[0-9]*$'"
-  register: result_pinba_install_check
-
-- name: Removing MySQL Pinba plugin
-  shell: 'mysql -u root -e "UNINSTALL PLUGIN pinba;"'
-  sudo: true
-  sudo_user: root
-  when: result_pinba_install_check.stdout != "0"
-
-- name: Restarting MySQL
-  service: name="mysql"
-           state=restarted
-  sudo: true
-  sudo_user: root
-  when: result_pinba_install_check.stdout != "0"
-
 - name: Building Pinba
   shell: "{{ item }}"
   args:
