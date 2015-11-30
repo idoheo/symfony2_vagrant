@@ -19,6 +19,22 @@
     - "./console migrations:migrate"
 #    - "./console register-crontab"
 
+- name: Removing Pinba GUI crontab
+  cron: name="Pinba GUI aggregation"
+        minute="*"
+        hour="*"
+        month="*"
+        weekday="*"
+        state=absent
+        job="{{ role_package_pinba_gui__var__root }}/console aggregate"
+  sudo: true
+  sudo_user: root
+
+- name: Unlocking Pinba GUI crontab lock
+  file: path="{{ role_package_pinba_gui__var__root }}/src/Pinboard/Command/AggregateCommand.php.lock"
+        state="absent"
+  sudo: true
+  
 - name: Setting up Pinba GUI crontab
   cron: name="Pinba GUI aggregation"
         minute="*"
