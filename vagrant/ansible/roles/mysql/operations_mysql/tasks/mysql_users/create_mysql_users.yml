@@ -14,6 +14,7 @@
 #		                                  .username  - REQUIRED - Login username
 #		                                  .password  - OPTIONAL - Login password
 #		                                  .priv      - OPTIONAL - Privilages to assign (if not *.*:ALL,GRANT)
+#		                                  .host      - OPTIONAL - Host to assign (if not 127.0.0.1)
 #		parameter_create_mysql_users_title           - OPTIONAL - Alternative descriptive title of action taken
 #		parameter_create_mysql_users_notify          - OPTIONAL - Notification to trigger if changes have been made
 #

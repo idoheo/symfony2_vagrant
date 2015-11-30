@@ -15,7 +15,7 @@
 #		                                  .password  - OPTIONAL - Login password
 #		                                  .priv      - OPTIONAL - Privilages to assign (if not *.*:ALL,GRANT)
 #		                                  .host      - OPTIONAL - Host to assign (if not 127.0.0.1)
-#		parameter_manage_mysql_users_state           - REQUIRED - State of databases (absent, present)
+#		parameter_manage_mysql_users_state           - REQUIRED - State of users (absent, present)
 #		parameter_manage_mysql_users_title           - OPTIONAL - Alternative descriptive title of action taken
 #		parameter_manage_mysql_users_notify          - OPTIONAL - Notification to trigger if changes have been made
 #
@@ -29,7 +29,5 @@
               state="{{ parameter_manage_mysql_users_state | mandatory }}"
               login_unix_socket="/var/run/mysqld/mysqld.sock"
   when: item.username != 'root'
-  failed_when: item.username == 'root'
   with_items: parameter_manage_mysql_users
   notify: "{{ parameter_manage_mysql_users_notify | default('Dummy MySQL operation notification') }}"
-

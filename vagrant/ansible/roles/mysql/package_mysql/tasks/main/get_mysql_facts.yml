@@ -1,0 +1,16 @@
+---
+- name: Getting MySQL major version
+  shell: 'mysql -V | egrep -o "Distrib [0-9]*(\.[0-9]*)+" | egrep -o "[0-9]*(\.[0-9]*)+$" | egrep -o "^[0-9]*.[0-9]*"'
+  register: result_mysql_version_major
+  
+- name: Getting MySQL minor version
+  shell: 'mysql -V | egrep -o "Distrib [0-9]*(\.[0-9]*)+" | egrep -o "[0-9]*(\.[0-9]*)+$"'
+  register: result_mysql_version_minor
+  
+- name: Setting MySQL version facts
+  set_fact:
+    fact_mysql:
+      version:
+        major: "{{ result_mysql_version_major.stdout }}"
+        minor: "{{ result_mysql_version_minor.stdout }}"
+      plugin_dir: /usr/lib/mysql/plugin
