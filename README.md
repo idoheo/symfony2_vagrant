@@ -5,7 +5,7 @@ Description
 -----------
 
 This is a Vagrant box that is setup to build a Nginx and Php 5 FPM development environment. It is also preconfigured for Symfony2 development, but Symfony2 setup can be disabled resulting in standard PHP app development box. System provisioning is done by Ansible, running from within the guest system.
-  
+
 Ansible Playbooks
 -----------------
 In vagrant/ansible you will find a dist folder containing distribution copy of ansible configuration. When needed this files will be copied into vagrant/ansible folder if not already present. Playbook-once files contain everything you want to run only during initial (or manualy triggered) provisioning. Playbook-always files contain everything that should run during each start. You can modifiy roles and common/independent varialbes trough files originaly located in ansible dist folder.
@@ -23,9 +23,10 @@ Following web ports are going to be used for following roles:
 - 1080 - Log.io - Tool to keep track of Log files created by other roles in this box
 - 1081 - PhpMyAdmin (with Nginx)
 - 1082 - MailHog web gui (SMTP server localy installed on default port, that catches mails and does not move them along)
-- 1083 - Mongo Management studio
-- 1084 - Redis Commander
-- 1085 - Git Web UI (only starts if git is initialized at web source)
+- 1083 - Pinba GUI (Php profiling)
+- 1084 - Mongo Management studio
+- 1085 - Redis Commander
+- 1086 - Git Web UI (only starts if git is initialized at web source)
 - 1088 - CodeBox
 - 1089 - Cloud 9 (not enabled by default)
 
@@ -69,6 +70,14 @@ Additional tools that you might want to enable in playbook-once.yml and configur
 - dev_site_cloud9/install_dev_site_cloud9 - Install Cloud 9 configured for dev site (on previously specified HTTP port)
 - kibana/install_kibana - Tool to view elastic search
 - webmin/install_webmin - Tool to adminster guest machine using web interface
+
+
+Windows notice
+--------------
+On windows, share of development folder depends on Samba connection. For this to work under windows you will need Windows Power Shell 3 installed.
+You will have to execute "vagrant up" as administrator. Vagrant will ask you for your username and password to setup Samba connection.
+
+You have *windows_vagrant* and *windows_vagrant/commands* folders containing quick vagrant accessible scripts to help you avoid navigating to vagrant folder trough command line.
 
 Additional
 ----------
