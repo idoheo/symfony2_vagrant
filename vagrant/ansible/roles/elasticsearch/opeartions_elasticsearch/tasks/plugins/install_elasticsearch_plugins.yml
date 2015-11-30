@@ -22,6 +22,6 @@
     parameter_remove_elasticsearch_plugins: "{{ parameter_install_elasticsearch_plugins }}"
 
 - name: "{{ parameter_install_elasticsearch_plugins_title | default('Installing Elasticsearch plugins') }}"
-  shell: "{{ role_operations_elasticsearch__var__plugin_bin }} --install {{ item }} --timeout 1m"
+  shell: "{{ role_operations_elasticsearch__var__plugin_bin }} install {{ item }} --timeout 5m"
   sudo: true
   with_items: parameter_install_elasticsearch_plugins
