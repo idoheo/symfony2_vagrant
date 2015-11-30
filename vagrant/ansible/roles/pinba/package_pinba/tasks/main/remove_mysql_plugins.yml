@@ -1,13 +1,19 @@
 ---
+- name: Restarting MySQL
+  service: name="mysql"
+           state=restarted
+  sudo: true
+  sudo_user: root
+
 - name: Checking if Pinba plugin is installed
   shell:  "mysql -u root -e \"SHOW PLUGINS\\G\" | grep '^Library: {{ role_package_pinba__var__so  }}$' -B 3 -A 1 | grep 'Name:' | egrep ': (.*)' -o | egrep '[^:\\ ]*' -o"
   register: result_pinba_install_check
+  failed_when: not(result_pinba_install_check.rc == 0) and not(result_pinba_install_check.rc == 1 and result_pinba_install_check.stdout_lines|length == 0)
   
 - name: Removing MySQL Pinba plugin
   shell: 'mysql -u root -e "UNINSTALL PLUGIN {{ item }};"'
   sudo: true
   sudo_user: root
-  when: result_pinba_install_check.stdout != "0"
   with_items: "{{ result_pinba_install_check.stdout_lines }}"
 
 - name: Restarting MySQL
