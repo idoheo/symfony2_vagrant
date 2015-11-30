@@ -1,0 +1,31 @@
+---
+- name: Getting Ethernet connection names
+  shell: "ifconfig | egrep '^[A-Za-z0-9]+' -o"
+  register: result_ifconfig_adapters
+
+- name: Getting Ethernet IPs
+  shell: "ifconfig | egrep '^{{ item }}' -A 3 | egrep 'inet addr:[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}' -o |  egrep '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}$' -o
+"
+  with_items: result_ifconfig_adapters.stdout_lines
+  register: result_ifconfig_ips
+
+- name: Preparing Ethernet IPs fact
+  set_fact:
+    fact_eth_ips: {}
+
+- name: Getting Ethernet IPs fact data
+  set_fact:
+    fact_eth_ips: "{{ fact_eth_ips.update({ result_ifconfig_adapters.stdout_lines[item.0] : item.1.stdout }) }}{{ fact_eth_ips }}"
+  with_indexed_items: result_ifconfig_ips.results
+  register: result_ipconfig_ips
+
+- name: Setting Ethernet IPs fact (all IPs)
+  set_fact:
+    fact_eth_ips:
+      ips_list: "{{ result_ipconfig_ips.results | map(attribute='ansible_facts.fact_eth_ips') | list | replace('}, {', ', ') }}"
+
+- name: Setting Ethernet IPs fact (main ip)
+  set_fact:
+    fact_eth_ips:
+      ips_list: "{{ fact_eth_ips.ips_list.0 }}"
+      ip: "{{ fact_eth_ips.ips_list.0[( common_var_host_eth_adapter | default('lo') )] }}"

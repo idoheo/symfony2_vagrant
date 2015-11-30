@@ -8,6 +8,7 @@
     common_var_read_only_pass: reader
     common_var_host_box_ip: 192.168.100.1
     common_var_application_database: application
+    common_var_host_eth_adapter: eth1
 
 #############################
  # SETUP: Codebox Dev Site #
