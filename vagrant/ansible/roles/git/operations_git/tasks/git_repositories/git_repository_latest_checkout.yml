@@ -57,3 +57,7 @@
         user: "{{ parameter_git_repository_latest_checkout_user | default(fact_user_environment_user) }}"
         group: "{{ parameter_git_repository_latest_checkout_group | default(fact_user_environment_group) }}"
         folder_mode: "{{ parameter_git_repository_latest_checkout_folder_mode | default('755') }}"
+
+- name: Updating git checkout result
+  set_fact:
+    result_git_checkout: "{{ result_git_checkout.results.0 }}"

@@ -1,4 +1,9 @@
 ---
+- name: Checking if Go Lang is built
+  stat: path="{{ role_package_go_lang__var__root }}/bin/go"
+  sudo: true
+  register: result_go_lang_built
+  
 - name: Building Go Lang
   shell: "./make.bash"
   args:
@@ -6,3 +11,4 @@
   sudo: true
   sudo_user: root
   environment: "{{ role_package_go_lang__var__go_environment }}"
+  when: not(result_go_lang_built.stat.exists) or result_git_checkout.changed

@@ -46,3 +46,4 @@
   sudo: true
   sudo_user: "{{ item.user | default(fact_user_environment_user) }}"
   with_items: parameter_checkout_git_repositories
+  register: result_git_checkout
