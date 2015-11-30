@@ -1,6 +1,5 @@
 ---
 role_support_dev_site__setup__nginx_http_port: 80
-role_support_dev_site__setup__nginx_server_name: localhost
 role_support_dev_site__setup__nginx_fpm_error_log_string: dev_site_nginx
 role_support_dev_site__setup__fpm_listen: 127.0.0.1:9001
 role_support_dev_site__setup__path: /opt/dev-site/

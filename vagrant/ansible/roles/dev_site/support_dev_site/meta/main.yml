@@ -4,3 +4,4 @@ dependencies:
   - { role: nginx/operations_nginx }
   - { role: logio/operations_logio }
   - { role: user_environment/operations_user_environment }
+  - { role: eth_ips/install_eth_ips }
