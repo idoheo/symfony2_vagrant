@@ -1,0 +1,10 @@
+---
+- name: Restarting MySQL (1/2 - shutdown)
+  service: name="{{ role_package_mysql__service }}"
+           state="stopped"
+  sudo: true
+  
+- name: Restarting MySQL (2/2 - started)
+  service: name="{{ role_package_mysql__service }}"
+           state="started"
+  sudo: true

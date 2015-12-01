@@ -1,9 +1,7 @@
 ---
 - name: Restart MySQL
-  service: name="{{ item }}"
-           sleep="2"
+  service: name="{{ role_package_mysql__service }}"
+           sleep="5"
            state="restarted"
-  with_items:
-    - "{{ role_package_mysql__service }}"
   sudo: true
 
