@@ -23,12 +23,12 @@ Following web ports are going to be used for following roles:
 - 1080 - Log.io - Tool to keep track of Log files created by other roles in this box
 - 1081 - PhpMyAdmin (with Nginx)
 - 1082 - MailHog web gui (SMTP server localy installed on default port, that catches mails and does not move them along)
-- 1083 - Pinba GUI (Php profiling)
-- 1084 - Mongo Management studio
-- 1085 - Redis Commander
-- 1086 - Git Web UI (only starts if git is initialized at web source)
-- 1088 - CodeBox
-- 1089 - Cloud 9 (not enabled by default)
+- 1083 - Mongo Management studio
+- 1084 - Redis Commander
+- 1085 - Git Web UI (only starts if git is initialized at web source)
+- 1088 - Pinba GUI (Php profiling)
+- 1089 - CodeBox
+
 
 Note that where it was possible, login system was put in place. Username and password by default are ***admin*** and ***pass***, but they can be changed in common variables yml for Ansible.
 

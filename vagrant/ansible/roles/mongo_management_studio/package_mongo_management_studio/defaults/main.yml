@@ -1,4 +1,4 @@
 ---
 role_package_mongo_management_studio__config__web_server__host: "0.0.0.0"
-role_package_mongo_management_studio__config__web_server__port: "1084"
+role_package_mongo_management_studio__config__web_server__port: "1083"
 role_package_mongo_management_studio__config__force_redownload: false
