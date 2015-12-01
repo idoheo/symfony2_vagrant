@@ -1,0 +1,10 @@
+---
+- name: "Copying Elasticsearch config"
+  template: src="{{ item }}"
+            dest="{{ role_package_elasticsearch__var__config_path ~ "/" ~(item[:(item|length-3)]|basename) }}"
+            owner="root"
+            group="elasticsearch"
+            mode=0750
+  with_fileglob:
+    - "../../templates/config/*.yml.j2"
+  sudo: true
