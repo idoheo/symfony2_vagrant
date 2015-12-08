@@ -16,7 +16,7 @@
     parameter_create_openssl_certificates:
       - certificate_path: "{{ role_support_dev_site_ssl__setup__ssl_file }}"
         certificate_key_path: "{{ role_support_dev_site_ssl__setup__ssl_key_file }}"
-        common_name: "{{ role_support_dev_site__setup__nginx_server_name }}"
+        common_name: "{% if role_support_dev_site__setup__nginx_server_name|trim != '' %}{{ role_support_dev_site__setup__nginx_server_name }}{% else %}{{ fact_eth_ips.ip }}{% endif %}"
     parameter_create_openssl_certificates_user: "{{ fact_assets_dir_user }}"
     parameter_create_openssl_certificates_base_path: "{{ fact_assets_dir_path }}/{{ role_support_dev_site_ssl__setup__assets_path }}/{{ role_support_dev_site_ssl__setup__ssl_assets_sub_path }}/"
 
