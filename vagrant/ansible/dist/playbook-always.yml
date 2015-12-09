@@ -26,7 +26,6 @@
 #### DEV SITE INCOPERATED INSTALLATION
 #    - dev_site_ssl/install_dev_site_ssl
 #    - dev_site_codebox/install_dev_site_codebox
-#    - dev_site_cloud9/install_dev_site_cloud9
 #    - dev_site_git_webui/install_dev_site_git_webui
 #### PHP DEVELOPMENT INSTALLATIONS
 #    - php5_mailhog/install_php5_mailhog

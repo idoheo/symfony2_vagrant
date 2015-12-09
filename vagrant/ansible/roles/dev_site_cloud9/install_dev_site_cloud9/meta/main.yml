@@ -1,3 +1,0 @@
----
-dependencies:
-  - { role: dev_site_cloud9/support_dev_site_cloud9 }

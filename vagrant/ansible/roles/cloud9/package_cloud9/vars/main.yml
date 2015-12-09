@@ -1,5 +1,0 @@
-role_package_cloud9__var__git_repository: git://github.com/c9/core.git
-role_package_cloud9__var__location: /opt/cloud9
-role_package_cloud9__var__user: vagrant
-role_package_cloud9__var__group: vagrant
-

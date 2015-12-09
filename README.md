@@ -26,7 +26,7 @@ Following web ports are going to be used for following roles:
 - 1083 - Mongo Management studio
 - 1084 - Redis Commander
 - 1085 - Git Web UI (only starts if git is initialized at web source)
-- 1088 - Pinba GUI (Php profiling)
+- 1088 - Pinba GUI (Php profiling) (pinba is disabled by default, not recommended at the moment)
 - 1089 - CodeBox
 
 
@@ -67,7 +67,6 @@ Additional tools not enabled by default
 Additional tools that you might want to enable in playbook-once.yml and configure in common variables file:
 - pip/pip_actions - Installs Pythons PIP package manager and trough configuration enables you to install some extra PIP packages on provision
 - varnish/varnish_actions - Installs varnish. In ansible_assets copies varnihs config templates written in Jinja2 template (.j2)
-- dev_site_cloud9/install_dev_site_cloud9 - Install Cloud 9 configured for dev site (on previously specified HTTP port)
 - kibana/install_kibana - Tool to view elastic search
 - webmin/install_webmin - Tool to adminster guest machine using web interface
 

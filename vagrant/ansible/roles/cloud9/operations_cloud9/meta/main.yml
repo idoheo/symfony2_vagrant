@@ -1,4 +1,0 @@
----
-dependencies:
-  - { role: cloud9/install_cloud9 }
-  - { role: upstart/operations_upstart }

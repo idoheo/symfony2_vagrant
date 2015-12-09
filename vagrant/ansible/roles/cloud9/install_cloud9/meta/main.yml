@@ -1,3 +1,0 @@
----
-dependencies:
-  - { role: cloud9/package_cloud9 }
